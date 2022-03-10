@@ -1,0 +1,60 @@
+name: "Relatório Covid-19"
+output_dir: "."
+navbar:
+  title: "GVE XXVI - SJBV"                            
+  type: inverse
+  right:
+  - text: Período
+    icon: fas fa-calendar-alt
+    menu:
+    - text: Ano
+    - text: "2022"
+      icon: far fa-calendar-alt
+      href: index.html
+    - text: "2021"
+      icon: far fa-calendar-alt
+      href: relatorio21.html
+    - text: "2020"
+      icon: far fa-calendar-alt
+      href: relatorio20.html
+  - text: Comunicação
+    icon: fas fa-address-card
+    menu:
+    - text: Endereços
+    - text: "openDatasus"
+      icon: far fa-folder
+      href: https://opendatasus.saude.gov.br/    
+    - text: "Seade"
+      icon: far fa-folder
+      href: https://www.seade.gov.br/coronavirus/
+    - text: "CVE"
+      icon: fas fa-compress
+      href: https://www.saude.sp.gov.br/cve-centro-de-vigilancia-epidemiologica-prof.-alexandre-vranjac/   
+    - text: "SES-SP"
+      icon: far fa-building
+      href: https://www.saude.sp.gov.br/
+    - text: "Youtube"
+      icon: fa-youtube
+      href: https://www.youtube.com/channel/UC04bxzJ3IyLH-G_h0olHvHw  
+    - text: "Instagram"
+      icon: fa-instagram
+      href: https://www.instagram.com/governosp/
+    - text: "Twitter"
+      icon: fa-twitter
+      href: https://twitter.com/spsaude_
+    - text: "Facebook"
+      icon: fa-facebook
+      href: https://pt-br.facebook.com/CVESP/
+  - text: "Contato"
+    icon: fas fa-envelope-open
+    href: contato.html
+
+output:
+  html_document:
+    theme: spacelab
+    highlight: textmate
+    toc: yes
+    toc_float:
+     collapsed: yes
+     smooth_scroll: yes
+

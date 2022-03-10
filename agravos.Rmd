@@ -1,0 +1,501 @@
+---
+title: "Agravos de Notificação Compulsória"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+### PORTARIA Nº 264, DE 17 DE FEVEREIRO DE 2020
+#### LISTA NACIONAL DE NOTIFICAÇÃO COMPULSÓRIA DE DOENÇAS, AGRAVOS E EVENTOS DE SAÚDE PÚBLICA
+  <Br>
+  <table width="745" border="1" align="center">
+    <tbody>
+      <tr>
+        <td rowspan="3" width="16" valign="middle" height="0" align="center"><span class="style1">Nº</span></td>
+        <td rowspan="3" width="502" valign="middle" height="0" align="center"><span class="style1">DOENÇA OU AGRAVO (Ordem alfabética)</span></td>
+        <td colspan="4" valign="middle" height="0" align="center"><span class="style1">Periodicidade de notificação</span></td>
+      </tr>
+      <tr>
+        <td colspan="3" valign="middle" height="0" align="center"><span class="style1">Imediata (até 24 horas) para*</span></td>
+        <td rowspan="2" width="45" valign="middle" height="0" align="center"><span class="style1">Semanal</span></td>
+      </tr>
+      <tr>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">MS</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">SES</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">SMS</span></td>
+      </tr>
+      <tr>
+        <td rowspan="2" width="16" valign="middle" align="center"><span class="style1">1</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">a. Acidente de trabalho com exposição a material biológico</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">b. Acidente de trabalho: grave, fatal e em crianças e adolescentes</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">2</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Acidente por animal peçonhento</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">3</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Acidente por animal potencialmente transmissor da raiva</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">4</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Botulismo</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">5</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Cólera</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">6</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Coqueluche</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">7</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">a. Dengue - Casos</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">b. Dengue - Óbitos</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">8</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Difteria</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">9</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">a. Doença de Chagas Aguda</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">b. Doença de Chagas Crônica</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">10</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Doença de Creutzfeldt-Jakob (DCJ)</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">11</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">a. Doença Invasiva por "Haemophilus Influenza"</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">b. Doença Meningocócica e outras meningites</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">12</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Doenças com suspeita de disseminação intencional:a. Antraz pneumônicob. Tularemiac. Varíola</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">13</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Doenças febris hemorrágicas emergentes/reemergentes:a. Arenavírusb. Ebolac. Marburgd. Lassae. Febre purpúrica brasileira</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td rowspan="3" width="16" valign="middle" align="center"><span class="style1">14</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">a. Doença aguda pelo vírus Zika</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">b. Doença aguda pelo vírus Zika em gestante</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">c. Óbito com suspeita de doença pelo vírus Zika</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">15</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Esquistossomose</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">16</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Evento de Saúde Pública (ESP) que se constitua ameaça à saúde pública (ver definição no art. 2º desta portaria)</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">17</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Eventos adversos graves ou óbitos pós vacinação</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">18</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Febre Amarela</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td rowspan="3" width="16" valign="middle" align="center"><span class="style1">19</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">a. Febre de Chikungunya</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">b. Febre de Chikungunya em áreas sem transmissão</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">c. Óbito com suspeita de Febre de Chikungunya</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">20</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Febre do Nilo Ocidental e outras arboviroses de importância em saúde pública</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">21</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Febre Maculosa e outras Riquetisioses</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">22</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Febre Tifoide</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">23</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Hanseníase</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">24</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Hantavirose</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">25</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Hepatites virais</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">26</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">HIV/AIDS - Infecção pelo Vírus da Imunodeficiência Humana ou Síndrome da Imunodeficiência Adquirida</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">27</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Infecção pelo HIV em gestante, parturiente ou puérpera e Criança exposta ao risco de transmissão vertical do HIV</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">28</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Infecção pelo Vírus da Imunodeficiência Humana (HIV)</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">29</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Influenza humana produzida por novo subtipo viral</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">30</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Intoxicação Exógena (por substâncias químicas, incluindo agrotóxicos, gases tóxicos e metais pesados)</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">31</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Leishmaniose Tegumentar Americana</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">32</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Leishmaniose Visceral</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">33</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Leptospirose</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td rowspan="2" width="16" valign="middle" align="center"><span class="style1">34</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">a. Malária na região amazônica</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">b. Malária na região extra-Amazônica</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">35</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Óbito:a. Infantilb. Materno</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">36</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Poliomielite por poliovirus selvagem</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">37</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Peste</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">38</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Raiva humana</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">39</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Síndrome da Rubéola Congênita</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">40</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Doenças Exantemáticas:a. Sarampob. Rubéola</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">41</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Sífilis:a. Adquiridab. Congênitac. Em gestante</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">42</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Síndrome da Paralisia Flácida Aguda</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">43</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Síndrome Respiratória Aguda Grave associada a Coronavírusa. SARS-CoVb. MERS- CoV</span></td>
+        <td width="53" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">44</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Tétano:a. Acidentalb. Neonatal</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">45</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Toxoplasmose gestacional e congênita</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">46</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Tuberculose</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="16" valign="middle" height="0" align="center"><span class="style1">47</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">Varicela - caso grave internado ou óbito</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+      <tr>
+        <td rowspan="2" width="16" valign="middle" align="center"><span class="style1">48</span></td>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">a. Violência doméstica e/ou outras violências</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"></td>
+        <td width="45" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+      </tr>
+      <tr>
+        <td width="502" valign="middle" height="0" align="left"><span class="style1">b. Violência sexual e tentativa de suicídio</span></td>
+        <td width="53" valign="middle" height="0" align="center"></td>
+        <td width="41" valign="middle" height="0" align="center"></td>
+        <td width="48" valign="middle" height="0" align="center"><span class="style1">X</span></td>
+        <td width="45" valign="middle" height="0" align="center"></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Legenda: MS (Ministério da Saúde), SES (Secretaria Estadual de Saúde) ou SMS (Secretaria Municipal de Saúde)</p>
+  </div> 
+
+<Br><Br>
+
+<html>
+<body>
+<form>
+<p style="text-align: center;">
+<input type="button" value="Voltar" onClick="history.go(-1)">
+<input type="button" value="Atualizar" onClick="history.go(0)">
+</form>
+</body>
+</html>

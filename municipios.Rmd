@@ -1,0 +1,38 @@
+---
+title: "Região de Saúde XIV" 
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+```{r pacotes}
+library(dplyr)
+library(here)
+```
+
+## Municípios
+
+```{r municipios}
+muni.ref <- read.csv2(here('dados','pop.csv'), encoding = "UTF-8")
+
+
+muni.ref %>% rbind(list("--", "Total", 830499)) %>% 
+  knitr::kable(col.names = c("Código IBGE", "Município", "População")) %>%
+  kableExtra::kable_styling(full_width = F, 
+                            bootstrap_options = c("striped", "hover", 
+                                                  "condensed", "responsive"))
+
+
+```
+
+<html>
+<body>
+<form>
+<p style="text-align: center;">
+<input type="button" value="Voltar" onClick="history.go(-1)">
+<input type="button" value="Atualizar" onClick="history.go(0)">
+</form>
+</body>
+</html>

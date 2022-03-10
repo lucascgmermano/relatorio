@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Agravos de Notificação Compulsória</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GVE XXVI - SJBV</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-calendar-alt"></span>
+     
+    Período
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Ano</li>
+    <li>
+      <a href="index.html">
+        <span class="far fa-calendar-alt"></span>
+         
+        2022
+      </a>
+    </li>
+    <li>
+      <a href="relatorio21.html">
+        <span class="far fa-calendar-alt"></span>
+         
+        2021
+      </a>
+    </li>
+    <li>
+      <a href="relatorio20.html">
+        <span class="far fa-calendar-alt"></span>
+         
+        2020
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-address-card"></span>
+     
+    Comunicação
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Endereços</li>
+    <li>
+      <a href="https://opendatasus.saude.gov.br/">
+        <span class="far fa-folder"></span>
+         
+        openDatasus
+      </a>
+    </li>
+    <li>
+      <a href="https://www.seade.gov.br/coronavirus/">
+        <span class="far fa-folder"></span>
+         
+        Seade
+      </a>
+    </li>
+    <li>
+      <a href="https://www.saude.sp.gov.br/cve-centro-de-vigilancia-epidemiologica-prof.-alexandre-vranjac/">
+        <span class="fas fa-compress"></span>
+         
+        CVE
+      </a>
+    </li>
+    <li>
+      <a href="https://www.saude.sp.gov.br/">
+        <span class="far fa-building"></span>
+         
+        SES-SP
+      </a>
+    </li>
+    <li>
+      <a href="https://www.youtube.com/channel/UC04bxzJ3IyLH-G_h0olHvHw">
+        <span class="fa fa-youtube"></span>
+         
+        Youtube
+      </a>
+    </li>
+    <li>
+      <a href="https://www.instagram.com/governosp/">
+        <span class="fa fa-instagram"></span>
+         
+        Instagram
+      </a>
+    </li>
+    <li>
+      <a href="https://twitter.com/spsaude_">
+        <span class="fa fa-twitter"></span>
+         
+        Twitter
+      </a>
+    </li>
+    <li>
+      <a href="https://pt-br.facebook.com/CVESP/">
+        <span class="fa fa-facebook"></span>
+         
+        Facebook
+      </a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="contato.html">
+    <span class="fas fa-envelope-open"></span>
+     
+    Contato
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Agravos de Notificação Compulsória</h1>
+
+</div>
+
+
+<div id="portaria-nº-264-de-17-de-fevereiro-de-2020" class="section level3">
+<h3>PORTARIA Nº 264, DE 17 DE FEVEREIRO DE 2020</h3>
+<div id="lista-nacional-de-notificação-compulsória-de-doenças-agravos-e-eventos-de-saúde-pública" class="section level4">
+<h4>LISTA NACIONAL DE NOTIFICAÇÃO COMPULSÓRIA DE DOENÇAS, AGRAVOS E EVENTOS DE SAÚDE PÚBLICA</h4>
+<Br>
+<table width="745" border="1" align="center">
+<tbody>
+<tr>
+<td rowspan="3" width="16" valign="middle" height="0" align="center">
+<span class="style1">Nº</span>
+</td>
+<td rowspan="3" width="502" valign="middle" height="0" align="center">
+<span class="style1">DOENÇA OU AGRAVO (Ordem alfabética)</span>
+</td>
+<td colspan="4" valign="middle" height="0" align="center">
+<span class="style1">Periodicidade de notificação</span>
+</td>
+</tr>
+<tr>
+<td colspan="3" valign="middle" height="0" align="center">
+<span class="style1">Imediata (até 24 horas) para*</span>
+</td>
+<td rowspan="2" width="45" valign="middle" height="0" align="center">
+<span class="style1">Semanal</span>
+</td>
+</tr>
+<tr>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">MS</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">SES</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">SMS</span>
+</td>
+</tr>
+<tr>
+<td rowspan="2" width="16" valign="middle" align="center">
+<span class="style1">1</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">a. Acidente de trabalho com exposição a material biológico</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">b. Acidente de trabalho: grave, fatal e em crianças e adolescentes</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">2</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Acidente por animal peçonhento</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">3</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Acidente por animal potencialmente transmissor da raiva</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">4</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Botulismo</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">5</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Cólera</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">6</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Coqueluche</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">7</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">a. Dengue - Casos</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">b. Dengue - Óbitos</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">8</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Difteria</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">9</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">a. Doença de Chagas Aguda</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">b. Doença de Chagas Crônica</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">10</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Doença de Creutzfeldt-Jakob (DCJ)</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">11</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">a. Doença Invasiva por “Haemophilus Influenza”</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">b. Doença Meningocócica e outras meningites</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">12</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Doenças com suspeita de disseminação intencional:a. Antraz pneumônicob. Tularemiac. Varíola</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">13</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Doenças febris hemorrágicas emergentes/reemergentes:a. Arenavírusb. Ebolac. Marburgd. Lassae. Febre purpúrica brasileira</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td rowspan="3" width="16" valign="middle" align="center">
+<span class="style1">14</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">a. Doença aguda pelo vírus Zika</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">b. Doença aguda pelo vírus Zika em gestante</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">c. Óbito com suspeita de doença pelo vírus Zika</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">15</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Esquistossomose</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">16</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Evento de Saúde Pública (ESP) que se constitua ameaça à saúde pública (ver definição no art. 2º desta portaria)</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">17</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Eventos adversos graves ou óbitos pós vacinação</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">18</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Febre Amarela</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td rowspan="3" width="16" valign="middle" align="center">
+<span class="style1">19</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">a. Febre de Chikungunya</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">b. Febre de Chikungunya em áreas sem transmissão</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">c. Óbito com suspeita de Febre de Chikungunya</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">20</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Febre do Nilo Ocidental e outras arboviroses de importância em saúde pública</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">21</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Febre Maculosa e outras Riquetisioses</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">22</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Febre Tifoide</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">23</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Hanseníase</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">24</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Hantavirose</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">25</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Hepatites virais</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">26</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">HIV/AIDS - Infecção pelo Vírus da Imunodeficiência Humana ou Síndrome da Imunodeficiência Adquirida</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">27</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Infecção pelo HIV em gestante, parturiente ou puérpera e Criança exposta ao risco de transmissão vertical do HIV</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">28</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Infecção pelo Vírus da Imunodeficiência Humana (HIV)</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">29</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Influenza humana produzida por novo subtipo viral</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">30</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Intoxicação Exógena (por substâncias químicas, incluindo agrotóxicos, gases tóxicos e metais pesados)</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">31</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Leishmaniose Tegumentar Americana</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">32</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Leishmaniose Visceral</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">33</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Leptospirose</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td rowspan="2" width="16" valign="middle" align="center">
+<span class="style1">34</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">a. Malária na região amazônica</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">b. Malária na região extra-Amazônica</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">35</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Óbito:a. Infantilb. Materno</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">36</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Poliomielite por poliovirus selvagem</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">37</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Peste</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">38</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Raiva humana</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">39</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Síndrome da Rubéola Congênita</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">40</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Doenças Exantemáticas:a. Sarampob. Rubéola</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">41</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Sífilis:a. Adquiridab. Congênitac. Em gestante</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">42</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Síndrome da Paralisia Flácida Aguda</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">43</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Síndrome Respiratória Aguda Grave associada a Coronavírusa. SARS-CoVb. MERS- CoV</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">44</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Tétano:a. Acidentalb. Neonatal</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">45</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Toxoplasmose gestacional e congênita</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">46</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Tuberculose</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="16" valign="middle" height="0" align="center">
+<span class="style1">47</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">Varicela - caso grave internado ou óbito</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+<tr>
+<td rowspan="2" width="16" valign="middle" align="center">
+<span class="style1">48</span>
+</td>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">a. Violência doméstica e/ou outras violências</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+</td>
+<td width="45" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+</tr>
+<tr>
+<td width="502" valign="middle" height="0" align="left">
+<span class="style1">b. Violência sexual e tentativa de suicídio</span>
+</td>
+<td width="53" valign="middle" height="0" align="center">
+</td>
+<td width="41" valign="middle" height="0" align="center">
+</td>
+<td width="48" valign="middle" height="0" align="center">
+<span class="style1">X</span>
+</td>
+<td width="45" valign="middle" height="0" align="center">
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+Legenda: MS (Ministério da Saúde), SES (Secretaria Estadual de Saúde) ou SMS (Secretaria Municipal de Saúde)
+</p>
+</div>
+<p><Br><Br></p>
+<html>
+<body>
+<form>
+<p style="text-align: center;">
+<input type="button" value="Voltar" onClick="history.go(-1)"> <input type="button" value="Atualizar" onClick="history.go(0)">
+</form>
+</body>
+</html>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

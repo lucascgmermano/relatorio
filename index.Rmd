@@ -149,7 +149,7 @@ ff <- fread('dados/todos_anos.csv')
         mutate(percentual = round(casos/sum(casos)*100,1)) %>% 
       ggplot(aes(x = semana, y = percentual))+
         geom_col(fill='#00598C')+
-        geom_text(aes(label=percentual), size=2.4, vjust=1.5, col='white')+
+        geom_text(aes(label=percentual), size=2.3, vjust=1.5, col='white')+
         scale_x_continuous(n.breaks = max(ff[ff$ano==2022]$semana))+
         labs(y="Percentual do total de casos", x="Semana epidemiológica")+
         facet_wrap( ~ faixa, ncol = 3, scales = 'free')+
@@ -168,9 +168,9 @@ ff  %>%
         
         ggplot(aes(x = semana, y = percentual))+
         geom_col(fill='#B8252A')+
-        geom_text(aes(label=percentual), size=3, vjust=1.5, col='white')+
+        geom_text(aes(label=percentual), size=2.3, vjust=1.5, col='white')+
         scale_x_continuous(n.breaks = max(ff[ff$ano==2022]$semana))+
-        labs(y="Percentual do total de casos", x="Semana epidemiológica")+
+        labs(y="Percentual do total de óbitos", x="Semana epidemiológica")+
         facet_wrap( ~ faixa, ncol = 3, scales = 'free')+
         theme_bw()+
         theme(axis.text.x = element_text(angle=45, size = 7, vjust = .8),

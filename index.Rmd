@@ -116,10 +116,13 @@ ff <- fread('dados/todos_anos.csv')
 
 ### Casos por faixa etária
 ```{r casos por faixa etaria}
- xtabs(casos ~ muni + faixa, 
+x <-  xtabs(casos ~ muni + faixa, 
             data = ff[ff$ano==2022,]) %>% 
-        addmargins(margin = 1) %>% 
-        kableExtra::kable() %>% 
+        addmargins(margin = 1) 
+ 
+rownames(x)[21] <- "Total"
+
+x %>% kableExtra::kable() %>% 
         kable_styling(full_width = F,
                       bootstrap_options = c("striped", "hover",
                                             "condensed", "responsive"))
@@ -127,10 +130,13 @@ ff <- fread('dados/todos_anos.csv')
 
 ### Óbitos por faixa etária
 ```{r obitos por faixa etaria}
- xtabs(obitos ~ muni + faixa, 
+ x <- xtabs(obitos ~ muni + faixa, 
             data = ff[ff$ano==2022,]) %>% 
-        addmargins(margin = 1) %>% 
-        kableExtra::kable() %>% 
+        addmargins(margin = 1) 
+
+rownames(x)[21] <- "Total"
+
+x %>%  kableExtra::kable() %>% 
         kable_styling(full_width = F,
                       bootstrap_options = c("striped", "hover",
                                             "condensed", "responsive"))
@@ -149,7 +155,9 @@ ff <- fread('dados/todos_anos.csv')
         mutate(percentual = round(casos/sum(casos)*100,1)) %>% 
       ggplot(aes(x = semana, y = percentual))+
         geom_col(fill='#00598C')+
-        geom_text(aes(label=percentual), size=2.3, vjust=1.5, col='white')+
+        geom_text(aes(label=percentual), size=2.3, 
+                  hjust = 1.5, col='white', angle=90)+
+        coord_cartesian(expand = T)+
         scale_x_continuous(n.breaks = max(ff[ff$ano==2022]$semana))+
         labs(y="Percentual do total de casos", x="Semana epidemiológica")+
         facet_wrap( ~ faixa, ncol = 3, scales = 'free')+
@@ -168,7 +176,8 @@ ff  %>%
         
         ggplot(aes(x = semana, y = percentual))+
         geom_col(fill='#B8252A')+
-        geom_text(aes(label=percentual), size=2.3, vjust=1.5, col='white')+
+       geom_text(aes(label=percentual), size=2.3, 
+                  hjust = 1.5, col='white', angle=90)+
         scale_x_continuous(n.breaks = max(ff[ff$ano==2022]$semana))+
         labs(y="Percentual do total de óbitos", x="Semana epidemiológica")+
         facet_wrap( ~ faixa, ncol = 3, scales = 'free')+
@@ -510,17 +519,17 @@ juntos <- dd22 %>%
                          labels = c('Zero','1 a 49', '50 a 149','150 a 449','450 a 999',
                                     '1000 a 1499','1500 a 1999','2000 a 2999', "3000 ou mais"),
                          right = F),
-         obitos.cat = cut(obitos, breaks = c(0, 1, 5, 15, 30, 60, 80, 105, 200), 
-                          labels = c('Zero', '1 a 4', '5 a 14', '15 a 29',
-                                     '30 a 59','60 a 79','80 a 105', 'Até 200'), right = F),
+         obitos.cat = cut(obitos, breaks = c(0, 1, 5, 10, 20, 30, 40,50,100,200, Inf), 
+                          labels = c('Zero', '1 a 4', '5 a 9', '10 a 19',
+                                     '20 a 29','30 a 39','40 a 49', '50 a 100','100 a 200','200 ou mais'), right = F),
          tx.inc = round(casos/pop*100000,1),
          let = round(obitos/casos*100,1),
          tx.inc.cat = cut(tx.inc, breaks = c(0,1,250,500,1000,1500,2000,3000, Inf),
                           labels = c('Zero','1 a 249','250 a 499','500 a 999',
                                      '1000 a 1499','1500 a 1999','2000 a 2999', '3000 ou mais'), right=F),
-         let.cat = cut(let, breaks = c(0,1,2,3,4.6,16,41,101),
-                       labels = c('Zero','1 a 1.9','2 a 2.9','3 a 4.5','4.6 a 15',
-                                  '16 a 40','41 a 100'), right=F)) %>% 
+         let.cat = cut(let, breaks = c(0,1,2,3,4,5,10,20,Inf),
+                       labels = c('Zero','1 a 1.9','2 a 2.9','3 a 3.9','4 a 4.9',
+                                  '5 a 9.9','10 a 19', '20 ou mais'), right=F)) %>% 
   inner_join(x = mn) %>% na.omit()
 
 ```
@@ -547,7 +556,7 @@ ggplot(juntos)+
 ```{r mapa.obitos, fig.height=6.5, out.width="90%"}
 ggplot(juntos)+ 
   geom_sf(data = mn, fill='transparent', col= alpha('black',.50))+
-  geom_sf(aes(fill=obitos.cat), col=alpha('black',.50))+ 
+  geom_sf(aes(fill=obitos.cat), col=alpha('black',.50))+
   scale_fill_manual(values = brewer.pal(7,'Reds'))+
   labs(fill=NULL)+
   theme_minimal()+

@@ -827,6 +827,24 @@ cbind.data.frame(n.mun, pop.trabsaude, doses.trabsaude[,2:4],
                                       "condensed", "responsive"))
 ```
 
+## Doses por dia
+```{r doses_dia,  out.width= "100%"}
+
+ddvac[ddvac$data %in% as.Date("2021-01-01"):as.Date(Sys.Date()),] %>% 
+  group_by(data, dose) %>% 
+  summarise(num = n()) %>% 
+  
+  ggplot(aes(group=dose))+
+  geom_step(aes(x = data, y = num, col=dose))+
+  scale_colour_manual(values = c('#90C134','orange','steelblue3'), 
+                      labels = c('D1','D2',"Dose adicional"))+
+  scale_x_date(date_breaks = "2 month", date_labels = "%b/%y")+
+  labs(x=NULL, y="Doses", col=NULL)+
+  theme_minimal()+
+  theme(legend.position = 'top', 
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
 
 ## 2021 a 2022
 ```{r efeito vacina, results='asis', out.width= "100%"}
@@ -858,9 +876,9 @@ graf <- cbind(casos.doses,
 #Gráfico
 ggplot(graf[year(graf$data)!='2020',])+
   geom_col(aes(x = data, y = mmovel), alpha = .25, width = 1, fill='#00598C')+  
-  geom_smooth(aes(x = data, y = cob.d1*20, col='Cob.d1'),se = F, method = 'gam')+
-  geom_smooth(aes(x = data, y = cob.d2*20, col='Cob.d2'),se = F, method = 'gam')+
-  geom_smooth(aes(x = data, y = cob.d.adic*20, col='Cob.D.Adic'),se = F, method = 'gam')+
+  geom_line(aes(x = data, y = cob.d1*20, col='Cob.d1'))+
+  geom_line(aes(x = data, y = cob.d2*20, col='Cob.d2'))+
+  geom_line(aes(x = data, y = cob.d.adic*20, col='Cob.D.Adic'))+
   scale_colour_manual(values = c('tomato','#90C134','orange'), 
                       labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
   scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+

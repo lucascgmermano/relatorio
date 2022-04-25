@@ -201,8 +201,10 @@ casos <- dd22 %>%
          mmovel7 = round(rollmean(casos, k = 7, fill = NA, align = 'left'),0))
 
 #Doses
-doses.data <- tabyl(ddvac, data, dose) %>%
-  mutate(data = as.Date(data)) %>% 
+doses.data <- ddvac[,c("data","dose")] %>% 
+  pivot_wider(names_from = dose, values_from = dose, values_fn = length)
+doses.data <- doses.data[,1:4]
+doses.data <- doses.data %>% 
   setNames(c('data','d1','d2','dadic'))
 
 #Juntando casos, doses e limpando NA
@@ -252,7 +254,11 @@ casos <- dd22 %>%
   mutate(mmovel4 = round(rollmean(casos, k = 4, fill = NA, align = 'left'),0))
 
 #Doses
-doses.data <- tabyl(ddvac, semana, dose) %>%
+doses.data <- ddvac[,c("semana","dose")] %>% 
+  pivot_wider(names_from = dose, values_from = dose, values_fn = length)
+
+doses.data <- doses.data[,1:4]
+doses.data <- doses.data %>% 
   setNames(c('semana','d1','d2','dadic'))
 
 #Juntando casos, doses e limpando NA
@@ -301,7 +307,12 @@ casos <- dd22 %>%
   summarise(casos = sum(casos, na.rm=T)) 
 
 #Doses
-doses.data <- tabyl(ddvac, mes, dose) %>%
+doses.data <- ddvac[,c("mes","dose")] %>% 
+  pivot_wider(names_from = dose, values_from = dose, values_fn = length)
+
+doses.data <- doses.data[,1:4]
+
+doses.data <- doses.data %>% 
   setNames(c('mes','d1','d2','dadic'))
 
 #Juntando casos, doses e limpando NA
@@ -353,9 +364,11 @@ ggplot(graf, aes(group=1))+
   mutate(data = as.Date(data),
          mmovel7 = round(rollmean(obitos, k = 7, fill = NA, align = 'left'),0))
 
-#Doses
-doses.data <- tabyl(ddvac, data, dose) %>%
-  mutate(data = as.Date(data)) %>% 
+# Doses
+doses.data <- ddvac[,c("data","dose")] %>% 
+  pivot_wider(names_from = dose, values_from = dose, values_fn = length)
+doses.data <- doses.data[,1:4]
+doses.data <- doses.data %>% 
   setNames(c('data','d1','d2','dadic'))
 
 #Juntando casos, doses e limpando NA
@@ -404,7 +417,11 @@ obitos <- dd22 %>%
   mutate(mmovel4 = round(rollmean(obitos, k = 4, fill = NA, align = 'left'),0))
 
 #Doses
-doses.data <- tabyl(ddvac, semana, dose) %>%
+doses.data <- ddvac[,c("semana","dose")] %>% 
+  pivot_wider(names_from = dose, values_from = dose, values_fn = length)
+
+doses.data <- doses.data[,1:4]
+doses.data <- doses.data %>% 
   setNames(c('semana','d1','d2','dadic'))
 
 #Juntando obitos, doses e limpando NA
@@ -452,7 +469,12 @@ obitos <- dd22 %>%
   summarise(obitos=sum(obitos, na.rm=T)) 
 
 #Doses
-doses.data <- tabyl(ddvac, mes, dose) %>%
+doses.data <- ddvac[,c("mes","dose")] %>% 
+  pivot_wider(names_from = dose, values_from = dose, values_fn = length)
+
+doses.data <- doses.data[,1:4]
+
+doses.data <- doses.data %>% 
   setNames(c('mes','d1','d2','dadic'))
 
 #Juntando obitos, doses e limpando NA

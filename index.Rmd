@@ -868,8 +868,11 @@ cbind.data.frame(n.mun, pop.trabsaude, doses.trabsaude[,2:4],
                 bootstrap_options = c("striped", "hover", 
                                       "condensed", "responsive"))
 ```
+<Br><Br><Br>
 
-## Doses por dia
+## Série de doses e coberturas 2021/2022 {.tabset .tabset-fade}
+
+### Doses aplicadas por mês
 ```{r doses_dia,  out.width= "100%"}
 ddvac[ddvac$data %in% as.Date("2021-01-01"):as.Date(Sys.Date()),] %>% 
   group_by(data, dose) %>% 
@@ -889,7 +892,7 @@ ddvac[ddvac$data %in% as.Date("2021-01-01"):as.Date(Sys.Date()),] %>%
         axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-## 2021 a 2022
+### Casos e coberturas
 ```{r efeito vacina, results='asis', out.width= "100%"}
 #Casos
 dd <- fread(here('dados','todos_anos.csv'))

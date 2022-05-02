@@ -731,6 +731,8 @@ n.mun <- c('Aguaí','Águas da Prata','Caconde','Casa Branca',                  
 pop.vacgeral <- c(28847,6196,14932,23696,8584,34373,9176,58210,6212,53663,      #Pop geral
                   120788,73277,27495,4680,70906,42447,9649,18137,10215,33257)
 
+pop.ped <- fread(here('dados','pop_5_a_11_anos_2021.csv'))                      # Pop 5 a 11 anos
+
 pop.geraletaria <- pop.et %>%                                                   #Pop geral etaria
   group_by(cat.pop.etaria) %>%
   summarise(pop=sum(pop.etaria))
@@ -764,6 +766,24 @@ cbind.data.frame(n.mun, pop.vacgeral, doses.geral[,2:4],
 rm(doses.geral)
 ```
 
+<Br><Br><Br>
+
+
+### 5 a 11 anos
+
+```{r Cob_5_a_11_anos, echo=FALSE, message=FALSE, warning=FALSE }
+doses.ped <- tabyl(ddvac[ddvac$idade %in% 5:11,], muni, dose, show_na = F)
+
+cbind.data.frame(pop.ped[,2:3], doses.ped[,2:4], 
+                 cobd1=round(doses.ped[,2]/pop.ped[,3]*100,1),
+                 cobd2=round(doses.ped[,3]/pop.ped[,3]*100,1),
+                 cobad=round(doses.ped[,4]/pop.ped[,3]*100,1))  %>% 
+  kable(col.names = c("Município", "População", "D1","D2","D.Adic.", 
+                      "Cob.D1", "Cob.D2", "Cob.D.Adic.")) %>%                  
+  kable_styling(full_width = F, 
+                bootstrap_options = c("striped", "hover", 
+                                      "condensed", "responsive"))
+```
 <Br><Br><Br>
 
 ### Geral por idade
@@ -851,21 +871,22 @@ cbind.data.frame(n.mun, pop.trabsaude, doses.trabsaude[,2:4],
 
 ## Doses por dia
 ```{r doses_dia,  out.width= "100%"}
-
 ddvac[ddvac$data %in% as.Date("2021-01-01"):as.Date(Sys.Date()),] %>% 
   group_by(data, dose) %>% 
   summarise(num = n()) %>% 
   
   ggplot(aes(group=dose))+
-  geom_step(aes(x = data, y = num, col=dose))+
+  geom_col(aes(x = format(data, '%b/%y'), y = num, fill=dose), width = .95)+
+  scale_x_discrete(limits = c('jan/21','fev/21','mar/21','abr/21','mai/21',
+                              'jun/21','jul/21','ago/21','set/21','out/21',
+                              'nov/21','dez/21','jan/22','fev/22','mar/22',
+                              'abr/22'))+
   scale_colour_manual(values = c('#90C134','orange','steelblue3'), 
                       labels = c('D1','D2',"Dose adicional"))+
-  scale_x_date(date_breaks = "2 month", date_labels = "%b/%y")+
-  labs(x=NULL, y="Doses", col=NULL)+
+  labs(x=NULL, y="Doses", col=NULL, fill=NULL)+
   theme_minimal()+
   theme(legend.position = 'top', 
         axis.text.x = element_text(angle = 45, hjust = 1))
-
 ```
 
 ## 2021 a 2022

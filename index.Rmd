@@ -221,26 +221,24 @@ graf <- cbind(casos.doses,
 
 #Gráfico
 filter(graf, lubridate::year(data)==2022) %>% 
-ggplot()+
+  ggplot()+
   geom_col(aes(x = data, y = casos), width = .9, fill='#00598C')+  
-  # geom_smooth(aes(x = data, y = cob.d1*7, col='Cob.d1'),se = F, method = 'gam')+
-  # geom_smooth(aes(x = data, y = cob.d2*7, col='Cob.d2'),se = F, method = 'gam')+
-  # geom_smooth(aes(x = data, y = cob.d.adic*7, col='Cob.D.Adic'),se = F, method = 'gam')+
-  # scale_colour_manual(values = c('tomato','#90C134','orange'), 
-  #                     labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
-  # scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
-  geom_text(hjust=-.5, aes(x = data, y = casos, label = casos, angle=90), size=3)+
+  geom_text(hjust=-.5, aes(x = data, y = casos, label = casos, angle=90), size=3, check_overlap = TRUE)+
   scale_x_date(date_breaks = "1 month", date_labels = "%b")+
   scale_y_continuous(n.breaks = 10, expand = expansion(mult = c(0,.25)))+
-  # scale_y_continuous(sec.axis = sec_axis(~./7, name = "Cobertura (%)", breaks = seq(0,100,5)))+
   labs(x=NULL, y='Casos', colour=NULL)+
+  ggforce::facet_zoom(xy =  data >= as.Date(Sys.Date()-20) & 
+                        data <= as.Date(Sys.Date()), horizontal = F, shrink = F)+
   theme_minimal()+
   theme(plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
         legend.position = 'top', axis.text.x = element_text(angle = 30),
         legend.key = element_rect(fill = 'transparent', 
                                   colour = 'transparent'),
         legend.box.background = element_rect(fill = 'transparent', 
-                                             colour = 'transparent'))
+                                             colour = 'transparent'),
+        strip.background = element_rect(fill= '#deeaee',
+                                        color='tomato',
+                                        linetype = 'dotted'))
 cat("<Br><Br><Br><Br><Br><Br>")
 ```
 
@@ -351,7 +349,7 @@ ggplot(graf, aes(group=1))+
 
 
 ```
-
+<Br><Br><Br><Br><Br><Br>
 
 ### Óbitos {.tabset .tabset-fade}
 #### Dia
@@ -556,7 +554,7 @@ juntos <- dd22 %>%
 
 ```
 
-<Br><Br><Br>
+<Br><Br><Br><Br><Br><Br>
 
 ## Distribuição espacial {.tabset .tabset-fade}
 ### Casos

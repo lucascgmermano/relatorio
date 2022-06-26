@@ -912,9 +912,9 @@ casos.doses[is.na(casos.doses)] <- 0
 
 #Gerando arquivo para o gráfico
 graf <- cbind(casos.doses,
-              round(cumsum(x = casos.doses$d1)/718970*100, 1),
-              round(cumsum(x = casos.doses$d2)/718970*100, 1),
-              round(cumsum(x = casos.doses$dadic)/718970*100, 1)) %>%
+              round(cumsum(x = casos.doses$d1)/766509*100, 1),
+              round(cumsum(x = casos.doses$d2)/766509*100, 1),
+              round(cumsum(x = casos.doses$dadic)/766509*100, 1)) %>%
   setNames(c('data', 'casos', 'mmovel', 'd1', 'd2',
              'ref', 'cob.d1', 'cob.d2','cob.d.adic'))
 

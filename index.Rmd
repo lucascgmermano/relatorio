@@ -64,7 +64,7 @@ pop.et <- read_csv2(here('dados','pop_et.csv'))
 ddvac <- read_csv2(here('dados','ddvac.csv'))
 ```
 
-Durante o ano de 2022 foram notificados **`r as.integer(sum(dd22$casos, na.rm=T))`** casos e **`r sum(dd22$obitos)`** óbitos, o que correspondeu à taxa de incidência de **`r round(sum(dd22$casos)/830499*100000, 0)`** casos por 100 mil habitantes e à taxa de letalidade de **`r round(sum(dd22$obitos)/sum(dd22$casos)*100, 1)`%** entre os doentes. A seguir são apresentados os dados sobre a ocorrência dos casos e óbitos, distribuição espacial do Covid-19 e as coberturas vacinais detalhadas:
+Durante o ano de 2022 foram notificados **`r as.integer(sum(dd22$casos, na.rm=T))`** casos e **`r sum(dd22$obitos)`** óbitos, o que correspondeu à taxa de incidência de **`r as.integer(round(sum(dd22$casos)/830499*100000, 0))`** casos por 100 mil habitantes e à taxa de letalidade de **`r round(sum(dd22$obitos)/sum(dd22$casos)*100, 1)`%** entre os doentes. A seguir são apresentados os dados sobre a ocorrência dos casos e óbitos, distribuição espacial do Covid-19 e as coberturas vacinais detalhadas:
 
 <Br>
 

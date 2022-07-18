@@ -705,7 +705,7 @@ cat(paste("####",i,"\n\n"))
            cob.d3=round(d3/pop.etaria*100, 1),
            muni = NULL) %>%
     select(cat.pop.etaria, pop.etaria, d1, d2, d3, cob.d1, cob.d2, cob.d3) %>%
-    kable(col.names = c("Faixa etária", "População", "D1", "D2", "D3", "Cob.D1", "Cob.D2", "Cob.D3"),
+    kable(col.names = c("Faixa etária", "População", "D1", "D2", "D.adic", "Cob.D1", "Cob.D2", "Cob.D.adic"),
           caption = i) %>%
     kable_styling(full_width = F,
                   bootstrap_options = c("striped", "hover",

@@ -19,3 +19,21 @@ left_join(tabyl(subset(ddvac, muni=="Caconde"), cat.pop.etaria, dose),
 
 table(ddvac[ddvac$muni=="Caconde",]$dose)
 unique(ddvac$d)
+
+
+
+
+doses.geralidade <- tabyl(ddvac, cat.pop.etaria, dose, show_na = T)
+
+cbind.data.frame(doses.geralidade[,1], 
+                 pop.geraletaria[1:10,2],
+                 doses.geralidade[2:4],
+                 cobd1=round(doses.geralidade[1:8,2]/pop.geraletaria[1:10,2]*100,1),
+                 cobd2=round(doses.geralidade[3]/pop.geraletaria[1:10,2]*100,1),
+                 cobad=round(doses.geralidade[4]/pop.geraletaria[1:10,2]*100,1)) %>% 
+  
+  kable(col.names = c("Faixa etária", "População", "D1","D2","D.Adic.", 
+                      "Cob.D1", "Cob.D2", "Cob.D.Adic.")) %>%                  
+  kable_styling(full_width = F, 
+                bootstrap_options = c("striped", "hover", 
+                                      "condensed", "responsive"))

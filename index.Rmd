@@ -880,9 +880,10 @@ ddvac[ddvac$data %in% as.Date("2021-01-01"):as.Date(Sys.Date()),] %>%
   ggplot(aes(group=dose))+
   geom_col(aes(x = format(data, '%b/%y'), y = num, fill=dose), width = .95)+
   scale_x_discrete(limits = c('jan/21','fev/21','mar/21','abr/21','mai/21',
-                              'jun/21','jul/21','ago/21','set/21','out/21',
-                              'nov/21','dez/21','jan/22','fev/22','mar/22',
-                              'abr/22', 'mai/22', 'jun/22', 'jul/22'))+
+  'jun/21','jul/21','ago/21','set/21','out/21',
+  'nov/21','dez/21','jan/22','fev/22','mar/22',
+  'abr/22', 'mai/22', 'jun/22', 'jul/22','ago/22',
+  'set/22'))+
   scale_fill_manual(values = c('darkolivegreen3','darkgoldenrod2','steelblue3'), 
                       labels = c('D1','D2',"Dose adicional"))+
   labs(x=NULL, y="Doses", col=NULL, fill=NULL)+

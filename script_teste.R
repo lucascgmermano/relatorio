@@ -37,3 +37,8 @@ cbind.data.frame(doses.geralidade[,1],
   kable_styling(full_width = F, 
                 bootstrap_options = c("striped", "hover", 
                                       "condensed", "responsive"))
+
+as.character(format(seq(from = as.Date("2021-01-01"), 
+           to = Sys.Date(), 
+           by = "month"), "%b-%Y"))
+

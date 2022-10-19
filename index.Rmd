@@ -883,7 +883,7 @@ ddvac[ddvac$data %in% as.Date("2021-01-01"):as.Date(Sys.Date()),] %>%
   'jun/21','jul/21','ago/21','set/21','out/21',
   'nov/21','dez/21','jan/22','fev/22','mar/22',
   'abr/22', 'mai/22', 'jun/22', 'jul/22','ago/22',
-  'set/22'))+
+  'set/22','out/22'))+
   scale_fill_manual(values = c('darkolivegreen3','darkgoldenrod2','steelblue3'), 
                       labels = c('D1','D2',"Dose adicional"))+
   labs(x=NULL, y="Doses", col=NULL, fill=NULL)+
@@ -928,7 +928,7 @@ ggplot(graf[year(graf$data)!='2020',])+
   scale_colour_manual(values = c('tomato','#90C134','orange'), 
                       labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
   scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
-  scale_x_date(date_breaks = "3 month", date_labels = "%b/%y")+
+  scale_x_date(date_breaks = "2 month", date_labels = "%b/%y")+
   scale_y_continuous(sec.axis = sec_axis(~./20, name = "Cobertura (%)", breaks = seq(0,120,5)))+
   labs(x=NULL, y='Casos', colour=NULL, title = "Casos e coberturas vacinais por dia.")+
   theme_minimal()+

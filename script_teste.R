@@ -1,44 +1,96 @@
-left_join(tabyl(subset(ddvac, muni=="Caconde"), cat.pop.etaria, dose),
-          subset(pop.et, muni=="Caconde"), by = 'cat.pop.etaria') %>% 
-  mutate(cob.d1=round(d1/pop.etaria*100, 1),
-         cob.d2=round(d2/pop.etaria*100, 1),
-         cob.dadic1=round(dadic1/pop.etaria*100, 1),
-         cob.dadic2=round(dadic2/pop.etaria*100, 1),
-         cob.dadic3=round(dadic3/pop.etaria*100, 1),
-         muni = NULL) %>%
-  select(cat.pop.etaria, pop.etaria, 
-         d1, d2, dadic1, dadic2, dadic3,
-         cob.d1, cob.d2, cob.dadic1, cob.dadic2, cob.dadic3) %>%
-  kable(col.names = c("Faixa etária", "População", 
-                      "D1", "D2", "Da1","Da2","Da3",
-                      "Cob.D1", "Cob.D2", "Cob.Da1","Cob.Da2","Cob.Da3"),
-        caption = i) %>%
-  kable_styling(full_width = F,
-                bootstrap_options = c("striped", "hover",
-                                      "condensed", "responsive")) 
+################################## Dia #########################################
+#Casos
+casos <- dd22 %>%
+  group_by(data) %>%
+  summarise(casos = sum(casos, na.rm=T)) %>% 
+  mutate(data = as.Date(data),
+         mmovel7 = round(rollmean(casos, k = 7, fill = NA, align = 'left'),0))
 
-table(ddvac[ddvac$muni=="Caconde",]$dose)
-unique(ddvac$d)
+#Doses
+doses.data <- ddvac[,c("data","dose")] %>% 
+  pivot_wider(names_from = dose, values_from = dose, values_fn = length)
+doses.data <- doses.data[,1:4]
+doses.data <- doses.data %>% 
+  setNames(c('data','d1','d2','dadic'))
+
+#Juntando casos, doses e limpando NA
+casos.doses <- left_join(x = casos, y = doses.data, by="data")
+casos.doses[is.na(casos.doses)] <- 0
+
+#Gerando arquivo para o gráfico
+graf <- cbind(casos.doses,
+              round(cumsum(x = casos.doses$d1)/718970*100, 1),
+              round(cumsum(x = casos.doses$d2)/718970*100, 1),
+              round(cumsum(x = casos.doses$dadic)/718970*100, 1)) %>%
+  setNames(c('data', 'casos', 'mmovel', 'd1', 'd2',
+             'ref', 'cob.d1', 'cob.d2','cob.d.adic'))
+
+#Gráfico
+filter(graf, lubridate::year(data)==2022) %>% 
+  ggplot()+
+  geom_col(aes(x = data, y = casos), width = .9, fill='#00598C')+  
+  geom_text(hjust=-.5, aes(x = data, y = casos, label = casos, angle=90), size=3, check_overlap = TRUE)+
+  scale_x_date(date_breaks = "1 month", date_labels = "%b")+
+  scale_y_continuous(n.breaks = 10, expand = expansion(mult = c(0,.25)))+
+  labs(x=NULL, y='Casos', colour=NULL)+
+  ggforce::facet_zoom(xy =  data >= as.Date(Sys.Date()-20) &
+                        data <= as.Date(Sys.Date()), horizontal = F, shrink = F)+
+  theme_minimal()+
+  theme(plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
+        legend.position = 'top', axis.text.x = element_text(angle = 30),
+        legend.key = element_rect(fill = 'transparent', 
+                                  colour = 'transparent'),
+        legend.box.background = element_rect(fill = 'transparent', 
+                                             colour = 'transparent'),
+        strip.background = element_rect(fill= '#deeaee',
+                                        color='tomato',
+                                        linetype = 'dotted'))
 
 
+### Casos e coberturas
+```{r efeito vacina, results='asis', out.width= "100%"}
+#Casos
+dd <- fread(here('dados','todos_anos.csv'))
+casos <- dd %>%
+  group_by(data) %>%
+  summarise(casos = sum(casos, na.rm=T)) %>% 
+  mutate(data = as.Date(data),
+         mmovel7 = round(rollmean(casos, k = 7, fill = NA, align = 'left'),0))
 
+#Doses
+doses.data <- tabyl(ddvac, data, dose, show_na = F) %>%
+  mutate(data = as.Date(data)) %>% 
+  setNames(c('data','d1','d2','dadic'))
 
-doses.geralidade <- tabyl(ddvac, cat.pop.etaria, dose, show_na = T)
+#Juntando casos, doses e limpando NA
+casos.doses <- left_join(x = casos, y = doses.data, by="data")
+casos.doses[is.na(casos.doses)] <- 0
 
-cbind.data.frame(doses.geralidade[,1], 
-                 pop.geraletaria[1:10,2],
-                 doses.geralidade[2:4],
-                 cobd1=round(doses.geralidade[1:8,2]/pop.geraletaria[1:10,2]*100,1),
-                 cobd2=round(doses.geralidade[3]/pop.geraletaria[1:10,2]*100,1),
-                 cobad=round(doses.geralidade[4]/pop.geraletaria[1:10,2]*100,1)) %>% 
-  
-  kable(col.names = c("Faixa etária", "População", "D1","D2","D.Adic.", 
-                      "Cob.D1", "Cob.D2", "Cob.D.Adic.")) %>%                  
-  kable_styling(full_width = F, 
-                bootstrap_options = c("striped", "hover", 
-                                      "condensed", "responsive"))
+#Gerando arquivo para o gráfico
+graf <- cbind(casos.doses,
+              round(cumsum(x = casos.doses$d1)/766509*100, 1),
+              round(cumsum(x = casos.doses$d2)/766509*100, 1),
+              round(cumsum(x = casos.doses$dadic)/766509*100, 1)) %>%
+  setNames(c('data', 'casos', 'mmovel', 'd1', 'd2',
+             'ref', 'cob.d1', 'cob.d2','cob.d.adic'))
 
-as.character(format(seq(from = as.Date("2021-01-01"), 
-           to = Sys.Date(), 
-           by = "month"), "%b-%Y"))
-
+#Gráfico
+ggplot(graf[year(graf$data)!='2020',])+
+  geom_col(aes(x = data, y = mmovel), alpha = .25, width = 1, fill='#00598C')+  
+  geom_line(aes(x = data, y = cob.d1*20, col='Cob.d1'))+
+  geom_line(aes(x = data, y = cob.d2*20, col='Cob.d2'))+
+  geom_line(aes(x = data, y = cob.d.adic*20, col='Cob.D.Adic'))+
+  scale_colour_manual(values = c('tomato','#90C134','orange'), 
+                      labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
+  scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
+  scale_x_date(date_breaks = "2 month", date_labels = "%b/%y")+
+  scale_y_continuous(sec.axis = sec_axis(~./20, name = "Cobertura (%)", breaks = seq(0,120,5)))+
+  labs(x=NULL, y='Casos', colour=NULL, title = "Casos e coberturas vacinais por dia.")+
+  theme_minimal()+
+  theme(plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
+        legend.position = 'top', axis.text.x = element_text(angle = 30),
+        legend.key = element_rect(fill = 'transparent', 
+                                  colour = 'transparent'),
+        legend.box.background = element_rect(fill = 'transparent', 
+                                             colour = 'transparent'))
+cat("<Br><Br><Br><Br><Br><Br>")

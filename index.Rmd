@@ -227,8 +227,8 @@ filter(graf, lubridate::year(data)==2022) %>%
   scale_x_date(date_breaks = "1 month", date_labels = "%b")+
   scale_y_continuous(n.breaks = 10, expand = expansion(mult = c(0,.25)))+
   labs(x=NULL, y='Casos', colour=NULL)+
-  # ggforce::facet_zoom(xy =  data >= as.Date(Sys.Date()-20) & 
-  #                       data <= as.Date(Sys.Date()), horizontal = F, shrink = F)+
+  ggforce::facet_zoom(xy =  data >= as.Date(Sys.Date()-20) &
+                        data <= as.Date(Sys.Date()), horizontal = F, shrink = F)+
   theme_minimal()+
   theme(plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
         legend.position = 'top', axis.text.x = element_text(angle = 30),

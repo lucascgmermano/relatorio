@@ -820,8 +820,9 @@ ggplot(graf[year(graf$data)!='2020',])+
   geom_line(aes(x = data, y = cob.ref1*20, col='Cob.ref1'))+
   geom_line(aes(x = data, y = cob.ref2*20, col='Cob.ref2'))+
   geom_line(aes(x = data, y = cob.ref3*20, col='Cob.ref3'))+
-  scale_colour_manual(values = RColorBrewer::brewer.pal(n = 6, name = 'Paired'), 
-                      labels = c("D1",'D2','Reforço 1', 'Reforço 2', 'Reforço 3'))+
+  geom_line(aes(x = data, y = cob.ref4*20, col='Cob.ref4'))+
+  scale_colour_manual(values = RColorBrewer::brewer.pal(n = 7, name = 'Paired'), 
+                      labels = c("D1",'D2','Reforço 1', 'Reforço 2', 'Reforço 3','Reforço 4'))+
   # scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
   scale_x_date(date_breaks = "2 month", date_labels = "%b/%y")+
   scale_y_continuous(sec.axis = sec_axis(~./20, name = "Cobertura (%)", breaks = seq(0,120,5)))+

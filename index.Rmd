@@ -149,7 +149,7 @@ x %>%  kableExtra::kable() %>%
 ### Casos
 ```{r, out.width= "100%"}
  ff  %>% 
-        filter(ano == 2022) %>% 
+        filter(ano == 2022 & !is.na(faixa)) %>% 
         group_by(semana, faixa) %>% 
         summarise(casos = sum(casos)) %>% 
         mutate(percentual = round(casos/sum(casos)*100,1)) %>% 
@@ -169,7 +169,7 @@ x %>%  kableExtra::kable() %>%
 ### Óbitos
 ```{r, out.width= "100%"}
 ff  %>% 
-        filter(ano == 2022) %>% 
+        filter(ano == 2022 & !is.na(faixa)) %>% 
         group_by(semana, faixa) %>% 
         summarise(obitos = sum(obitos)) %>% 
         mutate(percentual = round(obitos/sum(obitos)*100,1)) %>% 

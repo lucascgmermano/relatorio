@@ -168,23 +168,22 @@ dd23  %>%
 
 ### Óbitos
 ```{r, out.width= "100%"}
-# Esta comentado por ta tudo zerado ainda
-# dd23  %>% 
-#         # filter(ano == 2022 & !is.na(faixa)) %>% 
-#         group_by(semana, faixa) %>% 
-#         summarise(obitos = sum(obitos)) %>% 
-#         mutate(percentual = round(obitos/sum(obitos)*100,1)) %>% 
-#         
-#         ggplot(aes(x = semana, y = percentual))+
-#         geom_col(fill='#B8252A')+
-#        geom_text(aes(label=percentual), size=2.3, 
-#                   hjust = 1.5, col='white', angle=90)+
-#         scale_x_continuous(n.breaks = max(dd23$semana))+
-#         labs(y="Percentual do total de óbitos", x="Semana epidemiológica")+
-#         facet_wrap( ~ faixa, ncol = 3, scales = 'free')+
-#         theme_bw()+
-#         theme(axis.text.x = element_text(angle=45, size = 7, vjust = .8),
-#               legend.text = element_text(face = 'bold'))
+dd23  %>%
+        # filter(ano == 2022 & !is.na(faixa)) %>%
+        group_by(semana, faixa) %>%
+        summarise(obitos = sum(obitos)) %>%
+        mutate(percentual = round(obitos/sum(obitos)*100,1)) %>%
+
+        ggplot(aes(x = semana, y = percentual))+
+        geom_col(fill='#B8252A')+
+       geom_text(aes(label=percentual), size=2.3,
+                  hjust = 1.5, col='white', angle=90)+
+        scale_x_continuous(n.breaks = max(dd23$semana))+
+        labs(y="Percentual do total de óbitos", x="Semana epidemiológica")+
+        facet_wrap( ~ faixa, ncol = 3, scales = 'free')+
+        theme_bw()+
+        theme(axis.text.x = element_text(angle=45, size = 7, vjust = .8),
+              legend.text = element_text(face = 'bold'))
 
 ```
 
@@ -291,84 +290,84 @@ ggplot(casos, aes(group=1))+
 ################################## Dia #########################################
 # ainda nao temos obitos
 #Obitos
-#  obitos <- dd23 %>%
-#   group_by(data) %>%
-#   summarise(obitos = sum(obitos, na.rm=T)) %>% 
-#   mutate(data = as.Date(data),
-#          mmovel7 = round(rollmean(obitos, k = 7, fill = NA, align = 'left'),0))
-# 
+ obitos <- dd23 %>%
+  group_by(data) %>%
+  summarise(obitos = sum(obitos, na.rm=T)) %>%
+  mutate(data = as.Date(data),
+         mmovel7 = round(rollmean(obitos, k = 7, fill = NA, align = 'left'),0))
+
 # #Gráfico
-# ggplot(obitos)+
-#   geom_col(aes(x = data, y = obitos), width = .9, fill='#B8252A')+
-#   geom_text(hjust=-.5, aes(x = data, y = obitos, label = obitos, angle=90), size=3)+
-#   scale_x_date(date_breaks = "1 month", date_labels = "%b")+
-#   scale_y_continuous(n.breaks = 10, expand = expansion(mult = c(0,.25)))+
-#   labs(x=NULL, y='Óbitos', colour=NULL)+
-#   theme_minimal()+
-#   theme(plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
-#         legend.position = 'top', axis.text.x = element_text(angle = 30),
-#         legend.key = element_rect(fill = 'transparent', 
-#                                   colour = 'transparent'),
-#         legend.box.background = element_rect(fill = 'transparent', 
-#                                              colour = 'transparent'))
-# cat("<Br><Br><Br><Br><Br><Br>")
+ggplot(obitos)+
+  geom_col(aes(x = data, y = obitos), width = .9, fill='#B8252A')+
+  geom_text(hjust=-.5, aes(x = data, y = obitos, label = obitos, angle=90), size=3)+
+  scale_x_date(date_breaks = "1 month", date_labels = "%b")+
+  scale_y_continuous(n.breaks = 10, expand = expansion(mult = c(0,.25)))+
+  labs(x=NULL, y='Óbitos', colour=NULL)+
+  theme_minimal()+
+  theme(plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
+        legend.position = 'top', axis.text.x = element_text(angle = 30),
+        legend.key = element_rect(fill = 'transparent',
+                                  colour = 'transparent'),
+        legend.box.background = element_rect(fill = 'transparent',
+                                             colour = 'transparent'))
+cat("<Br><Br><Br><Br><Br><Br>")
 ```
 
 #### Semana
 ```{r obitos_cob.semana, results='asis', out.width= "90%"}
 ################################# Semana #######################################
 #Obitos
-# obitos <- dd23 %>%
-#   group_by(semana) %>%
-#   summarise(obitos=sum(obitos, na.rm = T)) %>% 
-#   mutate(mmovel4 = round(rollmean(obitos, k = 4, fill = NA, align = 'left'),0))
-# 
-# #Gráfico
-# ggplot(obitos)+
-#   geom_col(aes(x = semana, y = obitos),width = .9, fill='#B8252A')+
-#   geom_text(hjust=-.5, aes(x = semana, y = obitos, label = obitos, angle=90), size=3)+
-#   # geom_smooth(aes(x = semana, y = cob.d1/3, col='Cob.d1'),se = F, method = 'gam')+
-#   # geom_smooth(aes(x = semana, y = cob.d2/3, col='Cob.d2'),se = F, method = 'gam')+
-#   # geom_smooth(aes(x = semana, y = cob.d.adic/3, col='Cob.D.Adic'),se = F, method = 'gam')+
-#   # scale_colour_manual(values = c('tomato','#90C134','orange'), 
-#   #                     labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
-#   # scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
-#   scale_x_continuous(breaks = seq(1,53,2))+
-#   scale_y_continuous(n.breaks = 10, expand = expansion(mult = c(0,0.25)))+
-#     # sec.axis = sec_axis(~.*3, name = "Cobertura (%)", breaks = seq(0,100,5)))+
-#   labs(x=NULL, y='Óbitos', colour=NULL)+
-#   theme_minimal()+
-#   theme( plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
-#          legend.position = 'top', axis.text.x = element_text(angle = 30),
-#          legend.key = element_rect(fill = 'transparent', 
-#                                    colour = 'transparent'),
-#          legend.box.background = element_rect(fill = 'transparent', 
-#                                               colour = 'transparent'))
-# cat("<Br><Br><Br><Br><Br><Br>")
+obitos <- dd23 %>%
+  group_by(semana) %>%
+  summarise(obitos=sum(obitos, na.rm = T)) %>%
+  mutate(mmovel4 = round(rollmean(obitos, k = 4, fill = NA, align = 'left'),0))
+
+#Gráfico
+ggplot(obitos)+
+  geom_col(aes(x = semana, y = obitos),width = .9, fill='#B8252A')+
+  geom_text(hjust=-.5, aes(x = semana, y = obitos, label = obitos, angle=90), size=3)+
+  # geom_smooth(aes(x = semana, y = cob.d1/3, col='Cob.d1'),se = F, method = 'gam')+
+  # geom_smooth(aes(x = semana, y = cob.d2/3, col='Cob.d2'),se = F, method = 'gam')+
+  # geom_smooth(aes(x = semana, y = cob.d.adic/3, col='Cob.D.Adic'),se = F, method = 'gam')+
+  # scale_colour_manual(values = c('tomato','#90C134','orange'),
+  #                     labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
+  # scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
+  scale_x_continuous(breaks = seq(1,53,2))+
+  scale_y_continuous(n.breaks = 10, expand = expansion(mult = c(0,0.25)))+
+    # sec.axis = sec_axis(~.*3, name = "Cobertura (%)", breaks = seq(0,100,5)))+
+  labs(x=NULL, y='Óbitos', colour=NULL)+
+  theme_minimal()+
+  theme( plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
+         legend.position = 'top', axis.text.x = element_text(angle = 30),
+         legend.key = element_rect(fill = 'transparent',
+                                   colour = 'transparent'),
+         legend.box.background = element_rect(fill = 'transparent',
+                                              colour = 'transparent'))
+cat("<Br><Br><Br><Br><Br><Br>")
 ```
 
 #### Mês
 ```{r obitos_cob.mes, results='asis', out.width= "90%"}
 ################################## Mes #########################################
 #obitos
-# obitos <- dd23 %>%
-#   group_by(mes = lubridate::month(data, label=T)) %>%
-#   summarise(obitos=sum(obitos, na.rm=T)) 
-# 
-# #Gráfico
-# ggplot(obitos, aes(group=1))+
-#   geom_col(aes(x = mes, y = obitos), width = .9, fill='#B8252A')+
-#   geom_text(hjust=-.5, aes(x = mes, y = obitos, label = obitos, angle=90), size=3)+
-#   scale_x_discrete(limits = c("jan","fev","mar","abr" , "mai","jun", "jul","ago","set","out","nov","dez"))+
-#   scale_y_continuous(n.breaks = 10, expand = expansion(mult = c(0,.25)))+
-#   labs(x=NULL, y='Óbitos', colour=NULL)+
-#   theme_minimal()+
-#   theme( plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
-#          legend.position = 'top', axis.text.x = element_text(angle = 30),
-#          legend.key = element_rect(fill = 'transparent', 
-#                                    colour = 'transparent'),
-#          legend.box.background = element_rect(fill = 'transparent', 
-#                                               colour = 'transparent'))
+obitos <- dd23 %>%
+  group_by(mes = lubridate::month(data, label=T)) %>%
+  summarise(obitos=sum(obitos, na.rm=T))
+
+#Gráfico
+ggplot(obitos, aes(group=1))+
+  geom_col(aes(x = mes, y = obitos), width = .9, fill='#B8252A')+
+  geom_text(hjust=-.5, aes(x = mes, y = obitos, label = obitos, angle=90), size=3)+
+  scale_x_discrete(limits = c("jan","fev","mar","abr" , "mai","jun", "jul","ago","set","out","nov","dez"))+
+  scale_y_continuous(n.breaks = 10, expand = expansion(mult = c(0,.25)))+
+  labs(x=NULL, y='Óbitos', colour=NULL)+
+  theme_minimal()+
+  theme( plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
+         legend.position = 'top', axis.text.x = element_text(angle = 30),
+         legend.key = element_rect(fill = 'transparent',
+                                   colour = 'transparent'),
+         legend.box.background = element_rect(fill = 'transparent',
+                                              colour = 'transparent'))
 ```
 
 

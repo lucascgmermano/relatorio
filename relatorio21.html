@@ -14,7 +14,7 @@
 
 <title>Covid-19 e coberturas vacinais:  Relatório 2021</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
@@ -38,8 +38,8 @@
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -149,11 +149,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -182,8 +186,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -191,16 +195,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -343,6 +340,13 @@ div.tocify {
       <a href="index.html">
         <span class="far fa-calendar-alt"></span>
          
+        2023
+      </a>
+    </li>
+    <li>
+      <a href="relatorio22.html">
+        <span class="far fa-calendar-alt"></span>
+         
         2022
       </a>
     </li>
@@ -450,7 +454,7 @@ div.tocify {
 Relatório 2021</h1>
 <h4 class="author"><em>Grupo de Vigilância Epidemiológica XXVI - São
 João da Boa Vista</em></h4>
-<h4 class="date"><em>Atualização: 26 de junho de 2022</em></h4>
+<h4 class="date"><em>Atualização: 27 de junho de 2023</em></h4>
 
 </div>
 
@@ -543,26 +547,6 @@ Aguaí
 </td>
 <td style="text-align:right;">
 8984.0
-</td>
-<td style="text-align:right;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Águas da Prata
-</td>
-<td style="text-align:right;">
-8137
-</td>
-<td style="text-align:right;">
-622
-</td>
-<td style="text-align:right;">
-24
-</td>
-<td style="text-align:right;">
-7644.0
 </td>
 <td style="text-align:right;">
 4
@@ -810,26 +794,6 @@ Santo Antônio do Jardim
 </tr>
 <tr>
 <td style="text-align:left;">
-São João da Boa Vista
-</td>
-<td style="text-align:right;">
-90637
-</td>
-<td style="text-align:right;">
-9442
-</td>
-<td style="text-align:right;">
-287
-</td>
-<td style="text-align:right;">
-10417.0
-</td>
-<td style="text-align:right;">
-3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 São José do Rio Pardo
 </td>
 <td style="text-align:right;">
@@ -846,6 +810,26 @@ São José do Rio Pardo
 </td>
 <td style="text-align:right;">
 4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+São João da Boa Vista
+</td>
+<td style="text-align:right;">
+90637
+</td>
+<td style="text-align:right;">
+9442
+</td>
+<td style="text-align:right;">
+287
+</td>
+<td style="text-align:right;">
+10417.0
+</td>
+<td style="text-align:right;">
+3
 </td>
 </tr>
 <tr>
@@ -923,6 +907,26 @@ Vargem Grande do Sul
 </td>
 <td style="text-align:right;">
 5146.0
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Águas da Prata
+</td>
+<td style="text-align:right;">
+8137
+</td>
+<td style="text-align:right;">
+622
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+7644.0
 </td>
 <td style="text-align:right;">
 4
@@ -1022,80 +1026,80 @@ class="section level2 tabset tabset-fade tabset-pills">
 <h4>Aguaí</h4>
 <p><img src="relatorio21_files/figure-html/casos.muni-1.png" width="672" /></p>
 </div>
-<div id="águas-da-prata" class="section level4">
-<h4>Águas da Prata</h4>
-<p><img src="relatorio21_files/figure-html/casos.muni-2.png" width="672" /></p>
-</div>
 <div id="caconde" class="section level4">
 <h4>Caconde</h4>
-<p><img src="relatorio21_files/figure-html/casos.muni-3.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/casos.muni-2.png" width="672" /></p>
 </div>
 <div id="casa-branca" class="section level4">
 <h4>Casa Branca</h4>
-<p><img src="relatorio21_files/figure-html/casos.muni-4.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/casos.muni-3.png" width="672" /></p>
 </div>
 <div id="divinolândia" class="section level4">
 <h4>Divinolândia</h4>
-<p><img src="relatorio21_files/figure-html/casos.muni-5.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/casos.muni-4.png" width="672" /></p>
 </div>
 <div id="espírito-santo-do-pinhal" class="section level4">
 <h4>Espírito Santo do Pinhal</h4>
-<p><img src="relatorio21_files/figure-html/casos.muni-6.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/casos.muni-5.png" width="672" /></p>
 </div>
 <div id="estiva-gerbi" class="section level4">
 <h4>Estiva Gerbi</h4>
-<p><img src="relatorio21_files/figure-html/casos.muni-7.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/casos.muni-6.png" width="672" /></p>
 </div>
 <div id="itapira" class="section level4">
 <h4>Itapira</h4>
-<p><img src="relatorio21_files/figure-html/casos.muni-8.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/casos.muni-7.png" width="672" /></p>
 </div>
 <div id="itobi" class="section level4">
 <h4>Itobi</h4>
-<p><img src="relatorio21_files/figure-html/casos.muni-9.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/casos.muni-8.png" width="672" /></p>
 </div>
 <div id="mococa" class="section level4">
 <h4>Mococa</h4>
-<p><img src="relatorio21_files/figure-html/casos.muni-10.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/casos.muni-9.png" width="672" /></p>
 </div>
 <div id="mogi-guaçu" class="section level4">
 <h4>Mogi Guaçu</h4>
-<p><img src="relatorio21_files/figure-html/casos.muni-11.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/casos.muni-10.png" width="672" /></p>
 </div>
 <div id="mogi-mirim" class="section level4">
 <h4>Mogi Mirim</h4>
-<p><img src="relatorio21_files/figure-html/casos.muni-12.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/casos.muni-11.png" width="672" /></p>
 </div>
 <div id="santa-cruz-das-palmeiras" class="section level4">
 <h4>Santa Cruz das Palmeiras</h4>
-<p><img src="relatorio21_files/figure-html/casos.muni-13.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/casos.muni-12.png" width="672" /></p>
 </div>
 <div id="santo-antônio-do-jardim" class="section level4">
 <h4>Santo Antônio do Jardim</h4>
+<p><img src="relatorio21_files/figure-html/casos.muni-13.png" width="672" /></p>
+</div>
+<div id="são-josé-do-rio-pardo" class="section level4">
+<h4>São José do Rio Pardo</h4>
 <p><img src="relatorio21_files/figure-html/casos.muni-14.png" width="672" /></p>
 </div>
 <div id="são-joão-da-boa-vista" class="section level4">
 <h4>São João da Boa Vista</h4>
 <p><img src="relatorio21_files/figure-html/casos.muni-15.png" width="672" /></p>
 </div>
-<div id="são-josé-do-rio-pardo" class="section level4">
-<h4>São José do Rio Pardo</h4>
-<p><img src="relatorio21_files/figure-html/casos.muni-16.png" width="672" /></p>
-</div>
 <div id="são-sebastião-da-grama" class="section level4">
 <h4>São Sebastião da Grama</h4>
-<p><img src="relatorio21_files/figure-html/casos.muni-17.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/casos.muni-16.png" width="672" /></p>
 </div>
 <div id="tambaú" class="section level4">
 <h4>Tambaú</h4>
-<p><img src="relatorio21_files/figure-html/casos.muni-18.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/casos.muni-17.png" width="672" /></p>
 </div>
 <div id="tapiratiba" class="section level4">
 <h4>Tapiratiba</h4>
-<p><img src="relatorio21_files/figure-html/casos.muni-19.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/casos.muni-18.png" width="672" /></p>
 </div>
 <div id="vargem-grande-do-sul" class="section level4">
 <h4>Vargem Grande do Sul</h4>
+<p><img src="relatorio21_files/figure-html/casos.muni-19.png" width="672" /></p>
+</div>
+<div id="águas-da-prata" class="section level4">
+<h4>Águas da Prata</h4>
 <p><img src="relatorio21_files/figure-html/casos.muni-20.png" width="672" />
 <Br><Br></p>
 </div>
@@ -1106,80 +1110,80 @@ class="section level2 tabset tabset-fade tabset-pills">
 <h4>Aguaí</h4>
 <p><img src="relatorio21_files/figure-html/obitos.muni-1.png" width="672" /></p>
 </div>
-<div id="águas-da-prata-1" class="section level4">
-<h4>Águas da Prata</h4>
-<p><img src="relatorio21_files/figure-html/obitos.muni-2.png" width="672" /></p>
-</div>
 <div id="caconde-1" class="section level4">
 <h4>Caconde</h4>
-<p><img src="relatorio21_files/figure-html/obitos.muni-3.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/obitos.muni-2.png" width="672" /></p>
 </div>
 <div id="casa-branca-1" class="section level4">
 <h4>Casa Branca</h4>
-<p><img src="relatorio21_files/figure-html/obitos.muni-4.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/obitos.muni-3.png" width="672" /></p>
 </div>
 <div id="divinolândia-1" class="section level4">
 <h4>Divinolândia</h4>
-<p><img src="relatorio21_files/figure-html/obitos.muni-5.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/obitos.muni-4.png" width="672" /></p>
 </div>
 <div id="espírito-santo-do-pinhal-1" class="section level4">
 <h4>Espírito Santo do Pinhal</h4>
-<p><img src="relatorio21_files/figure-html/obitos.muni-6.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/obitos.muni-5.png" width="672" /></p>
 </div>
 <div id="estiva-gerbi-1" class="section level4">
 <h4>Estiva Gerbi</h4>
-<p><img src="relatorio21_files/figure-html/obitos.muni-7.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/obitos.muni-6.png" width="672" /></p>
 </div>
 <div id="itapira-1" class="section level4">
 <h4>Itapira</h4>
-<p><img src="relatorio21_files/figure-html/obitos.muni-8.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/obitos.muni-7.png" width="672" /></p>
 </div>
 <div id="itobi-1" class="section level4">
 <h4>Itobi</h4>
-<p><img src="relatorio21_files/figure-html/obitos.muni-9.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/obitos.muni-8.png" width="672" /></p>
 </div>
 <div id="mococa-1" class="section level4">
 <h4>Mococa</h4>
-<p><img src="relatorio21_files/figure-html/obitos.muni-10.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/obitos.muni-9.png" width="672" /></p>
 </div>
 <div id="mogi-guaçu-1" class="section level4">
 <h4>Mogi Guaçu</h4>
-<p><img src="relatorio21_files/figure-html/obitos.muni-11.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/obitos.muni-10.png" width="672" /></p>
 </div>
 <div id="mogi-mirim-1" class="section level4">
 <h4>Mogi Mirim</h4>
-<p><img src="relatorio21_files/figure-html/obitos.muni-12.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/obitos.muni-11.png" width="672" /></p>
 </div>
 <div id="santa-cruz-das-palmeiras-1" class="section level4">
 <h4>Santa Cruz das Palmeiras</h4>
-<p><img src="relatorio21_files/figure-html/obitos.muni-13.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/obitos.muni-12.png" width="672" /></p>
 </div>
 <div id="santo-antônio-do-jardim-1" class="section level4">
 <h4>Santo Antônio do Jardim</h4>
+<p><img src="relatorio21_files/figure-html/obitos.muni-13.png" width="672" /></p>
+</div>
+<div id="são-josé-do-rio-pardo-1" class="section level4">
+<h4>São José do Rio Pardo</h4>
 <p><img src="relatorio21_files/figure-html/obitos.muni-14.png" width="672" /></p>
 </div>
 <div id="são-joão-da-boa-vista-1" class="section level4">
 <h4>São João da Boa Vista</h4>
 <p><img src="relatorio21_files/figure-html/obitos.muni-15.png" width="672" /></p>
 </div>
-<div id="são-josé-do-rio-pardo-1" class="section level4">
-<h4>São José do Rio Pardo</h4>
-<p><img src="relatorio21_files/figure-html/obitos.muni-16.png" width="672" /></p>
-</div>
 <div id="são-sebastião-da-grama-1" class="section level4">
 <h4>São Sebastião da Grama</h4>
-<p><img src="relatorio21_files/figure-html/obitos.muni-17.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/obitos.muni-16.png" width="672" /></p>
 </div>
 <div id="tambaú-1" class="section level4">
 <h4>Tambaú</h4>
-<p><img src="relatorio21_files/figure-html/obitos.muni-18.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/obitos.muni-17.png" width="672" /></p>
 </div>
 <div id="tapiratiba-1" class="section level4">
 <h4>Tapiratiba</h4>
-<p><img src="relatorio21_files/figure-html/obitos.muni-19.png" width="672" /></p>
+<p><img src="relatorio21_files/figure-html/obitos.muni-18.png" width="672" /></p>
 </div>
 <div id="vargem-grande-do-sul-1" class="section level4">
 <h4>Vargem Grande do Sul</h4>
+<p><img src="relatorio21_files/figure-html/obitos.muni-19.png" width="672" /></p>
+</div>
+<div id="águas-da-prata-1" class="section level4">
+<h4>Águas da Prata</h4>
 <p><img src="relatorio21_files/figure-html/obitos.muni-20.png" width="672" />
 <Br><Br></p>
 </div>
@@ -1207,7 +1211,7 @@ D1
 D2
 </th>
 <th style="text-align:right;">
-D3
+Ref1
 </th>
 <th style="text-align:right;">
 Cob.D1
@@ -1216,7 +1220,7 @@ Cob.D1
 Cob.D2
 </th>
 <th style="text-align:right;">
-Cob.D.Adic
+Cob.Ref1
 </th>
 </tr>
 </thead>
@@ -1232,7 +1236,7 @@ Cob.D.Adic
 1484
 </td>
 <td style="text-align:right;">
-1293
+1297
 </td>
 <td style="text-align:right;">
 0
@@ -1241,7 +1245,7 @@ Cob.D.Adic
 63.4
 </td>
 <td style="text-align:right;">
-55.2
+55.4
 </td>
 <td style="text-align:right;">
 0.0
@@ -1255,19 +1259,19 @@ Cob.D.Adic
 2377
 </td>
 <td style="text-align:right;">
-2428
+2429
 </td>
 <td style="text-align:right;">
-2413
+2407
 </td>
 <td style="text-align:right;">
 19
 </td>
 <td style="text-align:right;">
-102.1
+102.2
 </td>
 <td style="text-align:right;">
-101.5
+101.3
 </td>
 <td style="text-align:right;">
 0.8
@@ -1281,19 +1285,19 @@ Cob.D.Adic
 5826
 </td>
 <td style="text-align:right;">
-5407
+5410
 </td>
 <td style="text-align:right;">
-5224
+5166
 </td>
 <td style="text-align:right;">
-343
+344
 </td>
 <td style="text-align:right;">
-92.8
+92.9
 </td>
 <td style="text-align:right;">
-89.7
+88.7
 </td>
 <td style="text-align:right;">
 5.9
@@ -1307,19 +1311,19 @@ Cob.D.Adic
 6201
 </td>
 <td style="text-align:right;">
-5623
+5624
 </td>
 <td style="text-align:right;">
-5695
+4844
 </td>
 <td style="text-align:right;">
-928
+932
 </td>
 <td style="text-align:right;">
 90.7
 </td>
 <td style="text-align:right;">
-91.8
+78.1
 </td>
 <td style="text-align:right;">
 15.0
@@ -1333,19 +1337,19 @@ Cob.D.Adic
 4907
 </td>
 <td style="text-align:right;">
-5073
+5075
 </td>
 <td style="text-align:right;">
-5047
+4798
 </td>
 <td style="text-align:right;">
-744
+746
 </td>
 <td style="text-align:right;">
 103.4
 </td>
 <td style="text-align:right;">
-102.9
+97.8
 </td>
 <td style="text-align:right;">
 15.2
@@ -1362,19 +1366,19 @@ Cob.D.Adic
 4230
 </td>
 <td style="text-align:right;">
-4165
+4116
 </td>
 <td style="text-align:right;">
-1027
+1031
 </td>
 <td style="text-align:right;">
 103.6
 </td>
 <td style="text-align:right;">
-102.0
+100.8
 </td>
 <td style="text-align:right;">
-25.2
+25.3
 </td>
 </tr>
 <tr>
@@ -1385,22 +1389,22 @@ Cob.D.Adic
 3113
 </td>
 <td style="text-align:right;">
-3322
+3324
 </td>
 <td style="text-align:right;">
-3322
+3307
 </td>
 <td style="text-align:right;">
-2168
+2174
 </td>
 <td style="text-align:right;">
-106.7
+106.8
 </td>
 <td style="text-align:right;">
-106.7
+106.2
 </td>
 <td style="text-align:right;">
-69.6
+69.8
 </td>
 </tr>
 <tr>
@@ -1414,10 +1418,10 @@ Cob.D.Adic
 2401
 </td>
 <td style="text-align:right;">
-2371
+2370
 </td>
 <td style="text-align:right;">
-2599
+2601
 </td>
 <td style="text-align:right;">
 104.3
@@ -1426,253 +1430,7 @@ Cob.D.Adic
 103.0
 </td>
 <td style="text-align:right;">
-112.9
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="águas-da-prata-2" class="section level4">
-<h4>Águas da Prata</h4>
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>
-Águas da Prata
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-Faixa etária
-</th>
-<th style="text-align:right;">
-População
-</th>
-<th style="text-align:right;">
-D1
-</th>
-<th style="text-align:right;">
-D2
-</th>
-<th style="text-align:right;">
-D3
-</th>
-<th style="text-align:right;">
-Cob.D1
-</th>
-<th style="text-align:right;">
-Cob.D2
-</th>
-<th style="text-align:right;">
-Cob.D.Adic
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-10 a 14
-</td>
-<td style="text-align:right;">
-409
-</td>
-<td style="text-align:right;">
-315
-</td>
-<td style="text-align:right;">
-338
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-77.0
-</td>
-<td style="text-align:right;">
-82.6
-</td>
-<td style="text-align:right;">
-0.2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-15 a 19
-</td>
-<td style="text-align:right;">
-451
-</td>
-<td style="text-align:right;">
-485
-</td>
-<td style="text-align:right;">
-545
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-107.5
-</td>
-<td style="text-align:right;">
-120.8
-</td>
-<td style="text-align:right;">
-0.7
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-20 a 29
-</td>
-<td style="text-align:right;">
-1128
-</td>
-<td style="text-align:right;">
-964
-</td>
-<td style="text-align:right;">
-966
-</td>
-<td style="text-align:right;">
-88
-</td>
-<td style="text-align:right;">
-85.5
-</td>
-<td style="text-align:right;">
-85.6
-</td>
-<td style="text-align:right;">
-7.8
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-30 a 39
-</td>
-<td style="text-align:right;">
-1209
-</td>
-<td style="text-align:right;">
-1163
-</td>
-<td style="text-align:right;">
-1360
-</td>
-<td style="text-align:right;">
-199
-</td>
-<td style="text-align:right;">
-96.2
-</td>
-<td style="text-align:right;">
-112.5
-</td>
-<td style="text-align:right;">
-16.5
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-40 a 49
-</td>
-<td style="text-align:right;">
-1034
-</td>
-<td style="text-align:right;">
-1129
-</td>
-<td style="text-align:right;">
-1199
-</td>
-<td style="text-align:right;">
-252
-</td>
-<td style="text-align:right;">
-109.2
-</td>
-<td style="text-align:right;">
-116.0
-</td>
-<td style="text-align:right;">
-24.4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-50 a 59
-</td>
-<td style="text-align:right;">
-1052
-</td>
-<td style="text-align:right;">
-1106
-</td>
-<td style="text-align:right;">
-1089
-</td>
-<td style="text-align:right;">
-275
-</td>
-<td style="text-align:right;">
-105.1
-</td>
-<td style="text-align:right;">
-103.5
-</td>
-<td style="text-align:right;">
-26.1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-60 a 69
-</td>
-<td style="text-align:right;">
-913
-</td>
-<td style="text-align:right;">
-1095
-</td>
-<td style="text-align:right;">
-1112
-</td>
-<td style="text-align:right;">
-666
-</td>
-<td style="text-align:right;">
-119.9
-</td>
-<td style="text-align:right;">
-121.8
-</td>
-<td style="text-align:right;">
-72.9
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-70 ou mais
-</td>
-<td style="text-align:right;">
-857
-</td>
-<td style="text-align:right;">
-1024
-</td>
-<td style="text-align:right;">
-1012
-</td>
-<td style="text-align:right;">
-1101
-</td>
-<td style="text-align:right;">
-119.5
-</td>
-<td style="text-align:right;">
-118.1
-</td>
-<td style="text-align:right;">
-128.5
+113.0
 </td>
 </tr>
 </tbody>
@@ -1699,7 +1457,7 @@ D1
 D2
 </th>
 <th style="text-align:right;">
-D3
+Ref1
 </th>
 <th style="text-align:right;">
 Cob.D1
@@ -1708,7 +1466,7 @@ Cob.D1
 Cob.D2
 </th>
 <th style="text-align:right;">
-Cob.D.Adic
+Cob.Ref1
 </th>
 </tr>
 </thead>
@@ -1721,7 +1479,7 @@ Cob.D.Adic
 1154
 </td>
 <td style="text-align:right;">
-839
+840
 </td>
 <td style="text-align:right;">
 590
@@ -1730,7 +1488,7 @@ Cob.D.Adic
 0
 </td>
 <td style="text-align:right;">
-72.7
+72.8
 </td>
 <td style="text-align:right;">
 51.1
@@ -1750,7 +1508,7 @@ Cob.D.Adic
 1367
 </td>
 <td style="text-align:right;">
-1143
+1142
 </td>
 <td style="text-align:right;">
 8
@@ -1759,7 +1517,7 @@ Cob.D.Adic
 101.0
 </td>
 <td style="text-align:right;">
-84.4
+84.3
 </td>
 <td style="text-align:right;">
 0.6
@@ -1773,19 +1531,19 @@ Cob.D.Adic
 3169
 </td>
 <td style="text-align:right;">
-2759
+2760
 </td>
 <td style="text-align:right;">
-2506
+2480
 </td>
 <td style="text-align:right;">
-313
+314
 </td>
 <td style="text-align:right;">
 87.1
 </td>
 <td style="text-align:right;">
-79.1
+78.3
 </td>
 <td style="text-align:right;">
 9.9
@@ -1802,16 +1560,16 @@ Cob.D.Adic
 2553
 </td>
 <td style="text-align:right;">
-2494
+2252
 </td>
 <td style="text-align:right;">
-502
+503
 </td>
 <td style="text-align:right;">
 97.1
 </td>
 <td style="text-align:right;">
-94.8
+85.6
 </td>
 <td style="text-align:right;">
 19.1
@@ -1828,19 +1586,19 @@ Cob.D.Adic
 2449
 </td>
 <td style="text-align:right;">
-2423
+2273
 </td>
 <td style="text-align:right;">
-438
+439
 </td>
 <td style="text-align:right;">
 103.1
 </td>
 <td style="text-align:right;">
-102.0
+95.7
 </td>
 <td style="text-align:right;">
-18.4
+18.5
 </td>
 </tr>
 <tr>
@@ -1851,10 +1609,10 @@ Cob.D.Adic
 2373
 </td>
 <td style="text-align:right;">
-2346
+2347
 </td>
 <td style="text-align:right;">
-2283
+2266
 </td>
 <td style="text-align:right;">
 443
@@ -1863,7 +1621,7 @@ Cob.D.Adic
 98.9
 </td>
 <td style="text-align:right;">
-96.2
+95.5
 </td>
 <td style="text-align:right;">
 18.7
@@ -1880,19 +1638,19 @@ Cob.D.Adic
 1993
 </td>
 <td style="text-align:right;">
-2016
+2013
 </td>
 <td style="text-align:right;">
-1224
+1225
 </td>
 <td style="text-align:right;">
 106.2
 </td>
 <td style="text-align:right;">
-107.4
+107.2
 </td>
 <td style="text-align:right;">
-65.2
+65.3
 </td>
 </tr>
 <tr>
@@ -1945,7 +1703,7 @@ D1
 D2
 </th>
 <th style="text-align:right;">
-D3
+Ref1
 </th>
 <th style="text-align:right;">
 Cob.D1
@@ -1954,7 +1712,7 @@ Cob.D1
 Cob.D2
 </th>
 <th style="text-align:right;">
-Cob.D.Adic
+Cob.Ref1
 </th>
 </tr>
 </thead>
@@ -1993,19 +1751,19 @@ Cob.D.Adic
 1668
 </td>
 <td style="text-align:right;">
-1070
+1079
 </td>
 <td style="text-align:right;">
-823
+834
 </td>
 <td style="text-align:right;">
 3
 </td>
 <td style="text-align:right;">
-64.1
+64.7
 </td>
 <td style="text-align:right;">
-49.3
+50.0
 </td>
 <td style="text-align:right;">
 0.2
@@ -2019,19 +1777,19 @@ Cob.D.Adic
 1794
 </td>
 <td style="text-align:right;">
-1774
+1784
 </td>
 <td style="text-align:right;">
-1664
+1677
 </td>
 <td style="text-align:right;">
 65
 </td>
 <td style="text-align:right;">
-98.9
+99.4
 </td>
 <td style="text-align:right;">
-92.8
+93.5
 </td>
 <td style="text-align:right;">
 3.6
@@ -2045,22 +1803,22 @@ Cob.D.Adic
 4994
 </td>
 <td style="text-align:right;">
-4375
+4385
 </td>
 <td style="text-align:right;">
-4097
+4078
 </td>
 <td style="text-align:right;">
-523
+529
 </td>
 <td style="text-align:right;">
-87.6
+87.8
 </td>
 <td style="text-align:right;">
-82.0
+81.7
 </td>
 <td style="text-align:right;">
-10.5
+10.6
 </td>
 </tr>
 <tr>
@@ -2071,22 +1829,22 @@ Cob.D.Adic
 4937
 </td>
 <td style="text-align:right;">
-4897
+4908
 </td>
 <td style="text-align:right;">
-4671
+4167
 </td>
 <td style="text-align:right;">
-815
+822
 </td>
 <td style="text-align:right;">
-99.2
+99.4
 </td>
 <td style="text-align:right;">
-94.6
+84.4
 </td>
 <td style="text-align:right;">
-16.5
+16.6
 </td>
 </tr>
 <tr>
@@ -2097,22 +1855,22 @@ Cob.D.Adic
 3861
 </td>
 <td style="text-align:right;">
-4056
+4060
 </td>
 <td style="text-align:right;">
-3893
+3651
 </td>
 <td style="text-align:right;">
-850
+857
 </td>
 <td style="text-align:right;">
-105.1
+105.2
 </td>
 <td style="text-align:right;">
-100.8
+94.6
 </td>
 <td style="text-align:right;">
-22.0
+22.2
 </td>
 </tr>
 <tr>
@@ -2123,22 +1881,22 @@ Cob.D.Adic
 3583
 </td>
 <td style="text-align:right;">
-3653
+3656
 </td>
 <td style="text-align:right;">
-3328
+3300
 </td>
 <td style="text-align:right;">
-880
+893
 </td>
 <td style="text-align:right;">
 102.0
 </td>
 <td style="text-align:right;">
-92.9
+92.1
 </td>
 <td style="text-align:right;">
-24.6
+24.9
 </td>
 </tr>
 <tr>
@@ -2149,22 +1907,22 @@ Cob.D.Adic
 2859
 </td>
 <td style="text-align:right;">
-2964
+2971
 </td>
 <td style="text-align:right;">
 2951
 </td>
 <td style="text-align:right;">
-1654
+1659
 </td>
 <td style="text-align:right;">
-103.7
+103.9
 </td>
 <td style="text-align:right;">
 103.2
 </td>
 <td style="text-align:right;">
-57.9
+58.0
 </td>
 </tr>
 <tr>
@@ -2175,22 +1933,22 @@ Cob.D.Adic
 2318
 </td>
 <td style="text-align:right;">
-2438
+2439
 </td>
 <td style="text-align:right;">
-2357
+2356
 </td>
 <td style="text-align:right;">
-2109
+2115
 </td>
 <td style="text-align:right;">
 105.2
 </td>
 <td style="text-align:right;">
-101.7
+101.6
 </td>
 <td style="text-align:right;">
-91.0
+91.2
 </td>
 </tr>
 </tbody>
@@ -2217,7 +1975,7 @@ D1
 D2
 </th>
 <th style="text-align:right;">
-D3
+Ref1
 </th>
 <th style="text-align:right;">
 Cob.D1
@@ -2226,7 +1984,7 @@ Cob.D1
 Cob.D2
 </th>
 <th style="text-align:right;">
-Cob.D.Adic
+Cob.Ref1
 </th>
 </tr>
 </thead>
@@ -2242,7 +2000,7 @@ Cob.D.Adic
 424
 </td>
 <td style="text-align:right;">
-320
+321
 </td>
 <td style="text-align:right;">
 0
@@ -2251,7 +2009,7 @@ Cob.D.Adic
 76.4
 </td>
 <td style="text-align:right;">
-57.7
+57.8
 </td>
 <td style="text-align:right;">
 0.0
@@ -2294,7 +2052,7 @@ Cob.D.Adic
 1599
 </td>
 <td style="text-align:right;">
-1577
+1574
 </td>
 <td style="text-align:right;">
 166
@@ -2303,7 +2061,7 @@ Cob.D.Adic
 102.3
 </td>
 <td style="text-align:right;">
-100.9
+100.7
 </td>
 <td style="text-align:right;">
 10.6
@@ -2320,19 +2078,19 @@ Cob.D.Adic
 1858
 </td>
 <td style="text-align:right;">
-1944
+1835
 </td>
 <td style="text-align:right;">
-531
+532
 </td>
 <td style="text-align:right;">
 115.1
 </td>
 <td style="text-align:right;">
-120.4
+113.7
 </td>
 <td style="text-align:right;">
-32.9
+33.0
 </td>
 </tr>
 <tr>
@@ -2346,7 +2104,7 @@ Cob.D.Adic
 1712
 </td>
 <td style="text-align:right;">
-1700
+1552
 </td>
 <td style="text-align:right;">
 560
@@ -2355,7 +2113,7 @@ Cob.D.Adic
 111.9
 </td>
 <td style="text-align:right;">
-111.1
+101.4
 </td>
 <td style="text-align:right;">
 36.6
@@ -2372,7 +2130,7 @@ Cob.D.Adic
 1674
 </td>
 <td style="text-align:right;">
-1644
+1624
 </td>
 <td style="text-align:right;">
 505
@@ -2381,7 +2139,7 @@ Cob.D.Adic
 113.3
 </td>
 <td style="text-align:right;">
-111.3
+110.0
 </td>
 <td style="text-align:right;">
 34.2
@@ -2398,19 +2156,19 @@ Cob.D.Adic
 1470
 </td>
 <td style="text-align:right;">
-1480
+1475
 </td>
 <td style="text-align:right;">
-1013
+1014
 </td>
 <td style="text-align:right;">
 115.4
 </td>
 <td style="text-align:right;">
-116.2
+115.8
 </td>
 <td style="text-align:right;">
-79.5
+79.6
 </td>
 </tr>
 <tr>
@@ -2424,7 +2182,7 @@ Cob.D.Adic
 1120
 </td>
 <td style="text-align:right;">
-1102
+1101
 </td>
 <td style="text-align:right;">
 1205
@@ -2433,7 +2191,7 @@ Cob.D.Adic
 108.3
 </td>
 <td style="text-align:right;">
-106.6
+106.5
 </td>
 <td style="text-align:right;">
 116.5
@@ -2463,7 +2221,7 @@ D1
 D2
 </th>
 <th style="text-align:right;">
-D3
+Ref1
 </th>
 <th style="text-align:right;">
 Cob.D1
@@ -2472,7 +2230,7 @@ Cob.D1
 Cob.D2
 </th>
 <th style="text-align:right;">
-Cob.D.Adic
+Cob.Ref1
 </th>
 </tr>
 </thead>
@@ -2485,19 +2243,19 @@ Cob.D.Adic
 2314
 </td>
 <td style="text-align:right;">
-1498
+1500
 </td>
 <td style="text-align:right;">
-1094
+1096
 </td>
 <td style="text-align:right;">
 0
 </td>
 <td style="text-align:right;">
-64.7
+64.8
 </td>
 <td style="text-align:right;">
-47.3
+47.4
 </td>
 <td style="text-align:right;">
 0.0
@@ -2514,7 +2272,7 @@ Cob.D.Adic
 2523
 </td>
 <td style="text-align:right;">
-2202
+2203
 </td>
 <td style="text-align:right;">
 26
@@ -2537,22 +2295,22 @@ Cob.D.Adic
 6326
 </td>
 <td style="text-align:right;">
-5915
+5918
 </td>
 <td style="text-align:right;">
-5534
+5510
 </td>
 <td style="text-align:right;">
-427
+428
 </td>
 <td style="text-align:right;">
-93.5
+93.6
 </td>
 <td style="text-align:right;">
-87.5
+87.1
 </td>
 <td style="text-align:right;">
-6.7
+6.8
 </td>
 </tr>
 <tr>
@@ -2563,22 +2321,22 @@ Cob.D.Adic
 6732
 </td>
 <td style="text-align:right;">
-6198
+6199
 </td>
 <td style="text-align:right;">
-6147
+5544
 </td>
 <td style="text-align:right;">
-1322
+1325
 </td>
 <td style="text-align:right;">
 92.1
 </td>
 <td style="text-align:right;">
-91.3
+82.4
 </td>
 <td style="text-align:right;">
-19.6
+19.7
 </td>
 </tr>
 <tr>
@@ -2589,22 +2347,22 @@ Cob.D.Adic
 6245
 </td>
 <td style="text-align:right;">
-6233
+6235
 </td>
 <td style="text-align:right;">
-6182
+5843
 </td>
 <td style="text-align:right;">
-1114
+1116
 </td>
 <td style="text-align:right;">
 99.8
 </td>
 <td style="text-align:right;">
-99.0
+93.6
 </td>
 <td style="text-align:right;">
-17.8
+17.9
 </td>
 </tr>
 <tr>
@@ -2618,7 +2376,7 @@ Cob.D.Adic
 5818
 </td>
 <td style="text-align:right;">
-5778
+5677
 </td>
 <td style="text-align:right;">
 1329
@@ -2627,7 +2385,7 @@ Cob.D.Adic
 100.3
 </td>
 <td style="text-align:right;">
-99.7
+97.9
 </td>
 <td style="text-align:right;">
 22.9
@@ -2641,22 +2399,22 @@ Cob.D.Adic
 4447
 </td>
 <td style="text-align:right;">
-4594
+4597
 </td>
 <td style="text-align:right;">
-4618
+4597
 </td>
 <td style="text-align:right;">
-2615
+2619
 </td>
 <td style="text-align:right;">
-103.3
+103.4
 </td>
 <td style="text-align:right;">
-103.8
+103.4
 </td>
 <td style="text-align:right;">
-58.8
+58.9
 </td>
 </tr>
 <tr>
@@ -2673,7 +2431,7 @@ Cob.D.Adic
 3745
 </td>
 <td style="text-align:right;">
-4419
+4423
 </td>
 <td style="text-align:right;">
 104.8
@@ -2682,7 +2440,7 @@ Cob.D.Adic
 104.4
 </td>
 <td style="text-align:right;">
-123.2
+123.3
 </td>
 </tr>
 </tbody>
@@ -2709,7 +2467,7 @@ D1
 D2
 </th>
 <th style="text-align:right;">
-D3
+Ref1
 </th>
 <th style="text-align:right;">
 Cob.D1
@@ -2718,7 +2476,7 @@ Cob.D1
 Cob.D2
 </th>
 <th style="text-align:right;">
-Cob.D.Adic
+Cob.Ref1
 </th>
 </tr>
 </thead>
@@ -2734,7 +2492,7 @@ Cob.D.Adic
 437
 </td>
 <td style="text-align:right;">
-252
+258
 </td>
 <td style="text-align:right;">
 1
@@ -2743,7 +2501,7 @@ Cob.D.Adic
 65.3
 </td>
 <td style="text-align:right;">
-37.7
+38.6
 </td>
 <td style="text-align:right;">
 0.1
@@ -2757,7 +2515,7 @@ Cob.D.Adic
 709
 </td>
 <td style="text-align:right;">
-707
+708
 </td>
 <td style="text-align:right;">
 582
@@ -2766,7 +2524,7 @@ Cob.D.Adic
 9
 </td>
 <td style="text-align:right;">
-99.7
+99.9
 </td>
 <td style="text-align:right;">
 82.1
@@ -2783,22 +2541,22 @@ Cob.D.Adic
 1818
 </td>
 <td style="text-align:right;">
-1541
+1543
 </td>
 <td style="text-align:right;">
-1510
+1487
 </td>
 <td style="text-align:right;">
-113
+115
 </td>
 <td style="text-align:right;">
-84.8
+84.9
 </td>
 <td style="text-align:right;">
-83.1
+81.8
 </td>
 <td style="text-align:right;">
-6.2
+6.3
 </td>
 </tr>
 <tr>
@@ -2809,19 +2567,19 @@ Cob.D.Adic
 1939
 </td>
 <td style="text-align:right;">
-1802
+1803
 </td>
 <td style="text-align:right;">
-1849
+1612
 </td>
 <td style="text-align:right;">
 249
 </td>
 <td style="text-align:right;">
-92.9
+93.0
 </td>
 <td style="text-align:right;">
-95.4
+83.1
 </td>
 <td style="text-align:right;">
 12.8
@@ -2838,19 +2596,19 @@ Cob.D.Adic
 1569
 </td>
 <td style="text-align:right;">
-1615
+1493
 </td>
 <td style="text-align:right;">
-247
+251
 </td>
 <td style="text-align:right;">
 97.2
 </td>
 <td style="text-align:right;">
-100.0
+92.4
 </td>
 <td style="text-align:right;">
-15.3
+15.5
 </td>
 </tr>
 <tr>
@@ -2861,22 +2619,22 @@ Cob.D.Adic
 1414
 </td>
 <td style="text-align:right;">
-1426
+1427
 </td>
 <td style="text-align:right;">
-1412
+1377
 </td>
 <td style="text-align:right;">
-275
+277
 </td>
 <td style="text-align:right;">
-100.8
+100.9
 </td>
 <td style="text-align:right;">
-99.9
+97.4
 </td>
 <td style="text-align:right;">
-19.4
+19.6
 </td>
 </tr>
 <tr>
@@ -2887,22 +2645,22 @@ Cob.D.Adic
 1012
 </td>
 <td style="text-align:right;">
-1135
+1138
 </td>
 <td style="text-align:right;">
-1128
+1125
 </td>
 <td style="text-align:right;">
-617
+621
 </td>
 <td style="text-align:right;">
-112.2
+112.5
 </td>
 <td style="text-align:right;">
-111.5
+111.2
 </td>
 <td style="text-align:right;">
-61.0
+61.4
 </td>
 </tr>
 <tr>
@@ -2913,22 +2671,22 @@ Cob.D.Adic
 666
 </td>
 <td style="text-align:right;">
-693
+695
 </td>
 <td style="text-align:right;">
-680
+681
 </td>
 <td style="text-align:right;">
-671
+674
 </td>
 <td style="text-align:right;">
-104.1
+104.4
 </td>
 <td style="text-align:right;">
-102.1
+102.3
 </td>
 <td style="text-align:right;">
-100.8
+101.2
 </td>
 </tr>
 </tbody>
@@ -2955,7 +2713,7 @@ D1
 D2
 </th>
 <th style="text-align:right;">
-D3
+Ref1
 </th>
 <th style="text-align:right;">
 Cob.D1
@@ -2964,7 +2722,7 @@ Cob.D1
 Cob.D2
 </th>
 <th style="text-align:right;">
-Cob.D.Adic
+Cob.Ref1
 </th>
 </tr>
 </thead>
@@ -2980,7 +2738,7 @@ Cob.D.Adic
 2406
 </td>
 <td style="text-align:right;">
-1954
+1955
 </td>
 <td style="text-align:right;">
 0
@@ -3003,10 +2761,10 @@ Cob.D.Adic
 4001
 </td>
 <td style="text-align:right;">
-4282
+4283
 </td>
 <td style="text-align:right;">
-4210
+4208
 </td>
 <td style="text-align:right;">
 32
@@ -3029,22 +2787,22 @@ Cob.D.Adic
 10773
 </td>
 <td style="text-align:right;">
-10729
+10732
 </td>
 <td style="text-align:right;">
-10565
+10537
 </td>
 <td style="text-align:right;">
-1061
+1063
 </td>
 <td style="text-align:right;">
 99.6
 </td>
 <td style="text-align:right;">
-98.1
+97.8
 </td>
 <td style="text-align:right;">
-9.8
+9.9
 </td>
 </tr>
 <tr>
@@ -3055,22 +2813,22 @@ Cob.D.Adic
 12026
 </td>
 <td style="text-align:right;">
-11669
+11670
 </td>
 <td style="text-align:right;">
-12895
+10845
 </td>
 <td style="text-align:right;">
-2747
+2748
 </td>
 <td style="text-align:right;">
 97.0
 </td>
 <td style="text-align:right;">
-107.2
+90.2
 </td>
 <td style="text-align:right;">
-22.8
+22.9
 </td>
 </tr>
 <tr>
@@ -3081,22 +2839,22 @@ Cob.D.Adic
 10500
 </td>
 <td style="text-align:right;">
-10718
+10720
 </td>
 <td style="text-align:right;">
-10717
+10572
 </td>
 <td style="text-align:right;">
-2292
-</td>
-<td style="text-align:right;">
-102.1
+2295
 </td>
 <td style="text-align:right;">
 102.1
 </td>
 <td style="text-align:right;">
-21.8
+100.7
+</td>
+<td style="text-align:right;">
+21.9
 </td>
 </tr>
 <tr>
@@ -3107,19 +2865,19 @@ Cob.D.Adic
 9600
 </td>
 <td style="text-align:right;">
-9678
+9682
 </td>
 <td style="text-align:right;">
-9552
+9534
 </td>
 <td style="text-align:right;">
-2543
+2546
 </td>
 <td style="text-align:right;">
-100.8
+100.9
 </td>
 <td style="text-align:right;">
-99.5
+99.3
 </td>
 <td style="text-align:right;">
 26.5
@@ -3136,7 +2894,7 @@ Cob.D.Adic
 7858
 </td>
 <td style="text-align:right;">
-7900
+7893
 </td>
 <td style="text-align:right;">
 5857
@@ -3145,7 +2903,7 @@ Cob.D.Adic
 102.4
 </td>
 <td style="text-align:right;">
-103.0
+102.9
 </td>
 <td style="text-align:right;">
 76.4
@@ -3159,10 +2917,10 @@ Cob.D.Adic
 5949
 </td>
 <td style="text-align:right;">
-6268
+6270
 </td>
 <td style="text-align:right;">
-6214
+6209
 </td>
 <td style="text-align:right;">
 7837
@@ -3171,7 +2929,7 @@ Cob.D.Adic
 105.4
 </td>
 <td style="text-align:right;">
-104.5
+104.4
 </td>
 <td style="text-align:right;">
 131.7
@@ -3201,7 +2959,7 @@ D1
 D2
 </th>
 <th style="text-align:right;">
-D3
+Ref1
 </th>
 <th style="text-align:right;">
 Cob.D1
@@ -3210,7 +2968,7 @@ Cob.D1
 Cob.D2
 </th>
 <th style="text-align:right;">
-Cob.D.Adic
+Cob.Ref1
 </th>
 </tr>
 </thead>
@@ -3249,19 +3007,19 @@ Cob.D.Adic
 500
 </td>
 <td style="text-align:right;">
-521
+523
 </td>
 <td style="text-align:right;">
-400
+399
 </td>
 <td style="text-align:right;">
 6
 </td>
 <td style="text-align:right;">
-104.2
+104.6
 </td>
 <td style="text-align:right;">
-80.0
+79.8
 </td>
 <td style="text-align:right;">
 1.2
@@ -3275,19 +3033,19 @@ Cob.D.Adic
 1168
 </td>
 <td style="text-align:right;">
-1205
+1208
 </td>
 <td style="text-align:right;">
-1057
+1059
 </td>
 <td style="text-align:right;">
 105
 </td>
 <td style="text-align:right;">
-103.2
+103.4
 </td>
 <td style="text-align:right;">
-90.5
+90.7
 </td>
 <td style="text-align:right;">
 9.0
@@ -3301,19 +3059,19 @@ Cob.D.Adic
 1313
 </td>
 <td style="text-align:right;">
-1268
+1270
 </td>
 <td style="text-align:right;">
-1307
+1133
 </td>
 <td style="text-align:right;">
 215
 </td>
 <td style="text-align:right;">
-96.6
+96.7
 </td>
 <td style="text-align:right;">
-99.5
+86.3
 </td>
 <td style="text-align:right;">
 16.4
@@ -3327,22 +3085,22 @@ Cob.D.Adic
 1070
 </td>
 <td style="text-align:right;">
-1102
+1106
 </td>
 <td style="text-align:right;">
-1102
+1042
 </td>
 <td style="text-align:right;">
-108
+110
 </td>
 <td style="text-align:right;">
-103.0
+103.4
 </td>
 <td style="text-align:right;">
-103.0
+97.4
 </td>
 <td style="text-align:right;">
-10.1
+10.3
 </td>
 </tr>
 <tr>
@@ -3356,7 +3114,7 @@ Cob.D.Adic
 941
 </td>
 <td style="text-align:right;">
-926
+913
 </td>
 <td style="text-align:right;">
 190
@@ -3365,7 +3123,7 @@ Cob.D.Adic
 100.6
 </td>
 <td style="text-align:right;">
-99.0
+97.6
 </td>
 <td style="text-align:right;">
 20.3
@@ -3379,22 +3137,22 @@ Cob.D.Adic
 768
 </td>
 <td style="text-align:right;">
-808
+810
 </td>
 <td style="text-align:right;">
-808
+810
 </td>
 <td style="text-align:right;">
-510
+511
 </td>
 <td style="text-align:right;">
-105.2
+105.5
 </td>
 <td style="text-align:right;">
-105.2
+105.5
 </td>
 <td style="text-align:right;">
-66.4
+66.5
 </td>
 </tr>
 <tr>
@@ -3408,19 +3166,19 @@ Cob.D.Adic
 610
 </td>
 <td style="text-align:right;">
-607
+604
 </td>
 <td style="text-align:right;">
-569
+570
 </td>
 <td style="text-align:right;">
 106.5
 </td>
 <td style="text-align:right;">
-105.9
+105.4
 </td>
 <td style="text-align:right;">
-99.3
+99.5
 </td>
 </tr>
 </tbody>
@@ -3447,7 +3205,7 @@ D1
 D2
 </th>
 <th style="text-align:right;">
-D3
+Ref1
 </th>
 <th style="text-align:right;">
 Cob.D1
@@ -3456,7 +3214,7 @@ Cob.D1
 Cob.D2
 </th>
 <th style="text-align:right;">
-Cob.D.Adic
+Cob.Ref1
 </th>
 </tr>
 </thead>
@@ -3469,19 +3227,19 @@ Cob.D.Adic
 3833
 </td>
 <td style="text-align:right;">
-2692
+2694
 </td>
 <td style="text-align:right;">
-1955
+1962
 </td>
 <td style="text-align:right;">
 1
 </td>
 <td style="text-align:right;">
-70.2
+70.3
 </td>
 <td style="text-align:right;">
-51.0
+51.2
 </td>
 <td style="text-align:right;">
 0.0
@@ -3495,10 +3253,10 @@ Cob.D.Adic
 4138
 </td>
 <td style="text-align:right;">
-4467
+4470
 </td>
 <td style="text-align:right;">
-3987
+3989
 </td>
 <td style="text-align:right;">
 37
@@ -3521,19 +3279,19 @@ Cob.D.Adic
 9898
 </td>
 <td style="text-align:right;">
-9638
+9642
 </td>
 <td style="text-align:right;">
-9476
+9447
 </td>
 <td style="text-align:right;">
-689
+693
 </td>
 <td style="text-align:right;">
 97.4
 </td>
 <td style="text-align:right;">
-95.7
+95.4
 </td>
 <td style="text-align:right;">
 7.0
@@ -3547,19 +3305,19 @@ Cob.D.Adic
 10458
 </td>
 <td style="text-align:right;">
-10479
+10481
 </td>
 <td style="text-align:right;">
-10403
+9351
 </td>
 <td style="text-align:right;">
-1952
+1955
 </td>
 <td style="text-align:right;">
 100.2
 </td>
 <td style="text-align:right;">
-99.5
+89.4
 </td>
 <td style="text-align:right;">
 18.7
@@ -3573,22 +3331,22 @@ Cob.D.Adic
 9543
 </td>
 <td style="text-align:right;">
-10083
+10085
 </td>
 <td style="text-align:right;">
-10016
+9289
 </td>
 <td style="text-align:right;">
-1661
+1668
 </td>
 <td style="text-align:right;">
 105.7
 </td>
 <td style="text-align:right;">
-105.0
+97.3
 </td>
 <td style="text-align:right;">
-17.4
+17.5
 </td>
 </tr>
 <tr>
@@ -3602,19 +3360,19 @@ Cob.D.Adic
 8950
 </td>
 <td style="text-align:right;">
-8828
+8751
 </td>
 <td style="text-align:right;">
-1811
+1815
 </td>
 <td style="text-align:right;">
 104.4
 </td>
 <td style="text-align:right;">
-103.0
+102.1
 </td>
 <td style="text-align:right;">
-21.1
+21.2
 </td>
 </tr>
 <tr>
@@ -3625,22 +3383,22 @@ Cob.D.Adic
 7223
 </td>
 <td style="text-align:right;">
-7559
+7563
 </td>
 <td style="text-align:right;">
-7559
+7547
 </td>
 <td style="text-align:right;">
-4730
-</td>
-<td style="text-align:right;">
-104.7
+4735
 </td>
 <td style="text-align:right;">
 104.7
 </td>
 <td style="text-align:right;">
-65.5
+104.5
+</td>
+<td style="text-align:right;">
+65.6
 </td>
 </tr>
 <tr>
@@ -3654,19 +3412,19 @@ Cob.D.Adic
 6123
 </td>
 <td style="text-align:right;">
-6094
+6086
 </td>
 <td style="text-align:right;">
-6092
+6097
 </td>
 <td style="text-align:right;">
 108.1
 </td>
 <td style="text-align:right;">
-107.6
+107.5
 </td>
 <td style="text-align:right;">
-107.6
+107.7
 </td>
 </tr>
 </tbody>
@@ -3693,7 +3451,7 @@ D1
 D2
 </th>
 <th style="text-align:right;">
-D3
+Ref1
 </th>
 <th style="text-align:right;">
 Cob.D1
@@ -3702,7 +3460,7 @@ Cob.D1
 Cob.D2
 </th>
 <th style="text-align:right;">
-Cob.D.Adic
+Cob.Ref1
 </th>
 </tr>
 </thead>
@@ -3715,19 +3473,19 @@ Cob.D.Adic
 8568
 </td>
 <td style="text-align:right;">
-4967
+4975
 </td>
 <td style="text-align:right;">
-2806
+2809
 </td>
 <td style="text-align:right;">
 2
 </td>
 <td style="text-align:right;">
-58.0
+58.1
 </td>
 <td style="text-align:right;">
-32.7
+32.8
 </td>
 <td style="text-align:right;">
 0.0
@@ -3741,13 +3499,13 @@ Cob.D.Adic
 9045
 </td>
 <td style="text-align:right;">
-9154
+9156
 </td>
 <td style="text-align:right;">
-8219
+8220
 </td>
 <td style="text-align:right;">
-45
+46
 </td>
 <td style="text-align:right;">
 101.2
@@ -3767,19 +3525,19 @@ Cob.D.Adic
 22693
 </td>
 <td style="text-align:right;">
-22232
+22240
 </td>
 <td style="text-align:right;">
-23093
+22985
 </td>
 <td style="text-align:right;">
-1196
+1198
 </td>
 <td style="text-align:right;">
 98.0
 </td>
 <td style="text-align:right;">
-101.8
+101.3
 </td>
 <td style="text-align:right;">
 5.3
@@ -3793,19 +3551,19 @@ Cob.D.Adic
 24993
 </td>
 <td style="text-align:right;">
-25083
+25098
 </td>
 <td style="text-align:right;">
-27222
+25116
 </td>
 <td style="text-align:right;">
-3739
+3746
 </td>
 <td style="text-align:right;">
 100.4
 </td>
 <td style="text-align:right;">
-108.9
+100.5
 </td>
 <td style="text-align:right;">
 15.0
@@ -3819,22 +3577,22 @@ Cob.D.Adic
 21953
 </td>
 <td style="text-align:right;">
-22226
+22232
 </td>
 <td style="text-align:right;">
-23237
+21457
 </td>
 <td style="text-align:right;">
-3498
+3518
 </td>
 <td style="text-align:right;">
-101.2
+101.3
 </td>
 <td style="text-align:right;">
-105.8
+97.7
 </td>
 <td style="text-align:right;">
-15.9
+16.0
 </td>
 </tr>
 <tr>
@@ -3845,22 +3603,22 @@ Cob.D.Adic
 19111
 </td>
 <td style="text-align:right;">
-19448
+19457
 </td>
 <td style="text-align:right;">
-19726
+19146
 </td>
 <td style="text-align:right;">
-3740
+3768
 </td>
 <td style="text-align:right;">
 101.8
 </td>
 <td style="text-align:right;">
-103.2
+100.2
 </td>
 <td style="text-align:right;">
-19.6
+19.7
 </td>
 </tr>
 <tr>
@@ -3871,22 +3629,22 @@ Cob.D.Adic
 14425
 </td>
 <td style="text-align:right;">
-14863
+14874
 </td>
 <td style="text-align:right;">
-15018
+14963
 </td>
 <td style="text-align:right;">
-7986
+8008
 </td>
 <td style="text-align:right;">
-103.0
+103.1
 </td>
 <td style="text-align:right;">
-104.1
+103.7
 </td>
 <td style="text-align:right;">
-55.4
+55.5
 </td>
 </tr>
 <tr>
@@ -3897,22 +3655,22 @@ Cob.D.Adic
 10415
 </td>
 <td style="text-align:right;">
-10942
+10948
 </td>
 <td style="text-align:right;">
-10904
+10897
 </td>
 <td style="text-align:right;">
-10415
+10437
 </td>
 <td style="text-align:right;">
 105.1
 </td>
 <td style="text-align:right;">
-104.7
+104.6
 </td>
 <td style="text-align:right;">
-100.0
+100.2
 </td>
 </tr>
 </tbody>
@@ -3939,7 +3697,7 @@ D1
 D2
 </th>
 <th style="text-align:right;">
-D3
+Ref1
 </th>
 <th style="text-align:right;">
 Cob.D1
@@ -3948,7 +3706,7 @@ Cob.D1
 Cob.D2
 </th>
 <th style="text-align:right;">
-Cob.D.Adic
+Cob.Ref1
 </th>
 </tr>
 </thead>
@@ -3987,19 +3745,19 @@ Cob.D.Adic
 5106
 </td>
 <td style="text-align:right;">
-3382
+3383
 </td>
 <td style="text-align:right;">
-2399
+2404
 </td>
 <td style="text-align:right;">
-6
+7
 </td>
 <td style="text-align:right;">
-66.2
+66.3
 </td>
 <td style="text-align:right;">
-47.0
+47.1
 </td>
 <td style="text-align:right;">
 0.1
@@ -4013,19 +3771,19 @@ Cob.D.Adic
 5447
 </td>
 <td style="text-align:right;">
-5768
+5772
 </td>
 <td style="text-align:right;">
-5300
+5304
 </td>
 <td style="text-align:right;">
-26
+29
 </td>
 <td style="text-align:right;">
-105.9
+106.0
 </td>
 <td style="text-align:right;">
-97.3
+97.4
 </td>
 <td style="text-align:right;">
 0.5
@@ -4039,22 +3797,22 @@ Cob.D.Adic
 13004
 </td>
 <td style="text-align:right;">
-12868
+12869
 </td>
 <td style="text-align:right;">
-12341
+12224
 </td>
 <td style="text-align:right;">
-695
+702
 </td>
 <td style="text-align:right;">
 99.0
 </td>
 <td style="text-align:right;">
-94.9
+94.0
 </td>
 <td style="text-align:right;">
-5.3
+5.4
 </td>
 </tr>
 <tr>
@@ -4065,22 +3823,22 @@ Cob.D.Adic
 14496
 </td>
 <td style="text-align:right;">
-15238
+15240
 </td>
 <td style="text-align:right;">
-15107
+13607
 </td>
 <td style="text-align:right;">
-2240
+2256
 </td>
 <td style="text-align:right;">
 105.1
 </td>
 <td style="text-align:right;">
-104.2
+93.9
 </td>
 <td style="text-align:right;">
-15.5
+15.6
 </td>
 </tr>
 <tr>
@@ -4091,22 +3849,22 @@ Cob.D.Adic
 13515
 </td>
 <td style="text-align:right;">
-13907
+13912
 </td>
 <td style="text-align:right;">
-13696
+12961
 </td>
 <td style="text-align:right;">
-2157
+2174
 </td>
 <td style="text-align:right;">
 102.9
 </td>
 <td style="text-align:right;">
-101.3
+95.9
 </td>
 <td style="text-align:right;">
-16.0
+16.1
 </td>
 </tr>
 <tr>
@@ -4117,22 +3875,22 @@ Cob.D.Adic
 12173
 </td>
 <td style="text-align:right;">
-12119
+12121
 </td>
 <td style="text-align:right;">
-12048
+11861
 </td>
 <td style="text-align:right;">
-1956
+1970
 </td>
 <td style="text-align:right;">
 99.6
 </td>
 <td style="text-align:right;">
-99.0
+97.4
 </td>
 <td style="text-align:right;">
-16.1
+16.2
 </td>
 </tr>
 <tr>
@@ -4143,22 +3901,22 @@ Cob.D.Adic
 9536
 </td>
 <td style="text-align:right;">
-9596
+9598
 </td>
 <td style="text-align:right;">
-9646
+9625
 </td>
 <td style="text-align:right;">
-5534
+5543
 </td>
 <td style="text-align:right;">
-100.6
+100.7
 </td>
 <td style="text-align:right;">
-101.2
+100.9
 </td>
 <td style="text-align:right;">
-58.0
+58.1
 </td>
 </tr>
 <tr>
@@ -4169,19 +3927,19 @@ Cob.D.Adic
 7236
 </td>
 <td style="text-align:right;">
-7595
+7597
 </td>
 <td style="text-align:right;">
-7540
+7534
 </td>
 <td style="text-align:right;">
-7276
+7282
 </td>
 <td style="text-align:right;">
 105.0
 </td>
 <td style="text-align:right;">
-104.2
+104.1
 </td>
 <td style="text-align:right;">
 100.6
@@ -4211,7 +3969,7 @@ D1
 D2
 </th>
 <th style="text-align:right;">
-D3
+Ref1
 </th>
 <th style="text-align:right;">
 Cob.D1
@@ -4220,7 +3978,7 @@ Cob.D1
 Cob.D2
 </th>
 <th style="text-align:right;">
-Cob.D.Adic
+Cob.Ref1
 </th>
 </tr>
 </thead>
@@ -4233,7 +3991,7 @@ Cob.D.Adic
 2152
 </td>
 <td style="text-align:right;">
-1174
+1175
 </td>
 <td style="text-align:right;">
 925
@@ -4262,7 +4020,7 @@ Cob.D.Adic
 2057
 </td>
 <td style="text-align:right;">
-2082
+2083
 </td>
 <td style="text-align:right;">
 16
@@ -4271,7 +4029,7 @@ Cob.D.Adic
 90.8
 </td>
 <td style="text-align:right;">
-91.9
+92.0
 </td>
 <td style="text-align:right;">
 0.7
@@ -4285,19 +4043,19 @@ Cob.D.Adic
 5393
 </td>
 <td style="text-align:right;">
-4504
+4506
 </td>
 <td style="text-align:right;">
-4606
+4586
 </td>
 <td style="text-align:right;">
 299
 </td>
 <td style="text-align:right;">
-83.5
+83.6
 </td>
 <td style="text-align:right;">
-85.4
+85.0
 </td>
 <td style="text-align:right;">
 5.5
@@ -4311,19 +4069,19 @@ Cob.D.Adic
 6181
 </td>
 <td style="text-align:right;">
-5069
+5070
 </td>
 <td style="text-align:right;">
-5443
+4702
 </td>
 <td style="text-align:right;">
-593
+595
 </td>
 <td style="text-align:right;">
 82.0
 </td>
 <td style="text-align:right;">
-88.1
+76.1
 </td>
 <td style="text-align:right;">
 9.6
@@ -4337,19 +4095,19 @@ Cob.D.Adic
 4861
 </td>
 <td style="text-align:right;">
-4300
+4301
 </td>
 <td style="text-align:right;">
-4424
+4067
 </td>
 <td style="text-align:right;">
-645
+646
 </td>
 <td style="text-align:right;">
 88.5
 </td>
 <td style="text-align:right;">
-91.0
+83.7
 </td>
 <td style="text-align:right;">
 13.3
@@ -4366,7 +4124,7 @@ Cob.D.Adic
 3667
 </td>
 <td style="text-align:right;">
-3668
+3630
 </td>
 <td style="text-align:right;">
 519
@@ -4375,7 +4133,7 @@ Cob.D.Adic
 94.9
 </td>
 <td style="text-align:right;">
-95.0
+94.0
 </td>
 <td style="text-align:right;">
 13.4
@@ -4392,16 +4150,16 @@ Cob.D.Adic
 2677
 </td>
 <td style="text-align:right;">
-2709
+2705
 </td>
 <td style="text-align:right;">
-1456
+1457
 </td>
 <td style="text-align:right;">
 96.3
 </td>
 <td style="text-align:right;">
-97.4
+97.3
 </td>
 <td style="text-align:right;">
 52.4
@@ -4457,7 +4215,7 @@ D1
 D2
 </th>
 <th style="text-align:right;">
-D3
+Ref1
 </th>
 <th style="text-align:right;">
 Cob.D1
@@ -4466,7 +4224,7 @@ Cob.D1
 Cob.D2
 </th>
 <th style="text-align:right;">
-Cob.D.Adic
+Cob.Ref1
 </th>
 </tr>
 </thead>
@@ -4534,7 +4292,7 @@ Cob.D.Adic
 758
 </td>
 <td style="text-align:right;">
-714
+713
 </td>
 <td style="text-align:right;">
 58
@@ -4543,7 +4301,7 @@ Cob.D.Adic
 91.4
 </td>
 <td style="text-align:right;">
-86.1
+86.0
 </td>
 <td style="text-align:right;">
 7.0
@@ -4560,7 +4318,7 @@ Cob.D.Adic
 837
 </td>
 <td style="text-align:right;">
-852
+770
 </td>
 <td style="text-align:right;">
 147
@@ -4569,7 +4327,7 @@ Cob.D.Adic
 96.2
 </td>
 <td style="text-align:right;">
-97.9
+88.5
 </td>
 <td style="text-align:right;">
 16.9
@@ -4586,7 +4344,7 @@ Cob.D.Adic
 891
 </td>
 <td style="text-align:right;">
-961
+791
 </td>
 <td style="text-align:right;">
 221
@@ -4595,7 +4353,7 @@ Cob.D.Adic
 101.1
 </td>
 <td style="text-align:right;">
-109.1
+89.8
 </td>
 <td style="text-align:right;">
 25.1
@@ -4612,7 +4370,7 @@ Cob.D.Adic
 839
 </td>
 <td style="text-align:right;">
-840
+819
 </td>
 <td style="text-align:right;">
 177
@@ -4621,7 +4379,7 @@ Cob.D.Adic
 112.6
 </td>
 <td style="text-align:right;">
-112.8
+109.9
 </td>
 <td style="text-align:right;">
 23.8
@@ -4638,7 +4396,7 @@ Cob.D.Adic
 767
 </td>
 <td style="text-align:right;">
-776
+770
 </td>
 <td style="text-align:right;">
 478
@@ -4647,7 +4405,7 @@ Cob.D.Adic
 117.8
 </td>
 <td style="text-align:right;">
-119.2
+118.3
 </td>
 <td style="text-align:right;">
 73.4
@@ -4682,252 +4440,6 @@ Cob.D.Adic
 </tbody>
 </table>
 </div>
-<div id="são-joão-da-boa-vista-2" class="section level4">
-<h4>São João da Boa Vista</h4>
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>
-São João da Boa Vista
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-Faixa etária
-</th>
-<th style="text-align:right;">
-População
-</th>
-<th style="text-align:right;">
-D1
-</th>
-<th style="text-align:right;">
-D2
-</th>
-<th style="text-align:right;">
-D3
-</th>
-<th style="text-align:right;">
-Cob.D1
-</th>
-<th style="text-align:right;">
-Cob.D2
-</th>
-<th style="text-align:right;">
-Cob.D.Adic
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-10 a 14
-</td>
-<td style="text-align:right;">
-4646
-</td>
-<td style="text-align:right;">
-3140
-</td>
-<td style="text-align:right;">
-2000
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-67.6
-</td>
-<td style="text-align:right;">
-43.0
-</td>
-<td style="text-align:right;">
-0.1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-15 a 19
-</td>
-<td style="text-align:right;">
-5112
-</td>
-<td style="text-align:right;">
-5557
-</td>
-<td style="text-align:right;">
-4953
-</td>
-<td style="text-align:right;">
-62
-</td>
-<td style="text-align:right;">
-108.7
-</td>
-<td style="text-align:right;">
-96.9
-</td>
-<td style="text-align:right;">
-1.2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-20 a 29
-</td>
-<td style="text-align:right;">
-12591
-</td>
-<td style="text-align:right;">
-13199
-</td>
-<td style="text-align:right;">
-12692
-</td>
-<td style="text-align:right;">
-1467
-</td>
-<td style="text-align:right;">
-104.8
-</td>
-<td style="text-align:right;">
-100.8
-</td>
-<td style="text-align:right;">
-11.7
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-30 a 39
-</td>
-<td style="text-align:right;">
-14061
-</td>
-<td style="text-align:right;">
-14375
-</td>
-<td style="text-align:right;">
-14388
-</td>
-<td style="text-align:right;">
-2996
-</td>
-<td style="text-align:right;">
-102.2
-</td>
-<td style="text-align:right;">
-102.3
-</td>
-<td style="text-align:right;">
-21.3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-40 a 49
-</td>
-<td style="text-align:right;">
-13027
-</td>
-<td style="text-align:right;">
-13992
-</td>
-<td style="text-align:right;">
-13883
-</td>
-<td style="text-align:right;">
-3080
-</td>
-<td style="text-align:right;">
-107.4
-</td>
-<td style="text-align:right;">
-106.6
-</td>
-<td style="text-align:right;">
-23.6
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-50 a 59
-</td>
-<td style="text-align:right;">
-11940
-</td>
-<td style="text-align:right;">
-12416
-</td>
-<td style="text-align:right;">
-12208
-</td>
-<td style="text-align:right;">
-2834
-</td>
-<td style="text-align:right;">
-104.0
-</td>
-<td style="text-align:right;">
-102.2
-</td>
-<td style="text-align:right;">
-23.7
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-60 a 69
-</td>
-<td style="text-align:right;">
-9529
-</td>
-<td style="text-align:right;">
-9774
-</td>
-<td style="text-align:right;">
-9851
-</td>
-<td style="text-align:right;">
-5951
-</td>
-<td style="text-align:right;">
-102.6
-</td>
-<td style="text-align:right;">
-103.4
-</td>
-<td style="text-align:right;">
-62.5
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-70 ou mais
-</td>
-<td style="text-align:right;">
-7616
-</td>
-<td style="text-align:right;">
-8212
-</td>
-<td style="text-align:right;">
-8144
-</td>
-<td style="text-align:right;">
-8297
-</td>
-<td style="text-align:right;">
-107.8
-</td>
-<td style="text-align:right;">
-106.9
-</td>
-<td style="text-align:right;">
-108.9
-</td>
-</tr>
-</tbody>
-</table>
-</div>
 <div id="são-josé-do-rio-pardo-2" class="section level4">
 <h4>São José do Rio Pardo</h4>
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -4949,7 +4461,7 @@ D1
 D2
 </th>
 <th style="text-align:right;">
-D3
+Ref1
 </th>
 <th style="text-align:right;">
 Cob.D1
@@ -4958,7 +4470,7 @@ Cob.D1
 Cob.D2
 </th>
 <th style="text-align:right;">
-Cob.D.Adic
+Cob.Ref1
 </th>
 </tr>
 </thead>
@@ -4971,10 +4483,10 @@ Cob.D.Adic
 2932
 </td>
 <td style="text-align:right;">
-1834
+1836
 </td>
 <td style="text-align:right;">
-1303
+1316
 </td>
 <td style="text-align:right;">
 0
@@ -4983,7 +4495,7 @@ Cob.D.Adic
 62.6
 </td>
 <td style="text-align:right;">
-44.4
+44.9
 </td>
 <td style="text-align:right;">
 0.0
@@ -4997,10 +4509,10 @@ Cob.D.Adic
 3098
 </td>
 <td style="text-align:right;">
-3103
+3104
 </td>
 <td style="text-align:right;">
-2785
+2776
 </td>
 <td style="text-align:right;">
 34
@@ -5009,7 +4521,7 @@ Cob.D.Adic
 100.2
 </td>
 <td style="text-align:right;">
-89.9
+89.6
 </td>
 <td style="text-align:right;">
 1.1
@@ -5023,22 +4535,22 @@ Cob.D.Adic
 7702
 </td>
 <td style="text-align:right;">
-7519
+7522
 </td>
 <td style="text-align:right;">
-6971
+6958
 </td>
 <td style="text-align:right;">
-642
+645
 </td>
 <td style="text-align:right;">
-97.6
+97.7
 </td>
 <td style="text-align:right;">
-90.5
+90.3
 </td>
 <td style="text-align:right;">
-8.3
+8.4
 </td>
 </tr>
 <tr>
@@ -5049,22 +4561,22 @@ Cob.D.Adic
 8645
 </td>
 <td style="text-align:right;">
-8591
+8599
 </td>
 <td style="text-align:right;">
-8671
+7642
 </td>
 <td style="text-align:right;">
-2130
+2145
 </td>
 <td style="text-align:right;">
-99.4
+99.5
 </td>
 <td style="text-align:right;">
-100.3
+88.4
 </td>
 <td style="text-align:right;">
-24.6
+24.8
 </td>
 </tr>
 <tr>
@@ -5075,22 +4587,22 @@ Cob.D.Adic
 7350
 </td>
 <td style="text-align:right;">
-7519
+7526
 </td>
 <td style="text-align:right;">
-7563
+7194
 </td>
 <td style="text-align:right;">
-1354
+1367
 </td>
 <td style="text-align:right;">
-102.3
+102.4
 </td>
 <td style="text-align:right;">
-102.9
+97.9
 </td>
 <td style="text-align:right;">
-18.4
+18.6
 </td>
 </tr>
 <tr>
@@ -5101,22 +4613,22 @@ Cob.D.Adic
 6809
 </td>
 <td style="text-align:right;">
-7264
+7270
 </td>
 <td style="text-align:right;">
-7072
+7066
 </td>
 <td style="text-align:right;">
-2059
+2082
 </td>
 <td style="text-align:right;">
-106.7
+106.8
 </td>
 <td style="text-align:right;">
-103.9
+103.8
 </td>
 <td style="text-align:right;">
-30.2
+30.6
 </td>
 </tr>
 <tr>
@@ -5127,22 +4639,22 @@ Cob.D.Adic
 5911
 </td>
 <td style="text-align:right;">
-6180
+6183
 </td>
 <td style="text-align:right;">
-6193
+6189
 </td>
 <td style="text-align:right;">
-4061
+4079
 </td>
 <td style="text-align:right;">
 104.6
 </td>
 <td style="text-align:right;">
-104.8
+104.7
 </td>
 <td style="text-align:right;">
-68.7
+69.0
 </td>
 </tr>
 <tr>
@@ -5156,19 +4668,291 @@ Cob.D.Adic
 5043
 </td>
 <td style="text-align:right;">
-5056
+5058
 </td>
 <td style="text-align:right;">
-5132
+5145
 </td>
 <td style="text-align:right;">
 106.8
 </td>
 <td style="text-align:right;">
-107.0
+107.1
 </td>
 <td style="text-align:right;">
-108.6
+108.9
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="são-joão-da-boa-vista-2" class="section level4">
+<h4>São João da Boa Vista</h4>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+São João da Boa Vista
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Faixa etária
+</th>
+<th style="text-align:right;">
+População
+</th>
+<th style="text-align:right;">
+D1
+</th>
+<th style="text-align:right;">
+D2
+</th>
+<th style="text-align:right;">
+Ref1
+</th>
+<th style="text-align:right;">
+Cob.D1
+</th>
+<th style="text-align:right;">
+Cob.D2
+</th>
+<th style="text-align:right;">
+Cob.Ref1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+05 a 09
+</td>
+<td style="text-align:right;">
+4596
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.1
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10 a 14
+</td>
+<td style="text-align:right;">
+4646
+</td>
+<td style="text-align:right;">
+3143
+</td>
+<td style="text-align:right;">
+2005
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+67.6
+</td>
+<td style="text-align:right;">
+43.2
+</td>
+<td style="text-align:right;">
+0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+15 a 19
+</td>
+<td style="text-align:right;">
+5112
+</td>
+<td style="text-align:right;">
+5559
+</td>
+<td style="text-align:right;">
+4943
+</td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+108.7
+</td>
+<td style="text-align:right;">
+96.7
+</td>
+<td style="text-align:right;">
+1.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+20 a 29
+</td>
+<td style="text-align:right;">
+12591
+</td>
+<td style="text-align:right;">
+13200
+</td>
+<td style="text-align:right;">
+12652
+</td>
+<td style="text-align:right;">
+1477
+</td>
+<td style="text-align:right;">
+104.8
+</td>
+<td style="text-align:right;">
+100.5
+</td>
+<td style="text-align:right;">
+11.7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+30 a 39
+</td>
+<td style="text-align:right;">
+14061
+</td>
+<td style="text-align:right;">
+14378
+</td>
+<td style="text-align:right;">
+13169
+</td>
+<td style="text-align:right;">
+2999
+</td>
+<td style="text-align:right;">
+102.3
+</td>
+<td style="text-align:right;">
+93.7
+</td>
+<td style="text-align:right;">
+21.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+40 a 49
+</td>
+<td style="text-align:right;">
+13027
+</td>
+<td style="text-align:right;">
+13999
+</td>
+<td style="text-align:right;">
+12856
+</td>
+<td style="text-align:right;">
+3090
+</td>
+<td style="text-align:right;">
+107.5
+</td>
+<td style="text-align:right;">
+98.7
+</td>
+<td style="text-align:right;">
+23.7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+50 a 59
+</td>
+<td style="text-align:right;">
+11940
+</td>
+<td style="text-align:right;">
+12418
+</td>
+<td style="text-align:right;">
+12121
+</td>
+<td style="text-align:right;">
+2845
+</td>
+<td style="text-align:right;">
+104.0
+</td>
+<td style="text-align:right;">
+101.5
+</td>
+<td style="text-align:right;">
+23.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+60 a 69
+</td>
+<td style="text-align:right;">
+9529
+</td>
+<td style="text-align:right;">
+9777
+</td>
+<td style="text-align:right;">
+9840
+</td>
+<td style="text-align:right;">
+5957
+</td>
+<td style="text-align:right;">
+102.6
+</td>
+<td style="text-align:right;">
+103.3
+</td>
+<td style="text-align:right;">
+62.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+70 ou mais
+</td>
+<td style="text-align:right;">
+7616
+</td>
+<td style="text-align:right;">
+8212
+</td>
+<td style="text-align:right;">
+8136
+</td>
+<td style="text-align:right;">
+8300
+</td>
+<td style="text-align:right;">
+107.8
+</td>
+<td style="text-align:right;">
+106.8
+</td>
+<td style="text-align:right;">
+109.0
 </td>
 </tr>
 </tbody>
@@ -5195,7 +4979,7 @@ D1
 D2
 </th>
 <th style="text-align:right;">
-D3
+Ref1
 </th>
 <th style="text-align:right;">
 Cob.D1
@@ -5204,7 +4988,7 @@ Cob.D1
 Cob.D2
 </th>
 <th style="text-align:right;">
-Cob.D.Adic
+Cob.Ref1
 </th>
 </tr>
 </thead>
@@ -5272,7 +5056,7 @@ Cob.D.Adic
 1503
 </td>
 <td style="text-align:right;">
-1918
+1919
 </td>
 <td style="text-align:right;">
 96
@@ -5281,7 +5065,7 @@ Cob.D.Adic
 81.4
 </td>
 <td style="text-align:right;">
-103.9
+104.0
 </td>
 <td style="text-align:right;">
 5.2
@@ -5295,22 +5079,22 @@ Cob.D.Adic
 1841
 </td>
 <td style="text-align:right;">
-1670
+1671
 </td>
 <td style="text-align:right;">
-1791
+1580
 </td>
 <td style="text-align:right;">
-461
+463
 </td>
 <td style="text-align:right;">
-90.7
+90.8
 </td>
 <td style="text-align:right;">
-97.3
+85.8
 </td>
 <td style="text-align:right;">
-25.0
+25.1
 </td>
 </tr>
 <tr>
@@ -5324,7 +5108,7 @@ Cob.D.Adic
 1520
 </td>
 <td style="text-align:right;">
-1509
+1417
 </td>
 <td style="text-align:right;">
 291
@@ -5333,7 +5117,7 @@ Cob.D.Adic
 90.5
 </td>
 <td style="text-align:right;">
-89.8
+84.3
 </td>
 <td style="text-align:right;">
 17.3
@@ -5350,19 +5134,19 @@ Cob.D.Adic
 1443
 </td>
 <td style="text-align:right;">
-1424
+1421
 </td>
 <td style="text-align:right;">
-239
+240
 </td>
 <td style="text-align:right;">
 93.3
 </td>
 <td style="text-align:right;">
-92.0
+91.9
 </td>
 <td style="text-align:right;">
-15.4
+15.5
 </td>
 </tr>
 <tr>
@@ -5441,7 +5225,7 @@ D1
 D2
 </th>
 <th style="text-align:right;">
-D3
+Ref1
 </th>
 <th style="text-align:right;">
 Cob.D1
@@ -5450,7 +5234,7 @@ Cob.D1
 Cob.D2
 </th>
 <th style="text-align:right;">
-Cob.D.Adic
+Cob.Ref1
 </th>
 </tr>
 </thead>
@@ -5489,19 +5273,19 @@ Cob.D.Adic
 1430
 </td>
 <td style="text-align:right;">
-811
+816
 </td>
 <td style="text-align:right;">
-595
+608
 </td>
 <td style="text-align:right;">
 4
 </td>
 <td style="text-align:right;">
-56.7
+57.1
 </td>
 <td style="text-align:right;">
-41.6
+42.5
 </td>
 <td style="text-align:right;">
 0.3
@@ -5515,19 +5299,19 @@ Cob.D.Adic
 1491
 </td>
 <td style="text-align:right;">
-1322
+1335
 </td>
 <td style="text-align:right;">
-1265
+1277
 </td>
 <td style="text-align:right;">
 8
 </td>
 <td style="text-align:right;">
-88.7
+89.5
 </td>
 <td style="text-align:right;">
-84.8
+85.6
 </td>
 <td style="text-align:right;">
 0.5
@@ -5541,22 +5325,22 @@ Cob.D.Adic
 3426
 </td>
 <td style="text-align:right;">
-2970
+2973
 </td>
 <td style="text-align:right;">
-2889
+2888
 </td>
 <td style="text-align:right;">
-241
+243
 </td>
 <td style="text-align:right;">
-86.7
+86.8
 </td>
 <td style="text-align:right;">
 84.3
 </td>
 <td style="text-align:right;">
-7.0
+7.1
 </td>
 </tr>
 <tr>
@@ -5567,22 +5351,22 @@ Cob.D.Adic
 3519
 </td>
 <td style="text-align:right;">
-3286
+3290
 </td>
 <td style="text-align:right;">
-3318
+2956
 </td>
 <td style="text-align:right;">
-487
+496
 </td>
 <td style="text-align:right;">
-93.4
+93.5
 </td>
 <td style="text-align:right;">
-94.3
+84.0
 </td>
 <td style="text-align:right;">
-13.8
+14.1
 </td>
 </tr>
 <tr>
@@ -5596,19 +5380,19 @@ Cob.D.Adic
 2951
 </td>
 <td style="text-align:right;">
-2967
+2737
 </td>
 <td style="text-align:right;">
-503
+508
 </td>
 <td style="text-align:right;">
 96.3
 </td>
 <td style="text-align:right;">
-96.8
+89.3
 </td>
 <td style="text-align:right;">
-16.4
+16.6
 </td>
 </tr>
 <tr>
@@ -5619,22 +5403,22 @@ Cob.D.Adic
 2876
 </td>
 <td style="text-align:right;">
-2832
+2834
 </td>
 <td style="text-align:right;">
-2780
+2725
 </td>
 <td style="text-align:right;">
-542
+544
 </td>
 <td style="text-align:right;">
 98.5
 </td>
 <td style="text-align:right;">
-96.7
+94.7
 </td>
 <td style="text-align:right;">
-18.8
+18.9
 </td>
 </tr>
 <tr>
@@ -5645,22 +5429,22 @@ Cob.D.Adic
 2330
 </td>
 <td style="text-align:right;">
-2365
+2366
 </td>
 <td style="text-align:right;">
-2383
+2380
 </td>
 <td style="text-align:right;">
-1418
+1424
 </td>
 <td style="text-align:right;">
 101.5
 </td>
 <td style="text-align:right;">
-102.3
+102.1
 </td>
 <td style="text-align:right;">
-60.9
+61.1
 </td>
 </tr>
 <tr>
@@ -5674,10 +5458,10 @@ Cob.D.Adic
 1832
 </td>
 <td style="text-align:right;">
-1824
+1823
 </td>
 <td style="text-align:right;">
-1899
+1900
 </td>
 <td style="text-align:right;">
 99.1
@@ -5686,7 +5470,7 @@ Cob.D.Adic
 98.6
 </td>
 <td style="text-align:right;">
-102.7
+102.8
 </td>
 </tr>
 </tbody>
@@ -5713,7 +5497,7 @@ D1
 D2
 </th>
 <th style="text-align:right;">
-D3
+Ref1
 </th>
 <th style="text-align:right;">
 Cob.D1
@@ -5722,7 +5506,7 @@ Cob.D1
 Cob.D2
 </th>
 <th style="text-align:right;">
-Cob.D.Adic
+Cob.Ref1
 </th>
 </tr>
 </thead>
@@ -5790,7 +5574,7 @@ Cob.D.Adic
 1790
 </td>
 <td style="text-align:right;">
-1954
+1946
 </td>
 <td style="text-align:right;">
 160
@@ -5799,7 +5583,7 @@ Cob.D.Adic
 86.8
 </td>
 <td style="text-align:right;">
-94.7
+94.3
 </td>
 <td style="text-align:right;">
 7.8
@@ -5813,19 +5597,19 @@ Cob.D.Adic
 1899
 </td>
 <td style="text-align:right;">
-1868
+1870
 </td>
 <td style="text-align:right;">
-2065
+1897
 </td>
 <td style="text-align:right;">
 420
 </td>
 <td style="text-align:right;">
-98.4
+98.5
 </td>
 <td style="text-align:right;">
-108.7
+99.9
 </td>
 <td style="text-align:right;">
 22.1
@@ -5839,22 +5623,22 @@ Cob.D.Adic
 1652
 </td>
 <td style="text-align:right;">
-1791
+1792
 </td>
 <td style="text-align:right;">
-1815
+1701
 </td>
 <td style="text-align:right;">
-387
+400
 </td>
 <td style="text-align:right;">
-108.4
+108.5
 </td>
 <td style="text-align:right;">
-109.9
+103.0
 </td>
 <td style="text-align:right;">
-23.4
+24.2
 </td>
 </tr>
 <tr>
@@ -5865,22 +5649,22 @@ Cob.D.Adic
 1810
 </td>
 <td style="text-align:right;">
-1933
+1936
 </td>
 <td style="text-align:right;">
-1789
+1766
 </td>
 <td style="text-align:right;">
-368
+434
 </td>
 <td style="text-align:right;">
-106.8
+107.0
 </td>
 <td style="text-align:right;">
-98.8
+97.6
 </td>
 <td style="text-align:right;">
-20.3
+24.0
 </td>
 </tr>
 <tr>
@@ -5894,19 +5678,19 @@ Cob.D.Adic
 1374
 </td>
 <td style="text-align:right;">
-1388
+1385
 </td>
 <td style="text-align:right;">
-1039
+1045
 </td>
 <td style="text-align:right;">
 103.8
 </td>
 <td style="text-align:right;">
-104.8
+104.6
 </td>
 <td style="text-align:right;">
-78.5
+78.9
 </td>
 </tr>
 <tr>
@@ -5920,19 +5704,19 @@ Cob.D.Adic
 1077
 </td>
 <td style="text-align:right;">
-1081
+1079
 </td>
 <td style="text-align:right;">
-1145
+1146
 </td>
 <td style="text-align:right;">
 105.9
 </td>
 <td style="text-align:right;">
-106.3
+106.1
 </td>
 <td style="text-align:right;">
-112.6
+112.7
 </td>
 </tr>
 </tbody>
@@ -5959,7 +5743,7 @@ D1
 D2
 </th>
 <th style="text-align:right;">
-D3
+Ref1
 </th>
 <th style="text-align:right;">
 Cob.D1
@@ -5968,7 +5752,7 @@ Cob.D1
 Cob.D2
 </th>
 <th style="text-align:right;">
-Cob.D.Adic
+Cob.Ref1
 </th>
 </tr>
 </thead>
@@ -5981,19 +5765,19 @@ Cob.D.Adic
 2651
 </td>
 <td style="text-align:right;">
-1702
+1705
 </td>
 <td style="text-align:right;">
-1716
+1720
 </td>
 <td style="text-align:right;">
 0
 </td>
 <td style="text-align:right;">
-64.2
+64.3
 </td>
 <td style="text-align:right;">
-64.7
+64.9
 </td>
 <td style="text-align:right;">
 0.0
@@ -6007,22 +5791,22 @@ Cob.D.Adic
 2713
 </td>
 <td style="text-align:right;">
-2764
+2765
 </td>
 <td style="text-align:right;">
-3559
+3561
 </td>
 <td style="text-align:right;">
-23
+24
 </td>
 <td style="text-align:right;">
 101.9
 </td>
 <td style="text-align:right;">
-131.2
+131.3
 </td>
 <td style="text-align:right;">
-0.8
+0.9
 </td>
 </tr>
 <tr>
@@ -6036,7 +5820,7 @@ Cob.D.Adic
 6198
 </td>
 <td style="text-align:right;">
-5857
+5801
 </td>
 <td style="text-align:right;">
 644
@@ -6045,7 +5829,7 @@ Cob.D.Adic
 100.1
 </td>
 <td style="text-align:right;">
-94.6
+93.7
 </td>
 <td style="text-align:right;">
 10.4
@@ -6059,22 +5843,22 @@ Cob.D.Adic
 6497
 </td>
 <td style="text-align:right;">
-6501
+6502
 </td>
 <td style="text-align:right;">
-6530
+5837
 </td>
 <td style="text-align:right;">
-1816
+1815
 </td>
 <td style="text-align:right;">
 100.1
 </td>
 <td style="text-align:right;">
-100.5
+89.8
 </td>
 <td style="text-align:right;">
-28.0
+27.9
 </td>
 </tr>
 <tr>
@@ -6085,10 +5869,10 @@ Cob.D.Adic
 5871
 </td>
 <td style="text-align:right;">
-5806
+5808
 </td>
 <td style="text-align:right;">
-5772
+5497
 </td>
 <td style="text-align:right;">
 753
@@ -6097,7 +5881,7 @@ Cob.D.Adic
 98.9
 </td>
 <td style="text-align:right;">
-98.3
+93.6
 </td>
 <td style="text-align:right;">
 12.8
@@ -6111,22 +5895,22 @@ Cob.D.Adic
 5316
 </td>
 <td style="text-align:right;">
-5522
+5526
 </td>
 <td style="text-align:right;">
-5457
+5436
 </td>
 <td style="text-align:right;">
-2292
+2298
 </td>
 <td style="text-align:right;">
-103.9
+104.0
 </td>
 <td style="text-align:right;">
-102.7
+102.3
 </td>
 <td style="text-align:right;">
-43.1
+43.2
 </td>
 </tr>
 <tr>
@@ -6137,22 +5921,22 @@ Cob.D.Adic
 4020
 </td>
 <td style="text-align:right;">
-4206
+4207
 </td>
 <td style="text-align:right;">
-4255
+4250
 </td>
 <td style="text-align:right;">
-3403
+3407
 </td>
 <td style="text-align:right;">
-104.6
+104.7
 </td>
 <td style="text-align:right;">
-105.8
+105.7
 </td>
 <td style="text-align:right;">
-84.7
+84.8
 </td>
 </tr>
 <tr>
@@ -6163,22 +5947,268 @@ Cob.D.Adic
 3127
 </td>
 <td style="text-align:right;">
-3243
+3245
 </td>
 <td style="text-align:right;">
-3196
+3199
 </td>
 <td style="text-align:right;">
-3117
+3124
 </td>
 <td style="text-align:right;">
-103.7
+103.8
 </td>
 <td style="text-align:right;">
-102.2
+102.3
 </td>
 <td style="text-align:right;">
-99.7
+99.9
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="águas-da-prata-2" class="section level4">
+<h4>Águas da Prata</h4>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+Águas da Prata
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Faixa etária
+</th>
+<th style="text-align:right;">
+População
+</th>
+<th style="text-align:right;">
+D1
+</th>
+<th style="text-align:right;">
+D2
+</th>
+<th style="text-align:right;">
+Ref1
+</th>
+<th style="text-align:right;">
+Cob.D1
+</th>
+<th style="text-align:right;">
+Cob.D2
+</th>
+<th style="text-align:right;">
+Cob.Ref1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+10 a 14
+</td>
+<td style="text-align:right;">
+409
+</td>
+<td style="text-align:right;">
+315
+</td>
+<td style="text-align:right;">
+338
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+77.0
+</td>
+<td style="text-align:right;">
+82.6
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+15 a 19
+</td>
+<td style="text-align:right;">
+451
+</td>
+<td style="text-align:right;">
+485
+</td>
+<td style="text-align:right;">
+545
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+107.5
+</td>
+<td style="text-align:right;">
+120.8
+</td>
+<td style="text-align:right;">
+0.7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+20 a 29
+</td>
+<td style="text-align:right;">
+1128
+</td>
+<td style="text-align:right;">
+965
+</td>
+<td style="text-align:right;">
+962
+</td>
+<td style="text-align:right;">
+88
+</td>
+<td style="text-align:right;">
+85.5
+</td>
+<td style="text-align:right;">
+85.3
+</td>
+<td style="text-align:right;">
+7.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+30 a 39
+</td>
+<td style="text-align:right;">
+1209
+</td>
+<td style="text-align:right;">
+1164
+</td>
+<td style="text-align:right;">
+1215
+</td>
+<td style="text-align:right;">
+199
+</td>
+<td style="text-align:right;">
+96.3
+</td>
+<td style="text-align:right;">
+100.5
+</td>
+<td style="text-align:right;">
+16.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+40 a 49
+</td>
+<td style="text-align:right;">
+1034
+</td>
+<td style="text-align:right;">
+1129
+</td>
+<td style="text-align:right;">
+1046
+</td>
+<td style="text-align:right;">
+253
+</td>
+<td style="text-align:right;">
+109.2
+</td>
+<td style="text-align:right;">
+101.2
+</td>
+<td style="text-align:right;">
+24.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+50 a 59
+</td>
+<td style="text-align:right;">
+1052
+</td>
+<td style="text-align:right;">
+1106
+</td>
+<td style="text-align:right;">
+1078
+</td>
+<td style="text-align:right;">
+275
+</td>
+<td style="text-align:right;">
+105.1
+</td>
+<td style="text-align:right;">
+102.5
+</td>
+<td style="text-align:right;">
+26.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+60 a 69
+</td>
+<td style="text-align:right;">
+913
+</td>
+<td style="text-align:right;">
+1095
+</td>
+<td style="text-align:right;">
+1108
+</td>
+<td style="text-align:right;">
+667
+</td>
+<td style="text-align:right;">
+119.9
+</td>
+<td style="text-align:right;">
+121.4
+</td>
+<td style="text-align:right;">
+73.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+70 ou mais
+</td>
+<td style="text-align:right;">
+857
+</td>
+<td style="text-align:right;">
+1024
+</td>
+<td style="text-align:right;">
+1012
+</td>
+<td style="text-align:right;">
+1101
+</td>
+<td style="text-align:right;">
+119.5
+</td>
+<td style="text-align:right;">
+118.1
+</td>
+<td style="text-align:right;">
+128.5
 </td>
 </tr>
 </tbody>
@@ -6230,22 +6260,22 @@ Aguaí
 28847
 </td>
 <td style="text-align:right;">
-29968
+29977
 </td>
 <td style="text-align:right;">
-29530
+28305
 </td>
 <td style="text-align:right;">
-7828
+7847
 </td>
 <td style="text-align:right;">
 103.9
 </td>
 <td style="text-align:right;">
-102.4
+98.1
 </td>
 <td style="text-align:right;">
-27.1
+27.2
 </td>
 </tr>
 <tr>
@@ -6256,22 +6286,22 @@ Aguaí
 6196
 </td>
 <td style="text-align:right;">
-7281
+7283
 </td>
 <td style="text-align:right;">
-7621
+7304
 </td>
 <td style="text-align:right;">
-2585
+2587
 </td>
 <td style="text-align:right;">
 117.5
 </td>
 <td style="text-align:right;">
-123.0
+117.9
 </td>
 <td style="text-align:right;">
-41.7
+41.8
 </td>
 </tr>
 <tr>
@@ -6282,19 +6312,19 @@ Caconde
 14932
 </td>
 <td style="text-align:right;">
-16074
+16077
 </td>
 <td style="text-align:right;">
-15210
+14771
 </td>
 <td style="text-align:right;">
-4930
+4934
 </td>
 <td style="text-align:right;">
-107.6
+107.7
 </td>
 <td style="text-align:right;">
-101.9
+98.9
 </td>
 <td style="text-align:right;">
 33.0
@@ -6308,22 +6338,22 @@ Casa Branca
 23696
 </td>
 <td style="text-align:right;">
-25228
+25283
 </td>
 <td style="text-align:right;">
-23784
+23014
 </td>
 <td style="text-align:right;">
-6899
+6943
 </td>
 <td style="text-align:right;">
-106.5
+106.7
 </td>
 <td style="text-align:right;">
-100.4
+97.1
 </td>
 <td style="text-align:right;">
-29.1
+29.3
 </td>
 </tr>
 <tr>
@@ -6337,19 +6367,19 @@ Divinolândia
 10533
 </td>
 <td style="text-align:right;">
-10426
+10141
 </td>
 <td style="text-align:right;">
-3995
+3997
 </td>
 <td style="text-align:right;">
 122.7
 </td>
 <td style="text-align:right;">
-121.5
+118.1
 </td>
 <td style="text-align:right;">
-46.5
+46.6
 </td>
 </tr>
 <tr>
@@ -6360,22 +6390,22 @@ Espìrito Santo do Pinhal
 34373
 </td>
 <td style="text-align:right;">
-36539
+36550
 </td>
 <td style="text-align:right;">
-35300
+34215
 </td>
 <td style="text-align:right;">
-11252
+11266
 </td>
 <td style="text-align:right;">
 106.3
 </td>
 <td style="text-align:right;">
-102.7
+99.5
 </td>
 <td style="text-align:right;">
-32.7
+32.8
 </td>
 </tr>
 <tr>
@@ -6386,22 +6416,22 @@ Estiva Gerbi
 9176
 </td>
 <td style="text-align:right;">
-9310
+9320
 </td>
 <td style="text-align:right;">
-9028
+8615
 </td>
 <td style="text-align:right;">
-2182
+2197
 </td>
 <td style="text-align:right;">
-101.5
+101.6
 </td>
 <td style="text-align:right;">
-98.4
+93.9
 </td>
 <td style="text-align:right;">
-23.8
+23.9
 </td>
 </tr>
 <tr>
@@ -6412,19 +6442,19 @@ Itapira
 58210
 </td>
 <td style="text-align:right;">
-63608
+63621
 </td>
 <td style="text-align:right;">
-64007
+61753
 </td>
 <td style="text-align:right;">
-22369
+22378
 </td>
 <td style="text-align:right;">
 109.3
 </td>
 <td style="text-align:right;">
-110.0
+106.1
 </td>
 <td style="text-align:right;">
 38.4
@@ -6438,22 +6468,22 @@ Itobi
 6212
 </td>
 <td style="text-align:right;">
-6765
+6778
 </td>
 <td style="text-align:right;">
-6426
+6179
 </td>
 <td style="text-align:right;">
-1703
+1707
 </td>
 <td style="text-align:right;">
-108.9
+109.1
 </td>
 <td style="text-align:right;">
-103.4
+99.5
 </td>
 <td style="text-align:right;">
-27.4
+27.5
 </td>
 </tr>
 <tr>
@@ -6464,22 +6494,22 @@ Mococa
 53663
 </td>
 <td style="text-align:right;">
-59991
+60008
 </td>
 <td style="text-align:right;">
-58318
+56422
 </td>
 <td style="text-align:right;">
-16973
+17001
 </td>
 <td style="text-align:right;">
 111.8
 </td>
 <td style="text-align:right;">
-108.7
+105.1
 </td>
 <td style="text-align:right;">
-31.6
+31.7
 </td>
 </tr>
 <tr>
@@ -6490,19 +6520,19 @@ Mogi Guaçu
 120788
 </td>
 <td style="text-align:right;">
-128915
+128980
 </td>
 <td style="text-align:right;">
-130225
+125593
 </td>
 <td style="text-align:right;">
-30621
+30723
 </td>
 <td style="text-align:right;">
-106.7
+106.8
 </td>
 <td style="text-align:right;">
-107.8
+104.0
 </td>
 <td style="text-align:right;">
 25.4
@@ -6516,22 +6546,22 @@ Mogi Mirim
 73277
 </td>
 <td style="text-align:right;">
-80474
+80493
 </td>
 <td style="text-align:right;">
-78077
+75520
 </td>
 <td style="text-align:right;">
-19890
+19963
 </td>
 <td style="text-align:right;">
 109.8
 </td>
 <td style="text-align:right;">
-106.6
+103.1
 </td>
 <td style="text-align:right;">
-27.1
+27.2
 </td>
 </tr>
 <tr>
@@ -6542,19 +6572,19 @@ Santa Cruz das Palmeiras
 27495
 </td>
 <td style="text-align:right;">
-25556
+25561
 </td>
 <td style="text-align:right;">
-25949
+24790
 </td>
 <td style="text-align:right;">
-5974
+5978
 </td>
 <td style="text-align:right;">
-92.9
+93.0
 </td>
 <td style="text-align:right;">
-94.4
+90.2
 </td>
 <td style="text-align:right;">
 21.7
@@ -6571,7 +6601,7 @@ Santo Antonio do Jardim
 5436
 </td>
 <td style="text-align:right;">
-5385
+5105
 </td>
 <td style="text-align:right;">
 1813
@@ -6580,7 +6610,7 @@ Santo Antonio do Jardim
 116.2
 </td>
 <td style="text-align:right;">
-115.1
+109.1
 </td>
 <td style="text-align:right;">
 38.7
@@ -6594,22 +6624,22 @@ São João da Boa Vista
 70906
 </td>
 <td style="text-align:right;">
-80665
+80690
 </td>
 <td style="text-align:right;">
-78119
+75722
 </td>
 <td style="text-align:right;">
-24690
+24734
 </td>
 <td style="text-align:right;">
 113.8
 </td>
 <td style="text-align:right;">
-110.2
+106.8
 </td>
 <td style="text-align:right;">
-34.8
+34.9
 </td>
 </tr>
 <tr>
@@ -6620,22 +6650,22 @@ São Jose do Rio Pardo
 42447
 </td>
 <td style="text-align:right;">
-47053
+47083
 </td>
 <td style="text-align:right;">
-45614
+44199
 </td>
 <td style="text-align:right;">
-15412
+15497
 </td>
 <td style="text-align:right;">
 110.9
 </td>
 <td style="text-align:right;">
-107.5
+104.1
 </td>
 <td style="text-align:right;">
-36.3
+36.5
 </td>
 </tr>
 <tr>
@@ -6646,22 +6676,22 @@ São Sebastião da Grama
 9649
 </td>
 <td style="text-align:right;">
-9454
+9455
 </td>
 <td style="text-align:right;">
-10010
+9705
 </td>
 <td style="text-align:right;">
-2821
+2824
 </td>
 <td style="text-align:right;">
 98.0
 </td>
 <td style="text-align:right;">
-103.7
+100.6
 </td>
 <td style="text-align:right;">
-29.2
+29.3
 </td>
 </tr>
 <tr>
@@ -6672,22 +6702,22 @@ Tambau
 18137
 </td>
 <td style="text-align:right;">
-18370
+18398
 </td>
 <td style="text-align:right;">
-18021
+17394
 </td>
 <td style="text-align:right;">
-5102
+5127
 </td>
 <td style="text-align:right;">
-101.3
+101.4
 </td>
 <td style="text-align:right;">
-99.4
+95.9
 </td>
 <td style="text-align:right;">
-28.1
+28.3
 </td>
 </tr>
 <tr>
@@ -6698,22 +6728,22 @@ Tapiratiba
 10215
 </td>
 <td style="text-align:right;">
-11074
+11080
 </td>
 <td style="text-align:right;">
-11299
+10981
 </td>
 <td style="text-align:right;">
-3525
+3611
 </td>
 <td style="text-align:right;">
-108.4
+108.5
 </td>
 <td style="text-align:right;">
-110.6
+107.5
 </td>
 <td style="text-align:right;">
-34.5
+35.3
 </td>
 </tr>
 <tr>
@@ -6724,22 +6754,22 @@ Vargem Grande do Sul
 33257
 </td>
 <td style="text-align:right;">
-35942
+35956
 </td>
 <td style="text-align:right;">
-36342
+35301
 </td>
 <td style="text-align:right;">
-12048
+12065
 </td>
 <td style="text-align:right;">
 108.1
 </td>
 <td style="text-align:right;">
-109.3
+106.1
 </td>
 <td style="text-align:right;">
-36.2
+36.3
 </td>
 </tr>
 </tbody>
@@ -6786,7 +6816,7 @@ Cob.D.Adic.
 47543
 </td>
 <td style="text-align:right;">
-3
+7
 </td>
 <td style="text-align:right;">
 0
@@ -6812,19 +6842,19 @@ Cob.D.Adic.
 46270
 </td>
 <td style="text-align:right;">
-29599
+29636
 </td>
 <td style="text-align:right;">
-21500
+21575
 </td>
 <td style="text-align:right;">
-21
+22
 </td>
 <td style="text-align:right;">
-64.0
+64.1
 </td>
 <td style="text-align:right;">
-46.5
+46.6
 </td>
 <td style="text-align:right;">
 0.0
@@ -6838,16 +6868,16 @@ Cob.D.Adic.
 49505
 </td>
 <td style="text-align:right;">
-50895
+50936
 </td>
 <td style="text-align:right;">
-48015
+48022
 </td>
 <td style="text-align:right;">
-457
+463
 </td>
 <td style="text-align:right;">
-102.8
+102.9
 </td>
 <td style="text-align:right;">
 97.0
@@ -6864,22 +6894,22 @@ Cob.D.Adic.
 122399
 </td>
 <td style="text-align:right;">
-117673
+117721
 </td>
 <td style="text-align:right;">
-115547
+114972
 </td>
 <td style="text-align:right;">
-9326
+9367
 </td>
 <td style="text-align:right;">
-96.1
+96.2
 </td>
 <td style="text-align:right;">
-94.4
+93.9
 </td>
 <td style="text-align:right;">
-7.6
+7.7
 </td>
 </tr>
 <tr>
@@ -6890,22 +6920,22 @@ Cob.D.Adic.
 132061
 </td>
 <td style="text-align:right;">
-130028
+130085
 </td>
 <td style="text-align:right;">
-134152
+120074
 </td>
 <td style="text-align:right;">
-24489
+24562
 </td>
 <td style="text-align:right;">
 98.5
 </td>
 <td style="text-align:right;">
-101.6
+90.9
 </td>
 <td style="text-align:right;">
-18.5
+18.6
 </td>
 </tr>
 <tr>
@@ -6916,19 +6946,19 @@ Cob.D.Adic.
 116535
 </td>
 <td style="text-align:right;">
-119027
+119072
 </td>
 <td style="text-align:right;">
-119721
+112237
 </td>
 <td style="text-align:right;">
-21155
+21263
 </td>
 <td style="text-align:right;">
-102.1
+102.2
 </td>
 <td style="text-align:right;">
-102.7
+96.3
 </td>
 <td style="text-align:right;">
 18.2
@@ -6942,22 +6972,22 @@ Cob.D.Adic.
 105074
 </td>
 <td style="text-align:right;">
-107305
+107342
 </td>
 <td style="text-align:right;">
-106017
+104627
 </td>
 <td style="text-align:right;">
-24004
+24181
 </td>
 <td style="text-align:right;">
-102.1
+102.2
 </td>
 <td style="text-align:right;">
-100.9
+99.6
 </td>
 <td style="text-align:right;">
-22.8
+23.0
 </td>
 </tr>
 <tr>
@@ -6968,22 +6998,22 @@ Cob.D.Adic.
 82896
 </td>
 <td style="text-align:right;">
-85834
+85876
 </td>
 <td style="text-align:right;">
-86349
+86169
 </td>
 <td style="text-align:right;">
-53223
+53323
 </td>
 <td style="text-align:right;">
-103.5
+103.6
 </td>
 <td style="text-align:right;">
-104.2
+103.9
 </td>
 <td style="text-align:right;">
-64.2
+64.3
 </td>
 </tr>
 <tr>
@@ -6994,13 +7024,13 @@ Cob.D.Adic.
 64230
 </td>
 <td style="text-align:right;">
-67872
+67887
 </td>
 <td style="text-align:right;">
-67390
+67353
 </td>
 <td style="text-align:right;">
-69937
+70011
 </td>
 <td style="text-align:right;">
 0.0
@@ -7009,7 +7039,7 @@ Cob.D.Adic.
 104.9
 </td>
 <td style="text-align:right;">
-108.9
+109.0
 </td>
 </tr>
 </tbody>
@@ -7062,7 +7092,7 @@ Aguaí
 212
 </td>
 <td style="text-align:right;">
-61
+63
 </td>
 <td style="text-align:right;">
 57.5
@@ -7071,7 +7101,7 @@ Aguaí
 53.9
 </td>
 <td style="text-align:right;">
-15.5
+16.0
 </td>
 </tr>
 <tr>
@@ -7241,7 +7271,7 @@ Itapira
 391
 </td>
 <td style="text-align:right;">
-366
+363
 </td>
 <td style="text-align:right;">
 68
@@ -7250,7 +7280,7 @@ Itapira
 47.9
 </td>
 <td style="text-align:right;">
-44.9
+44.5
 </td>
 <td style="text-align:right;">
 8.3
@@ -7290,22 +7320,22 @@ Mococa
 900
 </td>
 <td style="text-align:right;">
-272
+273
 </td>
 <td style="text-align:right;">
 258
 </td>
 <td style="text-align:right;">
-56
+57
 </td>
 <td style="text-align:right;">
-30.2
+30.3
 </td>
 <td style="text-align:right;">
 28.7
 </td>
 <td style="text-align:right;">
-6.2
+6.3
 </td>
 </tr>
 <tr>
@@ -7319,7 +7349,7 @@ Mogi Guaçu
 721
 </td>
 <td style="text-align:right;">
-702
+703
 </td>
 <td style="text-align:right;">
 63
@@ -7345,7 +7375,7 @@ Mogi Mirim
 127
 </td>
 <td style="text-align:right;">
-126
+124
 </td>
 <td style="text-align:right;">
 14
@@ -7354,7 +7384,7 @@ Mogi Mirim
 10.9
 </td>
 <td style="text-align:right;">
-10.8
+10.6
 </td>
 <td style="text-align:right;">
 1.2
@@ -7371,19 +7401,19 @@ Santa Cruz das Palmeiras
 205
 </td>
 <td style="text-align:right;">
-201
+200
 </td>
 <td style="text-align:right;">
-34
+35
 </td>
 <td style="text-align:right;">
 53.2
 </td>
 <td style="text-align:right;">
-52.2
+51.9
 </td>
 <td style="text-align:right;">
-8.8
+9.1
 </td>
 </tr>
 <tr>
@@ -7397,7 +7427,7 @@ Santo Antonio do Jardim
 33
 </td>
 <td style="text-align:right;">
-33
+32
 </td>
 <td style="text-align:right;">
 8
@@ -7406,7 +7436,7 @@ Santo Antonio do Jardim
 60.0
 </td>
 <td style="text-align:right;">
-60.0
+58.2
 </td>
 <td style="text-align:right;">
 14.5
@@ -7498,19 +7528,19 @@ Tambau
 302
 </td>
 <td style="text-align:right;">
-102
+103
 </td>
 <td style="text-align:right;">
-92
+93
 </td>
 <td style="text-align:right;">
 14
 </td>
 <td style="text-align:right;">
-33.8
+34.1
 </td>
 <td style="text-align:right;">
-30.5
+30.8
 </td>
 <td style="text-align:right;">
 4.6
@@ -7615,19 +7645,19 @@ Aguaí
 3246
 </td>
 <td style="text-align:right;">
-3219
+3194
 </td>
 <td style="text-align:right;">
-938
+946
 </td>
 <td style="text-align:right;">
 95.1
 </td>
 <td style="text-align:right;">
-94.3
+93.6
 </td>
 <td style="text-align:right;">
-27.5
+27.7
 </td>
 </tr>
 <tr>
@@ -7641,19 +7671,19 @@ Aguaí
 707
 </td>
 <td style="text-align:right;">
-722
+718
 </td>
 <td style="text-align:right;">
-177
+178
 </td>
 <td style="text-align:right;">
 108.3
 </td>
 <td style="text-align:right;">
-110.6
+110.0
 </td>
 <td style="text-align:right;">
-27.1
+27.3
 </td>
 </tr>
 <tr>
@@ -7664,10 +7694,10 @@ Caconde
 4180
 </td>
 <td style="text-align:right;">
-1273
+1274
 </td>
 <td style="text-align:right;">
-1267
+1262
 </td>
 <td style="text-align:right;">
 403
@@ -7676,7 +7706,7 @@ Caconde
 30.5
 </td>
 <td style="text-align:right;">
-30.3
+30.2
 </td>
 <td style="text-align:right;">
 9.6
@@ -7690,22 +7720,22 @@ Casa Branca
 3269
 </td>
 <td style="text-align:right;">
-2555
+2557
 </td>
 <td style="text-align:right;">
-2214
+2204
 </td>
 <td style="text-align:right;">
-310
+326
 </td>
 <td style="text-align:right;">
 78.2
 </td>
 <td style="text-align:right;">
-67.7
+67.4
 </td>
 <td style="text-align:right;">
-9.5
+10.0
 </td>
 </tr>
 <tr>
@@ -7719,19 +7749,19 @@ Divinolândia
 1361
 </td>
 <td style="text-align:right;">
-1367
+1359
 </td>
 <td style="text-align:right;">
-455
+456
 </td>
 <td style="text-align:right;">
 97.8
 </td>
 <td style="text-align:right;">
-98.2
+97.6
 </td>
 <td style="text-align:right;">
-32.7
+32.8
 </td>
 </tr>
 <tr>
@@ -7745,19 +7775,19 @@ Espìrito Santo do Pinhal
 4897
 </td>
 <td style="text-align:right;">
-4885
+4834
 </td>
 <td style="text-align:right;">
-1167
+1169
 </td>
 <td style="text-align:right;">
 105.9
 </td>
 <td style="text-align:right;">
-105.6
+104.5
 </td>
 <td style="text-align:right;">
-25.2
+25.3
 </td>
 </tr>
 <tr>
@@ -7771,7 +7801,7 @@ Estiva Gerbi
 1251
 </td>
 <td style="text-align:right;">
-1251
+1231
 </td>
 <td style="text-align:right;">
 245
@@ -7780,7 +7810,7 @@ Estiva Gerbi
 79.3
 </td>
 <td style="text-align:right;">
-79.3
+78.1
 </td>
 <td style="text-align:right;">
 15.5
@@ -7794,22 +7824,22 @@ Itapira
 6484
 </td>
 <td style="text-align:right;">
-4357
+4358
 </td>
 <td style="text-align:right;">
-4277
+4274
 </td>
 <td style="text-align:right;">
-2179
+2183
 </td>
 <td style="text-align:right;">
 67.2
 </td>
 <td style="text-align:right;">
-66.0
+65.9
 </td>
 <td style="text-align:right;">
-33.6
+33.7
 </td>
 </tr>
 <tr>
@@ -7823,7 +7853,7 @@ Itobi
 170
 </td>
 <td style="text-align:right;">
-169
+167
 </td>
 <td style="text-align:right;">
 28
@@ -7832,7 +7862,7 @@ Itobi
 14.4
 </td>
 <td style="text-align:right;">
-14.3
+14.1
 </td>
 <td style="text-align:right;">
 2.4
@@ -7846,19 +7876,19 @@ Mococa
 9381
 </td>
 <td style="text-align:right;">
-4758
+4759
 </td>
 <td style="text-align:right;">
-4728
+4696
 </td>
 <td style="text-align:right;">
-1425
+1426
 </td>
 <td style="text-align:right;">
 50.7
 </td>
 <td style="text-align:right;">
-50.4
+50.1
 </td>
 <td style="text-align:right;">
 15.2
@@ -7872,22 +7902,22 @@ Mogi Guaçu
 14758
 </td>
 <td style="text-align:right;">
-12033
+12038
 </td>
 <td style="text-align:right;">
-11736
+11712
 </td>
 <td style="text-align:right;">
-2406
+2424
 </td>
 <td style="text-align:right;">
-81.5
+81.6
 </td>
 <td style="text-align:right;">
-79.5
+79.4
 </td>
 <td style="text-align:right;">
-16.3
+16.4
 </td>
 </tr>
 <tr>
@@ -7898,22 +7928,22 @@ Mogi Mirim
 9085
 </td>
 <td style="text-align:right;">
-6004
+6005
 </td>
 <td style="text-align:right;">
-5906
+5858
 </td>
 <td style="text-align:right;">
-1281
+1292
 </td>
 <td style="text-align:right;">
 66.1
 </td>
 <td style="text-align:right;">
-65.0
+64.5
 </td>
 <td style="text-align:right;">
-14.1
+14.2
 </td>
 </tr>
 <tr>
@@ -7924,19 +7954,19 @@ Santa Cruz das Palmeiras
 3856
 </td>
 <td style="text-align:right;">
-1860
+1861
 </td>
 <td style="text-align:right;">
-1845
+1826
 </td>
 <td style="text-align:right;">
 315
 </td>
 <td style="text-align:right;">
-48.2
+48.3
 </td>
 <td style="text-align:right;">
-47.8
+47.4
 </td>
 <td style="text-align:right;">
 8.2
@@ -7953,7 +7983,7 @@ Santo Antonio do Jardim
 599
 </td>
 <td style="text-align:right;">
-599
+592
 </td>
 <td style="text-align:right;">
 216
@@ -7962,7 +7992,7 @@ Santo Antonio do Jardim
 145.0
 </td>
 <td style="text-align:right;">
-145.0
+143.3
 </td>
 <td style="text-align:right;">
 52.3
@@ -7976,22 +8006,22 @@ São João da Boa Vista
 12930
 </td>
 <td style="text-align:right;">
-7740
+7741
 </td>
 <td style="text-align:right;">
-7701
+7670
 </td>
 <td style="text-align:right;">
-2265
+2277
 </td>
 <td style="text-align:right;">
 59.9
 </td>
 <td style="text-align:right;">
-59.6
+59.3
 </td>
 <td style="text-align:right;">
-17.5
+17.6
 </td>
 </tr>
 <tr>
@@ -8002,22 +8032,22 @@ São Jose do Rio Pardo
 4126
 </td>
 <td style="text-align:right;">
-4427
+4431
 </td>
 <td style="text-align:right;">
-4299
+4289
 </td>
 <td style="text-align:right;">
-1163
+1187
 </td>
 <td style="text-align:right;">
-107.3
+107.4
 </td>
 <td style="text-align:right;">
-104.2
+104.0
 </td>
 <td style="text-align:right;">
-28.2
+28.8
 </td>
 </tr>
 <tr>
@@ -8031,7 +8061,7 @@ São Sebastião da Grama
 589
 </td>
 <td style="text-align:right;">
-583
+582
 </td>
 <td style="text-align:right;">
 191
@@ -8040,7 +8070,7 @@ São Sebastião da Grama
 48.8
 </td>
 <td style="text-align:right;">
-48.3
+48.2
 </td>
 <td style="text-align:right;">
 15.8
@@ -8057,19 +8087,19 @@ Tambau
 1419
 </td>
 <td style="text-align:right;">
-1395
+1393
 </td>
 <td style="text-align:right;">
-423
+426
 </td>
 <td style="text-align:right;">
 73.0
 </td>
 <td style="text-align:right;">
-71.8
+71.7
 </td>
 <td style="text-align:right;">
-21.8
+21.9
 </td>
 </tr>
 <tr>
@@ -8080,22 +8110,22 @@ Tapiratiba
 1829
 </td>
 <td style="text-align:right;">
-1048
+1053
 </td>
 <td style="text-align:right;">
-886
+883
 </td>
 <td style="text-align:right;">
-208
+282
 </td>
 <td style="text-align:right;">
-57.3
+57.6
 </td>
 <td style="text-align:right;">
-48.4
+48.3
 </td>
 <td style="text-align:right;">
-11.4
+15.4
 </td>
 </tr>
 <tr>
@@ -8106,19 +8136,19 @@ Vargem Grande do Sul
 3514
 </td>
 <td style="text-align:right;">
-1629
+1632
 </td>
 <td style="text-align:right;">
-1666
+1651
 </td>
 <td style="text-align:right;">
-459
+460
 </td>
 <td style="text-align:right;">
 46.4
 </td>
 <td style="text-align:right;">
-47.4
+47.0
 </td>
 <td style="text-align:right;">
 13.1
@@ -8171,7 +8201,7 @@ Aguaí
 900
 </td>
 <td style="text-align:right;">
-889
+854
 </td>
 <td style="text-align:right;">
 825
@@ -8180,7 +8210,7 @@ Aguaí
 176.5
 </td>
 <td style="text-align:right;">
-174.3
+167.5
 </td>
 <td style="text-align:right;">
 161.8
@@ -8197,7 +8227,7 @@ Aguaí
 359
 </td>
 <td style="text-align:right;">
-357
+355
 </td>
 <td style="text-align:right;">
 334
@@ -8206,7 +8236,7 @@ Aguaí
 249.3
 </td>
 <td style="text-align:right;">
-247.9
+246.5
 </td>
 <td style="text-align:right;">
 231.9
@@ -8220,22 +8250,22 @@ Caconde
 373
 </td>
 <td style="text-align:right;">
-620
+621
 </td>
 <td style="text-align:right;">
 632
 </td>
 <td style="text-align:right;">
-517
+518
 </td>
 <td style="text-align:right;">
-166.2
+166.5
 </td>
 <td style="text-align:right;">
 169.4
 </td>
 <td style="text-align:right;">
-138.6
+138.9
 </td>
 </tr>
 <tr>
@@ -8246,22 +8276,22 @@ Casa Branca
 1170
 </td>
 <td style="text-align:right;">
-1330
+1331
 </td>
 <td style="text-align:right;">
-1298
+1297
 </td>
 <td style="text-align:right;">
-1236
+1240
 </td>
 <td style="text-align:right;">
-113.7
+113.8
 </td>
 <td style="text-align:right;">
 110.9
 </td>
 <td style="text-align:right;">
-105.6
+106.0
 </td>
 </tr>
 <tr>
@@ -8275,7 +8305,7 @@ Divinolândia
 716
 </td>
 <td style="text-align:right;">
-722
+720
 </td>
 <td style="text-align:right;">
 716
@@ -8284,7 +8314,7 @@ Divinolândia
 140.9
 </td>
 <td style="text-align:right;">
-142.1
+141.7
 </td>
 <td style="text-align:right;">
 140.9
@@ -8298,19 +8328,19 @@ Espìrito Santo do Pinhal
 1362
 </td>
 <td style="text-align:right;">
-2246
+2247
 </td>
 <td style="text-align:right;">
-2270
+2268
 </td>
 <td style="text-align:right;">
 1831
 </td>
 <td style="text-align:right;">
-164.9
+165.0
 </td>
 <td style="text-align:right;">
-166.7
+166.5
 </td>
 <td style="text-align:right;">
 134.4
@@ -8330,7 +8360,7 @@ Estiva Gerbi
 318
 </td>
 <td style="text-align:right;">
-259
+261
 </td>
 <td style="text-align:right;">
 188.2
@@ -8339,7 +8369,7 @@ Estiva Gerbi
 187.1
 </td>
 <td style="text-align:right;">
-152.4
+153.5
 </td>
 </tr>
 <tr>
@@ -8353,7 +8383,7 @@ Itapira
 3178
 </td>
 <td style="text-align:right;">
-3240
+3238
 </td>
 <td style="text-align:right;">
 3054
@@ -8362,7 +8392,7 @@ Itapira
 157.2
 </td>
 <td style="text-align:right;">
-160.2
+160.1
 </td>
 <td style="text-align:right;">
 151.0
@@ -8376,22 +8406,22 @@ Itobi
 233
 </td>
 <td style="text-align:right;">
-269
+271
 </td>
 <td style="text-align:right;">
-280
+281
 </td>
 <td style="text-align:right;">
-206
+207
 </td>
 <td style="text-align:right;">
-115.5
+116.3
 </td>
 <td style="text-align:right;">
-120.2
+120.6
 </td>
 <td style="text-align:right;">
-88.4
+88.8
 </td>
 </tr>
 <tr>
@@ -8405,19 +8435,19 @@ Mococa
 3045
 </td>
 <td style="text-align:right;">
-3012
+3008
 </td>
 <td style="text-align:right;">
-2438
+2444
 </td>
 <td style="text-align:right;">
 154.8
 </td>
 <td style="text-align:right;">
-153.1
+152.9
 </td>
 <td style="text-align:right;">
-123.9
+124.3
 </td>
 </tr>
 <tr>
@@ -8428,22 +8458,22 @@ Mogi Guaçu
 3558
 </td>
 <td style="text-align:right;">
-6143
+6148
 </td>
 <td style="text-align:right;">
-6117
+6118
 </td>
 <td style="text-align:right;">
-5098
+5109
 </td>
 <td style="text-align:right;">
-172.7
+172.8
 </td>
 <td style="text-align:right;">
-171.9
+172.0
 </td>
 <td style="text-align:right;">
-143.3
+143.6
 </td>
 </tr>
 <tr>
@@ -8454,22 +8484,22 @@ Mogi Mirim
 2495
 </td>
 <td style="text-align:right;">
-3379
+3382
 </td>
 <td style="text-align:right;">
-3510
+3507
 </td>
 <td style="text-align:right;">
-3028
+3039
 </td>
 <td style="text-align:right;">
-135.4
+135.6
 </td>
 <td style="text-align:right;">
-140.7
+140.6
 </td>
 <td style="text-align:right;">
-121.4
+121.8
 </td>
 </tr>
 <tr>
@@ -8483,19 +8513,19 @@ Santa Cruz das Palmeiras
 931
 </td>
 <td style="text-align:right;">
-914
+912
 </td>
 <td style="text-align:right;">
-776
+777
 </td>
 <td style="text-align:right;">
 133.8
 </td>
 <td style="text-align:right;">
-131.3
+131.0
 </td>
 <td style="text-align:right;">
-111.5
+111.6
 </td>
 </tr>
 <tr>
@@ -8532,22 +8562,22 @@ São João da Boa Vista
 3195
 </td>
 <td style="text-align:right;">
-5422
+5423
 </td>
 <td style="text-align:right;">
-5633
+5622
 </td>
 <td style="text-align:right;">
-4717
+4727
 </td>
 <td style="text-align:right;">
 169.7
 </td>
 <td style="text-align:right;">
-176.3
+176.0
 </td>
 <td style="text-align:right;">
-147.6
+147.9
 </td>
 </tr>
 <tr>
@@ -8558,22 +8588,22 @@ São Jose do Rio Pardo
 1686
 </td>
 <td style="text-align:right;">
-2561
+2565
 </td>
 <td style="text-align:right;">
-2477
+2478
 </td>
 <td style="text-align:right;">
-2238
+2245
 </td>
 <td style="text-align:right;">
-151.9
+152.1
 </td>
 <td style="text-align:right;">
-146.9
+147.0
 </td>
 <td style="text-align:right;">
-132.7
+133.2
 </td>
 </tr>
 <tr>
@@ -8584,22 +8614,22 @@ São Sebastião da Grama
 252
 </td>
 <td style="text-align:right;">
-420
+421
 </td>
 <td style="text-align:right;">
-425
+426
 </td>
 <td style="text-align:right;">
-370
+371
 </td>
 <td style="text-align:right;">
-166.7
+167.1
 </td>
 <td style="text-align:right;">
-168.7
+169.0
 </td>
 <td style="text-align:right;">
-146.8
+147.2
 </td>
 </tr>
 <tr>
@@ -8610,19 +8640,19 @@ Tambau
 435
 </td>
 <td style="text-align:right;">
-820
+821
 </td>
 <td style="text-align:right;">
-838
+835
 </td>
 <td style="text-align:right;">
 625
 </td>
 <td style="text-align:right;">
-188.5
+188.7
 </td>
 <td style="text-align:right;">
-192.6
+192.0
 </td>
 <td style="text-align:right;">
 143.7
@@ -8639,7 +8669,7 @@ Tapiratiba
 467
 </td>
 <td style="text-align:right;">
-465
+464
 </td>
 <td style="text-align:right;">
 577
@@ -8648,7 +8678,7 @@ Tapiratiba
 159.9
 </td>
 <td style="text-align:right;">
-159.2
+158.9
 </td>
 <td style="text-align:right;">
 197.6
@@ -8665,7 +8695,7 @@ Vargem Grande do Sul
 994
 </td>
 <td style="text-align:right;">
-991
+989
 </td>
 <td style="text-align:right;">
 897
@@ -8674,7 +8704,7 @@ Vargem Grande do Sul
 93.7
 </td>
 <td style="text-align:right;">
-93.4
+93.2
 </td>
 <td style="text-align:right;">
 84.5

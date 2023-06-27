@@ -108,6 +108,7 @@ casos <- dd %>%
 
 #Doses
 doses.data <- tabyl(ddvac, data, dose) %>%
+  select(1:4) %>% 
   mutate(data = as.Date(data)) %>% 
   setNames(c('data','d1','d2','dadic'))
 
@@ -157,6 +158,7 @@ casos <- dd %>%
 
 #Doses
 doses.data <- tabyl(ddvac, semana, dose) %>%
+  select(1:4) %>% 
   setNames(c('semana','d1','d2','dadic'))
 
 #Juntando casos, doses e limpando NA
@@ -181,11 +183,11 @@ ggplot(graf)+
                       labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
   scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
   scale_x_continuous(breaks = seq(1,53,4))+
-  scale_y_continuous(sec.axis = sec_axis(~./35, name = "Cobertura (%)", breaks = seq(0,100,5)))+
+  scale_y_continuous(sec.axis = sec_axis(~./35, name = "Cobertura (%)", breaks = seq(0,115,5)))+
   labs(x=NULL, y='Casos', colour=NULL, title = "Casos e coberturas vacinais por semana.")+
   theme_minimal()+
   theme( plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
-         legend.position = 'top', axis.text.x = element_text(angle = 30),
+         legend.position = 'top', axis.text.x = element_text(angle = 35),
          legend.key = element_rect(fill = 'transparent', 
                                    colour = 'transparent'),
          legend.box.background = element_rect(fill = 'transparent', 
@@ -204,6 +206,7 @@ casos <- dd %>%
 
 #Doses
 doses.data <- tabyl(ddvac, mes, dose) %>%
+  select(1:4) %>% 
   setNames(c('mes','d1','d2','dadic'))
 
 #Juntando casos, doses e limpando NA
@@ -228,7 +231,7 @@ ggplot(graf, aes(group=1))+
                       labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
   scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
   scale_x_discrete(limits = c("jan","fev","mar","abr" , "mai","jun", "jul","ago","set","out","nov","dez"))+
-  scale_y_continuous(sec.axis = sec_axis(~./120, name = "Cobertura (%)", breaks = seq(0,100,5)))+
+  scale_y_continuous(sec.axis = sec_axis(~./120, name = "Cobertura (%)", breaks = seq(0,115,5)))+
   labs(x=NULL, y='Casos', colour=NULL, title = "Casos e coberturas vacinais por mês.")+
   theme_minimal()+
   theme( plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
@@ -256,6 +259,7 @@ ggplot(graf, aes(group=1))+
 
 #Doses
 doses.data <- tabyl(ddvac, data, dose) %>%
+  select(1:4) %>% 
   mutate(data = as.Date(data)) %>% 
   setNames(c('data','d1','d2','dadic'))
 
@@ -281,7 +285,7 @@ ggplot(graf)+
                       labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
   scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
   scale_x_date(date_breaks = "1 month", date_labels = "%b")+
-  scale_y_continuous(sec.axis = sec_axis(~.*4, name = "Cobertura (%)", breaks = seq(0,100,5)))+
+  scale_y_continuous(sec.axis = sec_axis(~.*4, name = "Cobertura (%)", breaks = seq(0,115,5)))+
   labs(x=NULL, y='Óbitos', colour=NULL, title = "Óbitos e coberturas vacinais por dia.")+
   theme_minimal()+
   theme(plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
@@ -304,6 +308,7 @@ obitos <- dd %>%
 
 #Doses
 doses.data <- tabyl(ddvac, semana, dose) %>%
+  select(1:4) %>% 
   setNames(c('semana','d1','d2','dadic'))
 
 #Juntando obitos, doses e limpando NA
@@ -328,7 +333,7 @@ ggplot(graf)+
                       labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
   scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
   scale_x_continuous(breaks = seq(1,53,4))+
-  scale_y_continuous(sec.axis = sec_axis(~./1.5, name = "Cobertura (%)", breaks = seq(0,100,5)))+
+  scale_y_continuous(sec.axis = sec_axis(~./1.5, name = "Cobertura (%)", breaks = seq(0,115,5)))+
   labs(x=NULL, y='Óbitos', colour=NULL, title = "Óbitos e coberturas vacinais por semana.")+
   theme_minimal()+
   theme( plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
@@ -350,6 +355,7 @@ obitos <- dd %>%
 
 #Doses
 doses.data <- tabyl(ddvac, mes, dose) %>%
+  select(1:4) %>% 
   setNames(c('mes','d1','d2','dadic'))
 
 #Juntando obitos, doses e limpando NA
@@ -374,7 +380,7 @@ ggplot(graf, aes(group=1))+
                       labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
   scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
   scale_x_discrete(limits = c("jan","fev","mar","abr" , "mai","jun", "jul","ago","set","out","nov","dez"))+
-  scale_y_continuous(sec.axis = sec_axis(~./10, name = "Cobertura (%)", breaks = seq(0,100,5)))+
+  scale_y_continuous(sec.axis = sec_axis(~./10, name = "Cobertura (%)", breaks = seq(0,115,5)))+
   labs(x=NULL, y='Óbitos', colour=NULL, title = "Óbitos e coberturas vacinais por mês.")+
   theme_minimal()+
   theme( plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
@@ -569,17 +575,17 @@ cat(paste("####",i,"\n\n"))
   
   print(
   left_join(tabyl(subset(ddvac, muni==i), cat.pop.etaria, dose),
-            subset(pop.et, muni==i), by = 'cat.pop.etaria') %>%
-    mutate(cob.d1=round(d1/pop.etaria*100, 1),
-           cob.d2=round(d2/pop.etaria*100, 1),
-           cob.d3=round(d3/pop.etaria*100, 1),
-           muni = NULL) %>%
-    select(cat.pop.etaria, pop.etaria, d1, d2, d3, cob.d1, cob.d2, cob.d3) %>%
-    kable(col.names = c("Faixa etária", "População", "D1", "D2", "D3", "Cob.D1", "Cob.D2", "Cob.D.Adic"),
-          caption = i) %>%
-    kable_styling(full_width = F,
-                  bootstrap_options = c("striped", "hover",
-                                        "condensed", "responsive")) )
+          subset(pop.et, muni==i), by = 'cat.pop.etaria') %>%
+  select(cat.pop.etaria,  pop.etaria, d1, d2, dadic1) %>% 
+  mutate(cob.d1=round(d1/pop.etaria*100, 1),
+         cob.d2=round(d2/pop.etaria*100, 1),
+         cob.dadic1=round(dadic1/pop.etaria*100, 1)) %>%
+  kable(col.names = c("Faixa etária", "População", "D1", "D2", "Ref1", "Cob.D1", "Cob.D2", "Cob.Ref1"),
+        caption = i) %>%
+  kable_styling(full_width = F,
+                bootstrap_options = c("striped", "hover",
+                                      "condensed", "responsive")) ) 
+
   cat("\n\n\n")
 }
 

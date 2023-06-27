@@ -555,22 +555,25 @@ for (i in x) {
 
   print(
     left_join(tabyl(subset(ddvac, muni==i), cat.pop.etaria, dose),
-              subset(pop.et, muni==i), by = 'cat.pop.etaria') %>%
-      mutate(cob.d1=round(d1/pop.etaria*100, 1),
-             cob.d2=round(d2/pop.etaria*100, 1),
-             cob.ref1=round(ref1/pop.etaria*100, 1),
-             cob.ref2=round(ref2/pop.etaria*100, 1),
-             cob.ref3=round(ref3/pop.etaria*100, 1),
-             # cob.ref4=round(ref4/pop.etaria*100, 1),
-             muni = NULL) %>%
-      select(cat.pop.etaria, pop.etaria, d1, d2, ref1, ref2, ref3, 
-             cob.d1,cob.d2,cob.ref1,cob.ref2,cob.ref3) %>%
-      kable(col.names = c("Faixa etária", "População", "D1", "D2", "Ref1",
-                          "Ref2","Ref3","D1%","D2%","Ref1%","Ref2%","Ref3%"),
-            caption = i) %>%
-      kable_styling(full_width = F,
-                    bootstrap_options = c("striped", "hover",
-                                          "condensed", "responsive")) 
+          subset(pop.et, muni==i), by = 'cat.pop.etaria') %>%
+  mutate(cob.d1=round(d1/pop.etaria*100, 1),
+         cob.d2=round(d2/pop.etaria*100, 1),
+         cob.ref1=round(dadic1/pop.etaria*100, 1),
+         cob.ref2=round(dadic2/pop.etaria*100, 1),
+         cob.biv=round(biv/pop.etaria*100, 1),
+         muni = NULL) %>%
+  select(cat.pop.etaria, pop.etaria, 
+         d1, d2, dadic1, dadic2, 
+         biv,
+         cob.d1, cob.d2, cob.ref1,
+         cob.ref2, 
+         cob.biv) %>%
+  kable(col.names = c("Faixa etária", "População", "D1", 
+                      "D2", "Ref1", "Ref2","Biv",
+                      "D1%", "D2%", "Ref1%", "Ref2%","Biv%"), caption = i) %>%
+  kable_styling(full_width = F,
+                bootstrap_options = c("striped", "hover",
+                                      "condensed", "responsive")) 
     )
   cat("\n\n\n") }
 
@@ -615,19 +618,19 @@ pop.trabsaude <- c(510,144,373,1170,508,1362,170,2022,233,1967,3558,2495,696,72,
 ```{r Cob geral por municipio, echo=FALSE, message=FALSE, warning=FALSE }
 doses.geral <- tabyl(ddvac, muni, dose, show_na = F)
 
-tab <- cbind.data.frame(n.mun, pop.vacgeral, doses.geral[,2:6])
-tab <- tab %>% rbind.data.frame(c("Total", as.numeric(colSums(tab[2:7]))))
-tab <- cbind.data.frame(tab[1], sapply(X = tab[2:7], FUN = as.numeric))
- 
-  cbind.data.frame(tab, 
-                   cobd1 = round(tab["d1"]/tab$pop.vacgeral*100,1),
-                   cobd2 = round(tab["d2"]/tab$pop.vacgeral*100,1),
-                   cob.ref1 = round(tab["ref1"]/tab$pop.vacgeral*100,1),
-                   cob.ref2 = round(tab["ref2"]/tab$pop.vacgeral*100,1),
-                   cob.ref3 = round(tab["ref3"]/tab$pop.vacgeral*100,1)) %>% 
-    kable(col.names = c("Município", "População", "D1","D2","Ref1",
-                      "Ref2","Ref3","D1%","D2%","Ref1%","Ref2%","Ref3%")) %>% 
-    kable_styling(full_width = F, 
+tab <- cbind.data.frame(n.mun, pop.vacgeral, doses.geral[,2:7])
+tab <- tab %>% rbind.data.frame(c("Total", as.numeric(colSums(tab[2:8]))))
+tab <- cbind.data.frame(tab[1], sapply(X = tab[2:8], FUN = as.numeric))
+
+cbind.data.frame(tab[,c("n.mun", "pop.vacgeral","d1","d2","dadic1","dadic2","biv")], 
+                 cobd1 = round(tab["d1"]/tab$pop.vacgeral*100,1),
+                 cobd2 = round(tab["d2"]/tab$pop.vacgeral*100,1),
+                 cob.ref1 = round(tab["dadic1"]/tab$pop.vacgeral*100,1),
+                 cob.ref2 = round(tab["dadic2"]/tab$pop.vacgeral*100,1),
+                 cob.biv = round(tab["biv"]/tab$pop.vacgeral*100,1)) %>% 
+  kable(col.names = c("Município", "População", "D1","D2","Ref1",
+                      "Ref2","Biv","D1%","D2%","Ref1%","Ref2%","Biv%")) %>% 
+  kable_styling(full_width = F, 
                 bootstrap_options = c("striped", "hover", 
                                       "condensed", "responsive"))
 rm(doses.geral,tab)
@@ -641,14 +644,14 @@ rm(doses.geral,tab)
 ```{r Cob_5_a_11_anos, echo=FALSE, message=FALSE, warning=FALSE }
 doses.ped <- tabyl(ddvac[ddvac$idade %in% 5:11,], muni, dose, show_na = F)
 
-tab <- cbind.data.frame(n.mun, pop.ped[,3], doses.ped[,2:4])
+tab <- cbind.data.frame(n.mun, pop.ped[,3], doses.ped[,3:5])
 tab <- tab %>% rbind.data.frame(c("Total", as.numeric(colSums(tab[2:5]))))
 tab <- cbind.data.frame(tab[1], sapply(X = tab[2:5], FUN = as.numeric))
 
 cbind.data.frame(tab, 
                  cob.d1=round(tab[,"d1"]/tab[,"pop5a11anos"]*100,1),
                  cob.d2=round(tab[,"d2"]/tab[,"pop5a11anos"]*100,1),
-                 cob.ref1=round(tab[,"ref1"]/tab[,"pop5a11anos"]*100,1)) %>% 
+                 cob.ref1=round(tab[,"dadic1"]/tab[,"pop5a11anos"]*100,1)) %>% 
   kable(col.names = c("Município", "Pop.5a11", "D1","D2","Ref1", "D1%",
                       "D2%","Ref1%")) %>%                  
   kable_styling(full_width = F, 
@@ -665,16 +668,17 @@ doses.geralidade <- tabyl(ddvac, cat.pop.etaria, dose, show_na = T)
 
 tab <- cbind.data.frame(pop.geraletaria, doses.geralidade[,2:6]) # monta a tabela
 tab <- tab %>% rbind.data.frame(c("Total", as.numeric(colSums(tab[2:7])))) # adiciona totais
-tab <- cbind.data.frame(tab[1], sapply(X = tab[2:7], FUN = as.numeric)) # transforma numerico
+tab <- cbind.data.frame(tab[1], sapply(X = tab[2:7], FUN = as.numeric)) %>%  # transforma numerico
+  select(-biv, biv)
 
 cbind.data.frame(tab,
                  cob.d1=round(tab[,3]/tab[,2]*100,1),
                  cob.d2=round(tab[,4]/tab[,2]*100,1),
-                 cob.ref1=round(tab[,5]/tab[,2]*100,1),
-                 cob.ref2=round(tab[,6]/tab[,2]*100,1),
-                 cob.ref3=round(tab[,7]/tab[,2]*100,1)) %>% 
+                 cob.dadic1=round(tab[,5]/tab[,2]*100,1),
+                 cob.dadic2=round(tab[,6]/tab[,2]*100,1),
+                 cob.biv=round(tab[,7]/tab[,2]*100,1)) %>% 
   kable(col.names = c("Faixa etária", "População", "D1","D2","Ref1","Ref2",
-                      "Ref3","D1%","D2%","Ref1%","Ref2%","Ref3")) %>%                  
+                      "Biv","D1%","D2%","Ref1%","Ref2%","Biv%")) %>%                  
   kable_styling(full_width = F, 
                 bootstrap_options = c("striped", "hover", 
                                       "condensed", "responsive"))
@@ -689,20 +693,23 @@ rm(doses.geralidade, tab)
 ```{r Gestantes, echo=FALSE, message=FALSE, warning=FALSE}
 doses.gest <- tabyl(filter(ddvac, gestante==1), muni, dose, show_na = F)
 
-tab <- cbind.data.frame(doses.gest[1],pop.gest,doses.gest[,2:5]) # monta a tabela c/ pop
-tab <- tab %>% rbind.data.frame(c("Total", as.numeric(colSums(tab[2:6])))) # adiciona totais
-tab <- cbind.data.frame(tab[1], sapply(X = tab[,2:6], FUN = as.numeric)) # transforma numerico
+tab <- cbind.data.frame(doses.gest[1],pop.gest,doses.gest[,2:6]) # monta a tabela c/ pop
+tab <- tab %>% rbind.data.frame(c("Total", as.numeric(colSums(tab[2:7])))) # adiciona totais
+tab <- cbind.data.frame(tab[1], sapply(X = tab[,2:7], FUN = as.numeric)) %>%  # transforma numerico
+  select(-biv,biv)
 
 cbind.data.frame(tab,
                  cob.d1=round(tab[3]/tab[2]*100,1),
                  cob.d2=round(tab[4]/tab[2]*100,1),
-                 cob.ref1=round(tab[5]/tab[2]*100,1),
-                 cob.ref2=round(tab[6]/tab[2]*100,1)) %>% 
+                 cob.dadic1=round(tab[5]/tab[2]*100,1),
+                 cob.dadic2=round(tab[6]/tab[2]*100,1),
+                 cob.dadic2=round(tab[7]/tab[2]*100,1)) %>% 
   kable(col.names = c("Município", "Pop.gest.", "D1","D2","Ref1", 
-                      "Ref2", "D1%","D2%","Ref1%","Ref2%")) %>%                  
+                      "Ref2","Biv","D1%","D2%","Ref1%","Ref2%","Biv%")) %>%                  
   kable_styling(full_width = F, 
                 bootstrap_options = c("striped", "hover", 
                                       "condensed", "responsive"))
+
 rm(doses.gest, tab)
 ```
 
@@ -715,7 +722,8 @@ doses.comorb <-
   tabyl(filter(ddvac, grupo_at == "COMORBIDADE" | 
                  grupo_at =="PESSOA COM DEFICIENCIA" |
                  grupo_at == "PESSOA COM DEFICIENCIA PERMANENTE SEVERA"), 
-        muni, dose, show_na = F)
+        muni, dose, show_na = F) %>% 
+  select(-dadic3,-biv,biv)
 
 tab <- cbind.data.frame(doses.comorb[1],pop.comorb,doses.comorb[,2:6]) # monta a tabela c/ pop
 tab <- tab %>% rbind.data.frame(c("Total", as.numeric(colSums(tab[2:7])))) # adiciona totais
@@ -724,11 +732,11 @@ tab <- cbind.data.frame(tab[1], sapply(X = tab[,2:7], FUN = as.numeric)) # trans
 cbind.data.frame(tab,
                  cob.d1=round(tab[3]/tab[2]*100,1),
                  cob.d2=round(tab[4]/tab[2]*100,1),
-                 cob.ref1=round(tab[5]/tab[2]*100,1),
-                 cob.ref2=round(tab[6]/tab[2]*100,1),
-                 cob.ref3=round(tab[7]/tab[2]*100,1)) %>% 
+                 cob.dadic1=round(tab[5]/tab[2]*100,1),
+                 cob.dadic2=round(tab[6]/tab[2]*100,1),
+                 cob.biv=round(tab[7]/tab[2]*100,1)) %>% 
   kable(col.names = c("Município", "Pop.comorb.", "D1","D2","Ref1", 
-                      "Ref2", "Ref3","D1%","D2%","Ref1%","Ref2%","Ref3%")) %>%                  
+                      "Ref2", "Biv","D1%","D2%","Ref1%","Ref2%","Biv%")) %>%                  
   kable_styling(full_width = F, 
                 bootstrap_options = c("striped", "hover", 
                                       "condensed", "responsive"))
@@ -741,7 +749,8 @@ rm(doses.comorb,tab)
 
 ```{r Trabalhador saude, echo=FALSE, message=FALSE, warning=FALSE}
 doses.trabsaude <- tabyl(filter(ddvac, grupo_at == "TRABALHADOR DE SAUDE"), 
-                         muni, dose, show_na = F)
+                         muni, dose, show_na = F) %>% 
+  select(-dadic3,-biv,biv)
 
 tab <- cbind.data.frame(doses.trabsaude[1],pop.trabsaude,doses.trabsaude[,2:6]) # monta a tabela c/ pop
 tab <- tab %>% rbind.data.frame(c("Total", as.numeric(colSums(tab[2:7])))) # adiciona totais
@@ -750,11 +759,11 @@ tab <- cbind.data.frame(tab[1], sapply(X = tab[,2:7], FUN = as.numeric)) # trans
 cbind.data.frame(tab,
                  cob.d1=round(tab[3]/tab[2]*100,1),
                  cob.d2=round(tab[4]/tab[2]*100,1),
-                 cob.ref1=round(tab[5]/tab[2]*100,1),
-                 cob.ref2=round(tab[6]/tab[2]*100,1),
-                 cob.ref3=round(tab[7]/tab[2]*100,1)) %>% 
+                 cob.dadic1=round(tab[5]/tab[2]*100,1),
+                 cob.dadic2=round(tab[6]/tab[2]*100,1),
+                 cob.biv=round(tab[7]/tab[2]*100,1)) %>% 
   kable(col.names = c("Município", "Pop.trab.saude", "D1","D2","Ref1", 
-                      "Ref2", "Ref3","D1%","D2%","Ref1%","Ref2%","Ref3%")) %>%                  
+                      "Ref2", "Biv","D1%","D2%","Ref1%","Ref2%","Biv%")) %>%                  
   kable_styling(full_width = F, 
                 bootstrap_options = c("striped", "hover", 
                                       "condensed", "responsive"))
@@ -767,16 +776,20 @@ rm(doses.trabsaude, tab)
 
 ### Doses aplicadas por mês
 ```{r doses_dia,  out.width= "100%"}
-ddvac[ddvac$data %in% as.Date("2021-01-01"):as.Date(Sys.Date()),] %>% 
+ddvac %>%
+  filter(between(data, as.Date("2021-01-01"), Sys.Date()) &
+           dose %in% c("d1","d2","dadic1","dadic2","biv"))%>% 
   group_by(data, dose) %>% 
   summarise(num = n()) %>% 
+  mutate(dose = factor(dose, levels = c("d1","d2","dadic1","dadic2","biv"))) %>% 
+  
   
   ggplot(aes(group=dose))+
   geom_col(aes(x = format(data, '%b/%y'), y = num, fill=dose), width = .95)+
   scale_x_discrete(limits = format(seq.Date(from = as.Date("2021-01-01"), 
                                             to = as.Date(Sys.Date()), by = "month"),format="%b/%y"))+
-  scale_fill_manual(values = RColorBrewer::brewer.pal(n = 6, name = 'Paired'), 
-                    labels = c("D1","D2","Ref1","Ref2","Ref3","Ref4"))+
+  scale_fill_manual(values = RColorBrewer::brewer.pal(n = 5, name = 'Paired'), 
+                    labels = c("D1","D2","Ref1","Ref2","Biv"))+
   labs(x=NULL, y="Doses", col=NULL, fill=NULL)+
   theme_minimal()+
   theme(legend.position = 'top', 
@@ -784,7 +797,7 @@ ddvac[ddvac$data %in% as.Date("2021-01-01"):as.Date(Sys.Date()),] %>%
 ```
 
 ### Casos e coberturas
-```{r efeito vacina, results='asis', out.width= "100%"}
+```{r efeito vacina, results='asis', out.width= "100%", eval=TRUE}
 #Casos
 dd <- fread(here('dados','todos_anos.csv'))[,-"V1"]
 casos <- dd %>%
@@ -795,36 +808,40 @@ casos <- dd %>%
 
 #Doses
 doses.data <- tabyl(ddvac, data, dose, show_na = F) %>%
-  mutate(data = as.Date(data)) %>% 
-  setNames(c('data','d1','d2','ref1','ref2','ref3','ref4'))
+  select(-dadic3,-dadic4,-dadic5,-biv,biv) %>% 
+  setNames(c('data','d1','d2','ref1','ref2','biv'))
 
 #Juntando casos, doses e limpando NA
 casos.doses <- left_join(x = casos, y = doses.data, by="data")
 casos.doses[is.na(casos.doses)] <- 0
 
-#Gerando arquivo para o gráfico
 graf <- cbind(casos.doses,
               round(cumsum(x = casos.doses$d1)/766509*100, 1),
               round(cumsum(x = casos.doses$d2)/766509*100, 1),
               round(cumsum(x = casos.doses$ref1)/766509*100, 1),
               round(cumsum(x = casos.doses$ref2)/766509*100, 1),
-              round(cumsum(x = casos.doses$ref3)/766509*100, 1),
-              round(cumsum(x = casos.doses$ref4)/766509*100, 1)) %>%
-  setNames(c("data","casos","mmovel","d1","d2","ref1","ref2","ref3","ref4",
-             'cob.d1','cob.d2','cob.ref1','cob.ref2','cob.ref3','cob.ref4'))
+              round(cumsum(x = casos.doses$biv)/766509*100, 1)) %>% 
+  setNames(c("data","casos","mmovel","d1","d2","ref1","ref2","biv",
+             'cob.d1','cob.d2','cob.ref1','cob.ref2','cob.biv'))
 
-#Gráfico
+
 ggplot(graf[year(graf$data)!='2020',])+
   geom_col(aes(x = data, y = mmovel), alpha = .25, width = 1, fill='#00598C')+  
   geom_line(aes(x = data, y = cob.d1*20, col='Cob.d1'))+
   geom_line(aes(x = data, y = cob.d2*20, col='Cob.d2'))+
   geom_line(aes(x = data, y = cob.ref1*20, col='Cob.ref1'))+
   geom_line(aes(x = data, y = cob.ref2*20, col='Cob.ref2'))+
-  geom_line(aes(x = data, y = cob.ref3*20, col='Cob.ref3'))+
-  geom_line(aes(x = data, y = cob.ref4*20, col='Cob.ref4'))+
-  scale_colour_manual(values = RColorBrewer::brewer.pal(n = 7, name = 'Paired'), 
-                      labels = c("D1",'D2','Reforço 1', 'Reforço 2', 'Reforço 3','Reforço 4'))+
-  # scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
+  geom_line(aes(x = data, y = cob.biv*20, col='Cob.biv'))+
+  scale_colour_manual(values = c('Cob.d1' = '#1F78B4',
+                                 'Cob.d2' = '#33A02C',
+                                 'Cob.ref1' = '#FB9A99',
+                                 'Cob.ref2' = '#E31A1C',
+                                 'Cob.biv' = '#FDBF6F'),
+                      labels = c('Cob.d1' = 'D1',
+                                 'Cob.d2' = 'D2',
+                                 'Cob.ref1' = 'Reforço 1',
+                                 'Cob.ref2' = 'Reforço 2',
+                                 'Cob.biv' = 'Bivalente'))+
   scale_x_date(date_breaks = "2 month", date_labels = "%b/%y")+
   scale_y_continuous(sec.axis = sec_axis(~./20, name = "Cobertura (%)", breaks = seq(0,120,5)))+
   labs(x=NULL, y='Casos', colour=NULL, title = "Casos e coberturas vacinais por dia.")+

@@ -1,5 +1,5 @@
 ---
-title: "Covid-19: Relatório 2020"
+title: "Covid-19: Painel 2020"
 author: "*Grupo de Vigilância Epidemiológica XXVI - São João da Boa Vista*"
 date: "*Atualização: `r format(Sys.time(), '%d de %B de %Y')`*"
 editor_options: 
@@ -35,21 +35,38 @@ library(ggspatial)
 <Br> <Br>
 
 # Apresentação
+
 O Grupo de Vigilância Epidemiológica XXVI de São João da Boa Vista, SP,
-atua junto aos 20 [municípios](municipios.html) que compõem a [Região
-de Saúde XIV](regioes.jpeg), ao leste do Estado de São Paulo, com população estimada em [830.499](https://populacao.seade.gov.br/) habitantes. Dentre suas
-atividades é responsável por analisar e discutir dados epidemiológicos de [agravos de interesse à
-saúde](agravos.html), junto aos gestores municipais e técnicos de Vigilância Epidemiológica.
-Este relatório tem o objetivo de caracterizar a evolução temporal dos casos e óbitos por Covid-19.
+atua junto aos 20 [municípios](municipios.html) que compõem a [Região de
+Saúde XIV](regioes.jpeg), ao leste do Estado de São Paulo, com população
+estimada em [830.499](https://populacao.seade.gov.br/) habitantes.
+Dentre suas atividades é responsável por analisar e discutir dados
+epidemiológicos de [agravos de interesse à saúde](agravos.html), junto
+aos gestores municipais e técnicos de Vigilância Epidemiológica. Este
+instrumento tem o objetivo de caracterizar a evolução temporal dos casos
+e óbitos por Covid-19.
 
 <Br>
 
 # Métodos
-Consiste em um relatório descritivo, quantitativo, a partir dos registros de casos e óbitos por Covid-19, disponibilizados publicamente pela plataforma [openDatasus](https://opendatasus.saude.gov.br/). Esses dados originam dos sistemas federais [e-SUS Notifica](https://notifica.saude.gov.br/onboard) e [Sivep - Gripe](https://sivepgripe.saude.gov.br/sivepgripe/login.html;jsessionid=3tMQzvRmJWU9KbRh72T7Jja9?0),
-considerados as fontes de dados oficiais para avalização epidemiológica do agravo durante durante a pandemia. Os resultados foram agrupados por data, município, distribuição geográfica e grupos etários. São apresentadas frequências absolutas dos `casos`, `óbitos`, `taxa de incidência` e `taxa de letalidade` ([*ver definições*](formulas.html)).
+
+Este painel baseia-se em uma abordagem descritiva e quantitativa,
+utilizando registros de casos e óbitos por Covid-19 disponibilizados
+publicamente pela plataforma
+[openDatasus](https://opendatasus.saude.gov.br/). Esses dados são
+provenientes dos sistemas federais [e-SUS
+Notifica](https://notifica.saude.gov.br/onboard) e [Sivep -
+Gripe](https://sivepgripe.saude.gov.br/sivepgripe/login.html;jsessionid=3tMQzvRmJWU9KbRh72T7Jja9?0),
+considerados as fontes de dados oficiais para avalização epidemiológica
+do agravo durante durante a pandemia. Os dados foram agrupados por
+data, município, distribuição geográfica e grupos etários. São
+apresentadas frequências absolutas dos `casos`, `óbitos`,
+`taxa de incidência` e `taxa de letalidade` ([*ver definições*](formulas.html)).
+
 <Br>
 
 # Resultados
+
 ```{r dd}
 pop <- read.csv2(here('dados','pop.csv'), encoding = "UTF-8")   
 cat.etarias <- c('10 a 14','15 a 19','20 a 29','30 a 39','40 a 49','50 a 59','60 a 69','70 ou mais')           
@@ -62,10 +79,18 @@ pop.et <- read_csv2(here('dados','pop_et.csv'))
 ddvac <- fread(here('dados','ddvac.csv'), encoding = "UTF-8")
 ```
 
-Durante o ano de 2020 foram notificados **`r sum(dd20$casos)/1000`** casos e **`r sum(dd20$obitos)`** óbitos, o que correspondeu à taxa de incidência de **`r round(sum(dd20$casos)/830499*100000, 0)`** casos por 100 mil habitantes e à taxa de letalidade de **`r round(sum(dd20$obitos)/sum(dd20$casos)*100, 0)`%** entre os doentes. A seguir são apresentados os dados sobre a ocorrência dos casos,óbitos e distribuição espacial:
+Durante o ano de 2020 foram notificados **`r sum(dd20$casos)/1000`**
+casos e **`r sum(dd20$obitos)`** óbitos, o que correspondeu à taxa de
+incidência de **`r round(sum(dd20$casos)/830499*100000, 0)`** casos por
+100 mil habitantes e à taxa de letalidade de
+**`r round(sum(dd20$obitos)/sum(dd20$casos)*100, 0)`%** entre os
+doentes. A seguir são apresentados os dados sobre a ocorrência dos
+casos, óbitos e distribuição espacial:
+
 <Br>
 
 ## Total de casos e óbitos
+
 ```{r tabela1}
 tab <- dd20 %>% 
   group_by(muni, pop) %>% 
@@ -91,7 +116,9 @@ tab <- dd20 %>%
 <Br><Br>
 
 ## Dados estratificados {.tabset .tabset-fade .tabset-pills}
+
 ### Casos {.tabset .tabset-fade}
+
 ```{r, casos.muni, results='asis'}
 x <- tabyl(dd20, muni)[,1]
 
@@ -120,9 +147,11 @@ print(
  cat("\n\n\n")
 }
 ```
+
 <Br><Br>
 
 ### Óbitos {.tabset .tabset-fade}
+
 ```{r obitos.muni, results='asis'}
 for (i in x) {
 
@@ -150,12 +179,18 @@ print(
 
 ```
 
-<Br><Br><Br>
+<Br><Br>
+
+```{r espaco1, echo=TRUE}
+
+```
 
 ## Séries temporais {.tabset .tabset-fade .tabset-pills}
 
 ### Casos {.tabset .tabset-fade}
+
 #### Dia
+
 ```{r casos.dia, results='asis', out.width= "90%"}
 ################################## Dia #########################################
 #Casos
@@ -181,6 +216,7 @@ cat("<Br><Br><Br><Br><Br><Br>")
 ```
 
 #### Semana
+
 ```{r casos.semana, results='asis', out.width= "90%"}
 ################################# Semana #######################################
 
@@ -208,6 +244,7 @@ cat("<Br><Br><Br><Br><Br><Br>")
 ```
 
 #### Mês
+
 ```{r casos.mes, results='asis', out.width= "90%"}
 ################################## Mes #########################################
 
@@ -235,7 +272,9 @@ cat("<Br><Br><Br><Br><Br><Br>")
 ```
 
 ### Óbitos {.tabset .tabset-fade}
+
 #### Dia
+
 ```{r obitos_cob.dia, results='asis', out.width= "90%"}
 ################################## Dia #########################################
 #Obitos
@@ -263,6 +302,7 @@ cat("<Br><Br><Br><Br><Br><Br>")
 ```
 
 #### Semana
+
 ```{r obitos_cob.semana, results='asis', out.width= "90%"}
 ################################# Semana #######################################
 #Casos
@@ -288,6 +328,7 @@ cat("<Br><Br><Br><Br><Br><Br>")
 ```
 
 #### Mês
+
 ```{r obitos_cob.mes, results='asis', out.width= "90%"}
 ################################## Mes #########################################
 #obitos
@@ -313,7 +354,7 @@ cat("<Br><Br><Br><Br><Br><Br>")
   
 ```
 
-### {-}
+###  {.unnumbered}
 
 ```{r Preparo dos mapas, include=FALSE, message=FALSE, warning=FALSE}
 # Carregando shapes
@@ -358,8 +399,14 @@ juntos <- dd20 %>%
 
 ```
 
+```{r espaco2, echo=TRUE}
+
+```
+
 ## Distribuição espacial {.tabset .tabset-fade}
+
 ### Casos
+
 ```{r mapa.casos, fig.height=6.5, out.width="90%"}
 
 ggplot(juntos)+
@@ -375,6 +422,7 @@ ggplot(juntos)+
 ```
 
 ### Óbitos
+
 ```{r mapa.obitos, fig.height=6.5, out.width="90%"}
 ggplot(juntos)+ 
   geom_sf(data = mn, fill='transparent', col= alpha('black',.50))+
@@ -389,6 +437,7 @@ ggplot(juntos)+
 ```
 
 ### Taxa de incidência
+
 ```{r mapa.txinc, fig.height=6.5, out.width="90%"}
 ggplot(juntos)+ 
   geom_sf(data = mn, fill='transparent', col= alpha('black',.50))+
@@ -402,6 +451,7 @@ ggplot(juntos)+
 ```
 
 ### Letalidade
+
 ```{r letalidade,fig.height=6.5, out.width="90%"}
 ggplot(juntos)+ 
   geom_sf(data = mn, fill='transparent', col= alpha('black',.50))+
@@ -415,6 +465,7 @@ ggplot(juntos)+
 ```
 
 ### Rótulos
+
 ```{r legenda_casos, fig.height=6, out.width="100%"}
 print( ggplot(juntos)+
          geom_sf(data = mn, fill=alpha('#00598C',.1), col= alpha('black',.50))+
@@ -429,4 +480,3 @@ print( ggplot(juntos)+
 ```
 
 <Br><Br>
-

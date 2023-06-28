@@ -1,5 +1,5 @@
 ---
-title: "Covid-19 e coberturas vacinais: <Br> Relatório 2022"
+title: "Covid-19 e coberturas vacinais: <Br> Painel 2022"
 author: "*Grupo de Vigilância Epidemiológica XXVI - São João da Boa Vista*"
 date: "*Atualização: `r format(Sys.time(), '%d de %B de %Y')`*"
 editor_options: 
@@ -40,14 +40,16 @@ atua junto aos 20 [municípios](municipios.html) que compõem a [Região
 de Saúde XIV](regioes.jpeg), ao leste do Estado de São Paulo, com população estimada em [830.499](https://populacao.seade.gov.br/) habitantes. Dentre suas
 atividades é responsável por analisar e discutir dados epidemiológicos de [agravos de interesse à
 saúde](agravos.html), junto aos gestores municipais e técnicos de Vigilância Epidemiológica.
-Este relatório tem o objetivo de caracterizar a evolução temporal dos casos e óbitos por Covid-19 e a vacinação dos grupos populacionais elegíveis até o momento.
+Este instrumento tem o objetivo de caracterizar a evolução temporal dos casos e óbitos por Covid-19 e a vacinação dos grupos populacionais elegíveis até o momento.
 
 <Br>
 
 # Métodos
-Consiste em um relatório descritivo, quantitativo, a partir dos registros de casos e óbitos por Covid-19, disponibilizados publicamente pela plataforma [openDatasus](https://opendatasus.saude.gov.br/). Esses dados originam dos sistemas federais [e-SUS Notifica](https://notifica.saude.gov.br/onboard) e [Sivep - Gripe](https://sivepgripe.saude.gov.br/sivepgripe/login.html;jsessionid=3tMQzvRmJWU9KbRh72T7Jja9?0),
-considerados as fontes de dados oficiais para avalização epidemiológica do agravo durante durante a pandemia. Para avaliação das coberturas vacinais, foram considerados o registros do sistema [Vacivida](https://vacivida.sp.gov.br/imunizacao/), acesso Regional.  
-Os resultados foram agrupados por data, município, distribuição geográfica, grupos etários e grupos elegíveis para vacinação. São apresentadas frequências absolutas dos `casos`, `óbitos`, `taxa de incidência`, `taxa de letalidade` e `coberturas vacinais` ([*ver definições*](formulas.html)).
+
+Este painel baseia-se em uma abordagem descritiva e quantitativa, utilizando registros de casos e óbitos por Covid-19 disponibilizados
+publicamente pela plataforma [openDatasus](https://opendatasus.saude.gov.br/). Esses dados são provenientes dos sistemas federais [e-SUS
+Notifica](https://notifica.saude.gov.br/onboard) e [Sivep - Gripe](https://sivepgripe.saude.gov.br/sivepgripe/login.html;jsessionid=3tMQzvRmJWU9KbRh72T7Jja9?0), considerados as fontes de dados oficiais para avalização epidemiológica do agravo durante durante a pandemia. Para avaliação das coberturas vacinais, foram considerados o registros do sistema [Vacivida](https://vacivida.sp.gov.br/imunizacao/), acesso Regional.  
+Os dados foram agrupados por data, município, distribuição geográfica, grupos etários e grupos elegíveis para vacinação. São apresentadas as frequências absolutas dos `casos`, `óbitos`, `taxa de incidência`, `taxa de letalidade` e `coberturas vacinais` ([*ver definições*](formulas.html)).
 
 <Br>
 

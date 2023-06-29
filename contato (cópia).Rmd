@@ -1,0 +1,53 @@
+---
+title: "Contato"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+
+<Br><Br>
+<p><center><font color="blue" size="3px"><i>Dúvidas, críticas ou sugestões podem ser encaminhadas para ***gve-sjbv@saude.sp.gov.br*** </p> 
+<Br>
+<p>Todos os códigos utilizados na elaboração dos painéis podem ser acessados [neste link](https://github.com/lucascgmermano/relatorio).</p>
+Responsável: Lucas Coraça Germano 
+<Br>
+Telefone: (19)36342869 ou (19) 36342868.</i></b></font></center>
+
+<Br><Br>
+
+<center>
+</html> 
+Agradecemos o contato!
+<Br>
+<img src="like.png" width="100">
+</html>
+<center> 
+
+
+<Br><Br><Br>
+
+
+<html>
+<body>
+<form>
+<p style="text-align: center;">
+<input type="button" value="Voltar" onClick="history.go(-1)">
+<input type="button" value="Atualizar" onClick="history.go(0)">
+</form>
+</body>
+</html>
+
+
+<html>
+<body>
+  <form style="text-align: center;">
+    <input type="button" value="Voltar" onClick="history.go(-1)">
+    <input type="button" value="Atualizar" onClick="history.go(0)">
+    <input type="button" value="Página 1" onclick="window.location.href='pagina1.html'">
+    <input type="button" value="Página 2" onclick="window.location.href='pagina2.html'">
+  </form>
+</body>
+</html>

@@ -856,3 +856,6 @@ ggplot(graf[year(graf$data)!='2020',])+
                                              colour = 'transparent'))
 cat("<Br><Br><Br><Br><Br><Br>")
 ```
+
+<Br><Br>
+

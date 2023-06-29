@@ -9,8 +9,10 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 
 <Br><Br>
-<center><font color="blue" size="3px"><i>Dúvidas, críticas ou sugestões, encaminhar e-mail para ***gve-sjbv@saude.sp.gov.br*** <Br> 
-Responsável: Lucas Coraça Germano <Br>
+<p><center><font color="blue" size="3px"><i>Todos os códigos utilizados na elaboração dos painéis podem ser acessados ***[neste link](https://github.com/lucascgmermano/relatorio)***.</p> 
+<p>Dúvidas, críticas ou sugestões podem ser encaminhadas para ***gve-sjbv@saude.sp.gov.br***.</p>
+Responsável: Lucas Coraça Germano 
+<Br>
 Telefone: (19)36342869 ou (19) 36342868.</i></b></font></center>
 
 <Br><Br>
@@ -26,13 +28,15 @@ Agradecemos o contato!
 
 <Br><Br><Br>
 
-
 <html>
+<p style="text-align: center;">Seguir para:</p>
 <body>
-<form>
-<p style="text-align: center;">
-<input type="button" value="Voltar" onClick="history.go(-1)">
-<input type="button" value="Atualizar" onClick="history.go(0)">
-</form>
+  <form style="text-align: center;">
+    <input type="button" value="2020" onclick="window.location.href='relatorio20.html'">
+    <input type="button" value="2021" onclick="window.location.href='relatorio21.html'">
+    <input type="button" value="2022" onclick="window.location.href='relatorio22.html'">
+    <input type="button" value="2023" onclick="window.location.href='relatorio23.html'"><Br><Br>
+    <input type="button" value="Voltar" onClick="history.go(-1)">
+  </form>
 </body>
 </html>

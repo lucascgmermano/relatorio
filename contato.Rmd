@@ -35,7 +35,7 @@ Agradecemos o contato!
     <input type="button" value="2020" onclick="window.location.href='relatorio20.html'">
     <input type="button" value="2021" onclick="window.location.href='relatorio21.html'">
     <input type="button" value="2022" onclick="window.location.href='relatorio22.html'">
-    <input type="button" value="2023" onclick="window.location.href='relatorio23.html'"><Br><Br>
+    <input type="button" value="2023" onclick="window.location.href='index.html'"><Br><Br>
     <input type="button" value="Voltar" onClick="history.go(-1)">
   </form>
 </body>

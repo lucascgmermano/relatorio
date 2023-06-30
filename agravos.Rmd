@@ -10,6 +10,8 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 ### PORTARIA Nº 264, DE 17 DE FEVEREIRO DE 2020
 #### LISTA NACIONAL DE NOTIFICAÇÃO COMPULSÓRIA DE DOENÇAS, AGRAVOS E EVENTOS DE SAÚDE PÚBLICA
   <Br>
+  
+  <html>
   <table width="745" border="1" align="center">
     <tbody>
       <tr>
@@ -487,6 +489,7 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
   </table>
   <p>Legenda: MS (Ministério da Saúde), SES (Secretaria Estadual de Saúde) ou SMS (Secretaria Municipal de Saúde)</p>
   </div> 
+</html>
 
 <Br><Br>
 
@@ -494,8 +497,7 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 <body>
 <form>
 <p style="text-align: center;">
-<input type="button" value="Voltar" onClick="history.go(-1)">
-<input type="button" value="Atualizar" onClick="history.go(0)">
+<input type="button" value="Voltar" onClick="history.go(-1)" style="background-color: #2e86c1; color: white; border: none; padding: 8px 16px; font-size: 12.5px;">
 </form>
 </body>
 </html>

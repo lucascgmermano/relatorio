@@ -31,8 +31,7 @@ muni.ref %>% rbind(list("--", "Total", 830499)) %>%
 <body>
 <form>
 <p style="text-align: center;">
-<input type="button" value="Voltar" onClick="history.go(-1)">
-<input type="button" value="Atualizar" onClick="history.go(0)">
+<input type="button" value="Voltar" onClick="history.go(-1)" style="background-color: #2e86c1; color: white; border: none; padding: 8px 16px; font-size: 12.5px;">
 </form>
 </body>
 </html>

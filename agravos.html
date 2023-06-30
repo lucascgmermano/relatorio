@@ -13,7 +13,7 @@
 
 <title>Agravos de Notificação Compulsória</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
@@ -35,8 +35,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -65,6 +65,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -85,6 +86,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -142,11 +146,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -175,8 +183,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -184,16 +192,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -310,7 +311,7 @@ div.tocify {
 <div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -323,7 +324,7 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fas fa-calendar-alt"></span>
      
     Período
@@ -334,6 +335,13 @@ div.tocify {
     <li class="dropdown-header">Ano</li>
     <li>
       <a href="index.html">
+        <span class="far fa-calendar-alt"></span>
+         
+        2023
+      </a>
+    </li>
+    <li>
+      <a href="relatorio22.html">
         <span class="far fa-calendar-alt"></span>
          
         2022
@@ -356,7 +364,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fas fa-address-card"></span>
      
     Comunicação
@@ -444,11 +452,16 @@ div.tocify {
 </div>
 
 
-<div id="portaria-nº-264-de-17-de-fevereiro-de-2020" class="section level3">
+<div id="portaria-nº-264-de-17-de-fevereiro-de-2020"
+class="section level3">
 <h3>PORTARIA Nº 264, DE 17 DE FEVEREIRO DE 2020</h3>
-<div id="lista-nacional-de-notificação-compulsória-de-doenças-agravos-e-eventos-de-saúde-pública" class="section level4">
-<h4>LISTA NACIONAL DE NOTIFICAÇÃO COMPULSÓRIA DE DOENÇAS, AGRAVOS E EVENTOS DE SAÚDE PÚBLICA</h4>
-<Br>
+<div
+id="lista-nacional-de-notificação-compulsória-de-doenças-agravos-e-eventos-de-saúde-pública"
+class="section level4">
+<h4>LISTA NACIONAL DE NOTIFICAÇÃO COMPULSÓRIA DE DOENÇAS, AGRAVOS E
+EVENTOS DE SAÚDE PÚBLICA</h4>
+<p><Br></p>
+<html>
 <table width="745" border="1" align="center">
 <tbody>
 <tr>
@@ -486,7 +499,8 @@ div.tocify {
 <span class="style1">1</span>
 </td>
 <td width="502" valign="middle" height="0" align="left">
-<span class="style1">a. Acidente de trabalho com exposição a material biológico</span>
+<span class="style1">a. Acidente de trabalho com exposição a material
+biológico</span>
 </td>
 <td width="53" valign="middle" height="0" align="center">
 </td>
@@ -500,7 +514,8 @@ div.tocify {
 </tr>
 <tr>
 <td width="502" valign="middle" height="0" align="left">
-<span class="style1">b. Acidente de trabalho: grave, fatal e em crianças e adolescentes</span>
+<span class="style1">b. Acidente de trabalho: grave, fatal e em crianças
+e adolescentes</span>
 </td>
 <td width="53" valign="middle" height="0" align="center">
 </td>
@@ -534,7 +549,8 @@ div.tocify {
 <span class="style1">3</span>
 </td>
 <td width="502" valign="middle" height="0" align="left">
-<span class="style1">Acidente por animal potencialmente transmissor da raiva</span>
+<span class="style1">Acidente por animal potencialmente transmissor da
+raiva</span>
 </td>
 <td width="53" valign="middle" height="0" align="center">
 </td>
@@ -711,7 +727,8 @@ div.tocify {
 <span class="style1">11</span>
 </td>
 <td width="502" valign="middle" height="0" align="left">
-<span class="style1">a. Doença Invasiva por “Haemophilus Influenza”</span>
+<span class="style1">a. Doença Invasiva por “Haemophilus
+Influenza”</span>
 </td>
 <td width="53" valign="middle" height="0" align="center">
 </td>
@@ -746,7 +763,8 @@ div.tocify {
 <span class="style1">12</span>
 </td>
 <td width="502" valign="middle" height="0" align="left">
-<span class="style1">Doenças com suspeita de disseminação intencional:a. Antraz pneumônicob. Tularemiac. Varíola</span>
+<span class="style1">Doenças com suspeita de disseminação intencional:a.
+Antraz pneumônicob. Tularemiac. Varíola</span>
 </td>
 <td width="53" valign="middle" height="0" align="center">
 <span class="style1">X</span>
@@ -765,7 +783,9 @@ div.tocify {
 <span class="style1">13</span>
 </td>
 <td width="502" valign="middle" height="0" align="left">
-<span class="style1">Doenças febris hemorrágicas emergentes/reemergentes:a. Arenavírusb. Ebolac. Marburgd. Lassae. Febre purpúrica brasileira</span>
+<span class="style1">Doenças febris hemorrágicas
+emergentes/reemergentes:a. Arenavírusb. Ebolac. Marburgd. Lassae. Febre
+purpúrica brasileira</span>
 </td>
 <td width="53" valign="middle" height="0" align="center">
 <span class="style1">X</span>
@@ -813,7 +833,8 @@ div.tocify {
 </tr>
 <tr>
 <td width="502" valign="middle" height="0" align="left">
-<span class="style1">c. Óbito com suspeita de doença pelo vírus Zika</span>
+<span class="style1">c. Óbito com suspeita de doença pelo vírus
+Zika</span>
 </td>
 <td width="53" valign="middle" height="0" align="center">
 <span class="style1">X</span>
@@ -849,7 +870,8 @@ div.tocify {
 <span class="style1">16</span>
 </td>
 <td width="502" valign="middle" height="0" align="left">
-<span class="style1">Evento de Saúde Pública (ESP) que se constitua ameaça à saúde pública (ver definição no art. 2º desta portaria)</span>
+<span class="style1">Evento de Saúde Pública (ESP) que se constitua
+ameaça à saúde pública (ver definição no art. 2º desta portaria)</span>
 </td>
 <td width="53" valign="middle" height="0" align="center">
 <span class="style1">X</span>
@@ -868,7 +890,8 @@ div.tocify {
 <span class="style1">17</span>
 </td>
 <td width="502" valign="middle" height="0" align="left">
-<span class="style1">Eventos adversos graves ou óbitos pós vacinação</span>
+<span class="style1">Eventos adversos graves ou óbitos pós
+vacinação</span>
 </td>
 <td width="53" valign="middle" height="0" align="center">
 <span class="style1">X</span>
@@ -920,7 +943,8 @@ div.tocify {
 </tr>
 <tr>
 <td width="502" valign="middle" height="0" align="left">
-<span class="style1">b. Febre de Chikungunya em áreas sem transmissão</span>
+<span class="style1">b. Febre de Chikungunya em áreas sem
+transmissão</span>
 </td>
 <td width="53" valign="middle" height="0" align="center">
 <span class="style1">X</span>
@@ -936,7 +960,8 @@ div.tocify {
 </tr>
 <tr>
 <td width="502" valign="middle" height="0" align="left">
-<span class="style1">c. Óbito com suspeita de Febre de Chikungunya</span>
+<span class="style1">c. Óbito com suspeita de Febre de
+Chikungunya</span>
 </td>
 <td width="53" valign="middle" height="0" align="center">
 <span class="style1">X</span>
@@ -955,7 +980,8 @@ div.tocify {
 <span class="style1">20</span>
 </td>
 <td width="502" valign="middle" height="0" align="left">
-<span class="style1">Febre do Nilo Ocidental e outras arboviroses de importância em saúde pública</span>
+<span class="style1">Febre do Nilo Ocidental e outras arboviroses de
+importância em saúde pública</span>
 </td>
 <td width="53" valign="middle" height="0" align="center">
 <span class="style1">X</span>
@@ -1064,7 +1090,8 @@ div.tocify {
 <span class="style1">26</span>
 </td>
 <td width="502" valign="middle" height="0" align="left">
-<span class="style1">HIV/AIDS - Infecção pelo Vírus da Imunodeficiência Humana ou Síndrome da Imunodeficiência Adquirida</span>
+<span class="style1">HIV/AIDS - Infecção pelo Vírus da Imunodeficiência
+Humana ou Síndrome da Imunodeficiência Adquirida</span>
 </td>
 <td width="53" valign="middle" height="0" align="center">
 </td>
@@ -1081,7 +1108,9 @@ div.tocify {
 <span class="style1">27</span>
 </td>
 <td width="502" valign="middle" height="0" align="left">
-<span class="style1">Infecção pelo HIV em gestante, parturiente ou puérpera e Criança exposta ao risco de transmissão vertical do HIV</span>
+<span class="style1">Infecção pelo HIV em gestante, parturiente ou
+puérpera e Criança exposta ao risco de transmissão vertical do
+HIV</span>
 </td>
 <td width="53" valign="middle" height="0" align="center">
 </td>
@@ -1098,7 +1127,8 @@ div.tocify {
 <span class="style1">28</span>
 </td>
 <td width="502" valign="middle" height="0" align="left">
-<span class="style1">Infecção pelo Vírus da Imunodeficiência Humana (HIV)</span>
+<span class="style1">Infecção pelo Vírus da Imunodeficiência Humana
+(HIV)</span>
 </td>
 <td width="53" valign="middle" height="0" align="center">
 </td>
@@ -1115,7 +1145,8 @@ div.tocify {
 <span class="style1">29</span>
 </td>
 <td width="502" valign="middle" height="0" align="left">
-<span class="style1">Influenza humana produzida por novo subtipo viral</span>
+<span class="style1">Influenza humana produzida por novo subtipo
+viral</span>
 </td>
 <td width="53" valign="middle" height="0" align="center">
 <span class="style1">X</span>
@@ -1134,7 +1165,8 @@ div.tocify {
 <span class="style1">30</span>
 </td>
 <td width="502" valign="middle" height="0" align="left">
-<span class="style1">Intoxicação Exógena (por substâncias químicas, incluindo agrotóxicos, gases tóxicos e metais pesados)</span>
+<span class="style1">Intoxicação Exógena (por substâncias químicas,
+incluindo agrotóxicos, gases tóxicos e metais pesados)</span>
 </td>
 <td width="53" valign="middle" height="0" align="center">
 </td>
@@ -1347,7 +1379,8 @@ div.tocify {
 <span class="style1">41</span>
 </td>
 <td width="502" valign="middle" height="0" align="left">
-<span class="style1">Sífilis:a. Adquiridab. Congênitac. Em gestante</span>
+<span class="style1">Sífilis:a. Adquiridab. Congênitac. Em
+gestante</span>
 </td>
 <td width="53" valign="middle" height="0" align="center">
 </td>
@@ -1383,7 +1416,8 @@ div.tocify {
 <span class="style1">43</span>
 </td>
 <td width="502" valign="middle" height="0" align="left">
-<span class="style1">Síndrome Respiratória Aguda Grave associada a Coronavírusa. SARS-CoVb. MERS- CoV</span>
+<span class="style1">Síndrome Respiratória Aguda Grave associada a
+Coronavírusa. SARS-CoVb. MERS- CoV</span>
 </td>
 <td width="53" valign="middle" height="0" align="center">
 <span class="style1">X</span>
@@ -1471,7 +1505,8 @@ div.tocify {
 <span class="style1">48</span>
 </td>
 <td width="502" valign="middle" height="0" align="left">
-<span class="style1">a. Violência doméstica e/ou outras violências</span>
+<span class="style1">a. Violência doméstica e/ou outras
+violências</span>
 </td>
 <td width="53" valign="middle" height="0" align="center">
 </td>
@@ -1500,15 +1535,17 @@ div.tocify {
 </tbody>
 </table>
 <p>
-Legenda: MS (Ministério da Saúde), SES (Secretaria Estadual de Saúde) ou SMS (Secretaria Municipal de Saúde)
+Legenda: MS (Ministério da Saúde), SES (Secretaria Estadual de Saúde) ou
+SMS (Secretaria Municipal de Saúde)
 </p>
 </div>
+</html>
 <p><Br><Br></p>
 <html>
 <body>
 <form>
 <p style="text-align: center;">
-<input type="button" value="Voltar" onClick="history.go(-1)"> <input type="button" value="Atualizar" onClick="history.go(0)">
+<input type="button" value="Voltar" onClick="history.go(-1)" style="background-color: #2e86c1; color: white; border: none; padding: 8px 16px; font-size: 12.5px;">
 </form>
 </body>
 </html>

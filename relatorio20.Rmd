@@ -492,16 +492,26 @@ print( ggplot(juntos)+
 <Br>
 
 <html>
-
-<p style="text-align: center;">Seguir para:</p>
-
+<head>
+<style>
+  input[type="button"] {
+    background-color: #446E9B;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12.5px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+</style>
+</head>
 <body>
-
-<form style="text-align: center;">
-
-<input type="button" value="2021" onclick="window.location.href='relatorio21.html'">
-<input type="button" value="2022" onclick="window.location.href='relatorio22.html'">
-<input type="button" value="2023" onclick="window.location.href='index.html'"><Br><Br>
-<input type="button" value="Voltar" onClick="history.go(-1)">
-
-</form>
+<p style="text-align: center;">Seguir para:</p>
+  <form style="text-align: center;">
+  <input type="button" value="2021" onclick="window.location.href='relatorio21.html'">
+  <input type="button" value="2022" onclick="window.location.href='relatorio22.html'">
+  <input type="button" value="2023" onclick="window.location.href='index.html'">
+  </form>

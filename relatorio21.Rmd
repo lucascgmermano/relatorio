@@ -94,7 +94,7 @@ tab <- dd %>%
   
 ```
 
-<Br><Br>
+<Br>
 
 ## Séries temporais {.tabset .tabset-fade .tabset-pills}
 
@@ -146,8 +146,9 @@ ggplot(graf)+
                                   colour = 'transparent'),
         legend.box.background = element_rect(fill = 'transparent', 
                                              colour = 'transparent'))
-cat("<Br><Br><Br><Br><Br><Br>")
 ```
+
+<Br>
 
 #### Semana
 ```{r casos_cob.semana, results='asis', out.width= "90%"}
@@ -195,8 +196,9 @@ ggplot(graf)+
                                    colour = 'transparent'),
          legend.box.background = element_rect(fill = 'transparent', 
                                               colour = 'transparent'))
-cat("<Br><Br><Br><Br><Br><Br>")
 ```
+
+<Br>
 
 #### Mês
 ```{r casos_cob.mes, results='asis', out.width= "90%"}
@@ -247,7 +249,7 @@ ggplot(graf, aes(group=1))+
 
 ```
 
-
+<Br>
 
 ### Óbitos {.tabset .tabset-fade}
 #### Dia
@@ -297,8 +299,9 @@ ggplot(graf)+
                                   colour = 'transparent'),
         legend.box.background = element_rect(fill = 'transparent', 
                                              colour = 'transparent'))
-cat("<Br><Br><Br><Br><Br><Br>")
 ```
+
+<Br>
 
 #### Semana
 ```{r obitos_cob.semana, results='asis', out.width= "90%"}
@@ -345,8 +348,9 @@ ggplot(graf)+
                                    colour = 'transparent'),
          legend.box.background = element_rect(fill = 'transparent', 
                                               colour = 'transparent'))
-cat("<Br><Br><Br><Br><Br><Br>")
 ```
+
+<Br>
 
 #### Mês
 ```{r obitos_cob.mes, results='asis', out.width= "90%"}
@@ -394,6 +398,8 @@ ggplot(graf, aes(group=1))+
                                               colour = 'transparent'))
 ```
 
+<Br>
+
 ### {-}
 
 ```{r Preparo dos mapas, include=FALSE, message=FALSE, warning=FALSE}
@@ -439,6 +445,8 @@ juntos <- dd %>%
 
 ```
 
+<Br>
+
 ## Distribuição espacial {.tabset .tabset-fade}
 ### Casos
 ```{r mapa.casos, fig.height=6.5, out.width="90%"}
@@ -455,6 +463,8 @@ ggplot(juntos)+
 
 ```
 
+<Br>
+
 ### Óbitos
 ```{r mapa.obitos, fig.height=6.5, out.width="90%"}
 ggplot(juntos)+ 
@@ -469,6 +479,8 @@ ggplot(juntos)+
 
 ```
 
+<Br>
+
 ### Taxa de incidência
 ```{r mapa.txinc, fig.height=6.5, out.width="90%"}
 ggplot(juntos)+ 
@@ -481,6 +493,8 @@ ggplot(juntos)+
         axis.text.y = element_text(colour = 'transparent'))+
   facet_wrap(~mes.nome, ncol = 4)
 ```
+
+<Br>
 
 ### Letalidade
 ```{r letalidade,fig.height=6.5, out.width="90%"}
@@ -495,6 +509,8 @@ ggplot(juntos)+
   facet_wrap(~mes.nome, ncol = 4)
 ```
 
+<Br>
+
 ### Rótulos
 ```{r legenda_casos, fig.height=6, out.width="100%"}
 print( ggplot(juntos)+
@@ -508,6 +524,8 @@ print( ggplot(juntos)+
          theme(axis.text.x = element_text(colour = 'transparent'),
                axis.text.y = element_text(colour = 'transparent')))
 ```
+
+<Br>
 
 ## Dados estratificados {.tabset .tabset-fade .tabset-pills}
 ### Casos {.tabset .tabset-fade}
@@ -539,7 +557,8 @@ print(
  cat("\n\n\n")
 }
 ```
-<Br><Br>
+
+<Br>
 
 ### Óbitos {.tabset .tabset-fade}
 ```{r obitos.muni, results='asis'}
@@ -568,7 +587,8 @@ print(
 }
 
 ```
-<Br><Br> 
+
+<Br>
 
 ### Coberturas vacinais {.tabset .tabset-fade}
 ```{r cob.muni, results='asis'}
@@ -593,7 +613,8 @@ cat(paste("####",i,"\n\n"))
 }
 
 ```
-<Br><Br><Br><Br><Br><Br> 
+
+<Br>
 
 ```{r definicoes_imuni, include=F}
 
@@ -641,7 +662,7 @@ cbind.data.frame(n.mun, pop.vacgeral, doses.geral[,2:4],
 rm(doses.geral)
 ```
 
-<Br><Br><Br>
+<Br>
 
 ### Geral por idade
 
@@ -661,7 +682,7 @@ cbind.data.frame(doses.geralidade[,1],
 rm(doses.geralidade)
 ```
 
-<Br><Br><Br>
+<Br>
 
 ### Gestantes
 
@@ -679,7 +700,7 @@ cbind.data.frame(n.mun, pop.gest, doses.gest[,2:4],
                                       "condensed", "responsive"))
 ```
 
-<Br><Br><Br>
+<Br>
 
 ### Comorbidades
 
@@ -703,7 +724,7 @@ cbind.data.frame(n.mun, pop.comorb, doses.comorb[,2:4],
 
 ```
 
-<Br><Br><Br>
+<Br>
 
 ### Trabalhador da saúde
 
@@ -723,7 +744,21 @@ cbind.data.frame(n.mun, pop.trabsaude, doses.trabsaude[,2:4],
                                       "condensed", "responsive"))
 ```
 
-<Br><Br><Br>
+::: {style="text-align: center"}
+## . . .
+:::
+
+<Br>
+
+<html>
+<p style="text-align: center;">Seguir para:</p>
+<body>
+  <form style="text-align: center;">
+    <input type="button" value="2020" onclick="window.location.href='relatorio20.html'">
+    <input type="button" value="2022" onclick="window.location.href='relatorio22.html'">
+    <input type="button" value="2023" onclick="window.location.href='index.html'"><Br><Br>
+    <input type="button" value="Voltar" onClick="history.go(-1)">
+  </form>
 
 
 

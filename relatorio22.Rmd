@@ -99,7 +99,7 @@ tab <- dd22 %>%
   
 ```
 
-
+<Br>
 
 ### Casos por faixa etária
 ```{r casos por faixa etaria}
@@ -115,6 +115,8 @@ x %>% kableExtra::kable() %>%
                                             "condensed", "responsive"))
 ```
 
+<Br>
+
 ### Óbitos por faixa etária
 ```{r obitos por faixa etaria}
  x <- xtabs(obitos ~ muni + faixa, 
@@ -129,7 +131,7 @@ x %>%  kableExtra::kable() %>%
                                             "condensed", "responsive"))
 ```
 
-<Br><Br><Br><Br>
+<Br>
 
 ## Proporção por faixas etárias {.tabset .tabset-fade}
 
@@ -153,6 +155,8 @@ dd22  %>%
         legend.text = element_text(face = 'bold'))
 ```
 
+<Br>
+
 ### Óbitos
 ```{r, out.width= "100%"}
 dd22  %>% 
@@ -173,6 +177,8 @@ dd22  %>%
               legend.text = element_text(face = 'bold'))
 
 ```
+
+<Br>
 
 ## Séries temporais {.tabset .tabset-fade .tabset-pills}
 
@@ -207,8 +213,9 @@ filter(casos, lubridate::year(data)==2022) %>%
         strip.background = element_rect(fill= '#deeaee',
                                         color='tomato',
                                         linetype = 'dotted'))
-cat("<Br><Br><Br><Br><Br><Br>")
 ```
+
+<Br>
 
 #### Semana
 ```{r casos_cob.semana, results='asis', out.width= "90%"}
@@ -233,8 +240,9 @@ ggplot(casos)+
                                    colour = 'transparent'),
          legend.box.background = element_rect(fill = 'transparent', 
                                               colour = 'transparent'))
-cat("<Br><Br><Br><Br><Br><Br>")
 ```
+
+<Br>
 
 #### Mês
 ```{r casos_cob.mes, results='asis', out.width= "90%"}
@@ -269,7 +277,8 @@ ggplot(casos, aes(group=1))+
 
 
 ```
-<Br><Br><Br><Br><Br><Br>
+
+<Br>
 
 ### Óbitos {.tabset .tabset-fade}
 #### Dia
@@ -296,8 +305,9 @@ ggplot(obitos)+
                                   colour = 'transparent'),
         legend.box.background = element_rect(fill = 'transparent', 
                                              colour = 'transparent'))
-cat("<Br><Br><Br><Br><Br><Br>")
 ```
+
+<Br>
 
 #### Semana
 ```{r obitos_cob.semana, results='asis', out.width= "90%"}
@@ -329,8 +339,9 @@ ggplot(obitos)+
                                    colour = 'transparent'),
          legend.box.background = element_rect(fill = 'transparent', 
                                               colour = 'transparent'))
-cat("<Br><Br><Br><Br><Br><Br>")
 ```
+
+<Br>
 
 #### Mês
 ```{r obitos_cob.mes, results='asis', out.width= "90%"}
@@ -355,7 +366,6 @@ ggplot(obitos, aes(group=1))+
          legend.box.background = element_rect(fill = 'transparent', 
                                               colour = 'transparent'))
 ```
-
 
 ```{r Preparo dos mapas, include=FALSE, message=FALSE, warning=FALSE}
 # Carregando shapes
@@ -400,7 +410,7 @@ juntos <- dd22 %>%
 
 ```
 
-<Br><Br><Br><Br><Br><Br>
+<Br>
 
 ## Distribuição espacial {.tabset .tabset-fade}
 ### Casos
@@ -418,6 +428,8 @@ ggplot(juntos)+
 
 ```
 
+<Br>
+
 ### Óbitos
 ```{r mapa.obitos, fig.height=6.5, out.width="90%"}
 ggplot(juntos)+ 
@@ -432,6 +444,8 @@ ggplot(juntos)+
 
 ```
 
+<Br>
+
 ### Taxa de incidência
 ```{r mapa.txinc, fig.height=6.5, out.width="90%"}
 ggplot(juntos)+ 
@@ -445,6 +459,8 @@ ggplot(juntos)+
   facet_wrap(~mes.nome, ncol = 4)
 ```
 
+<Br>
+
 ### Letalidade
 ```{r letalidade,fig.height=6.5, out.width="90%"}
 ggplot(juntos)+ 
@@ -457,6 +473,8 @@ ggplot(juntos)+
         axis.text.y = element_text(colour = 'transparent'))+
   facet_wrap(~mes.nome, ncol = 4)
 ```
+
+<Br>
 
 ### Rótulos
 ```{r legenda_casos, fig.height=6, out.width="100%"}
@@ -472,8 +490,7 @@ print( ggplot(juntos)+
                axis.text.y = element_text(colour = 'transparent')))
 ```
 
-
-
+<Br>
 
 ## Dados estratificados {.tabset .tabset-fade .tabset-pills}
 ### Casos {.tabset .tabset-fade}
@@ -502,7 +519,8 @@ print(
  cat("\n\n\n")
 }
 ```
-<Br><Br><Br>
+
+<Br>
 
 ### Óbitos {.tabset .tabset-fade}
 ```{r obitos.muni, results='asis'}
@@ -532,7 +550,7 @@ print(
 
 ```
 
-<Br><Br><Br>
+<Br>
 
 ### Coberturas vacinais {.tabset .tabset-fade}
 ```{r cob.muni, results='asis'}
@@ -562,7 +580,7 @@ for (i in x) {
 
 ```
 
-<Br><Br><Br>
+<Br>
 
 ```{r definicoes_imuni, include=F}
 
@@ -618,8 +636,7 @@ cbind.data.frame(tab,
 rm(doses.geral,tab)
 ```
 
-<Br><Br><Br>
-
+<Br>
 
 ### 5 a 11 anos
 
@@ -641,7 +658,8 @@ cbind.data.frame(tab,
                                       "condensed", "responsive"))
 rm(doses.ped, tab)
 ```
-<Br><Br><Br>
+
+<Br>
 
 ### Geral por idade
 
@@ -666,7 +684,7 @@ cbind.data.frame(tab,
 rm(doses.geralidade, tab)
 ```
 
-<Br><Br><Br>
+<Br>
 
 ### Gestantes
 
@@ -690,7 +708,7 @@ cbind.data.frame(tab,
 rm(doses.gest, tab)
 ```
 
-<Br><Br><Br>
+<Br>
 
 ### Comorbidades
 
@@ -718,7 +736,7 @@ cbind.data.frame(tab,
 rm(doses.comorb,tab)
 ```
 
-<Br><Br><Br>
+<Br>
 
 ### Trabalhador da saúde
 
@@ -744,7 +762,8 @@ cbind.data.frame(tab,
 
 rm(doses.trabsaude, tab)
 ```
-<Br><Br><Br>
+
+<Br>
 
 ## Série de casos e coberturas 2021/2022 {.tabset .tabset-fade}
 
@@ -767,6 +786,8 @@ ddvac %>%
   theme(legend.position = 'top', 
         axis.text.x = element_text(angle = 45, hjust = 1))
 ```
+
+<Br>
 
 ### Casos e coberturas
 ```{r efeito vacina, results='asis', out.width= "100%"}
@@ -816,5 +837,21 @@ ggplot(graf[year(graf$data) %in% c('2021','2022'),])+
                                   colour = 'transparent'),
         legend.box.background = element_rect(fill = 'transparent', 
                                              colour = 'transparent'))
-cat("<Br><Br><Br><Br><Br><Br>")
 ```
+
+::: {style="text-align: center"}
+## . . .
+:::
+
+<Br>
+
+<html>
+<p style="text-align: center;">Seguir para:</p>
+<body>
+  <form style="text-align: center;">
+    <input type="button" value="2020" onclick="window.location.href='relatorio20.html'">
+    <input type="button" value="2021" onclick="window.location.href='relatorio21.html'">
+    <input type="button" value="2023" onclick="window.location.href='index.html'"><Br><Br>
+    <input type="button" value="Voltar" onClick="history.go(-1)">
+  </form>
+</body>

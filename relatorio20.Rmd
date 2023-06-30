@@ -58,10 +58,10 @@ provenientes dos sistemas federais [e-SUS
 Notifica](https://notifica.saude.gov.br/onboard) e [Sivep -
 Gripe](https://sivepgripe.saude.gov.br/sivepgripe/login.html;jsessionid=3tMQzvRmJWU9KbRh72T7Jja9?0),
 considerados as fontes de dados oficiais para avalização epidemiológica
-do agravo durante durante a pandemia. Os dados foram agrupados por
-data, município, distribuição geográfica e grupos etários. São
-apresentadas frequências absolutas dos `casos`, `óbitos`,
-`taxa de incidência` e `taxa de letalidade` ([*ver definições*](formulas.html)).
+do agravo durante durante a pandemia. Os dados foram agrupados por data,
+município, distribuição geográfica e grupos etários. São apresentadas
+frequências absolutas dos `casos`, `óbitos`, `taxa de incidência` e
+`taxa de letalidade` ([*ver definições*](formulas.html)).
 
 <Br>
 
@@ -113,7 +113,7 @@ tab <- dd20 %>%
   
 ```
 
-<Br><Br>
+<Br>
 
 ## Dados estratificados {.tabset .tabset-fade .tabset-pills}
 
@@ -148,7 +148,7 @@ print(
 }
 ```
 
-<Br><Br>
+<Br>
 
 ### Óbitos {.tabset .tabset-fade}
 
@@ -179,11 +179,7 @@ print(
 
 ```
 
-<Br><Br>
-
-```{r espaco1, echo=TRUE}
-
-```
+<Br>
 
 ## Séries temporais {.tabset .tabset-fade .tabset-pills}
 
@@ -212,8 +208,9 @@ ggplot(graf,aes(x = data, y = mmovel))+
   labs(x=NULL, y='Casos', colour=NULL)+
   theme_minimal()
   
-cat("<Br><Br><Br><Br><Br><Br>")
 ```
+
+<Br>
 
 #### Semana
 
@@ -240,8 +237,9 @@ ggplot(graf, aes(x = semana, y = casos))+
   labs(x=NULL, y='Casos', colour=NULL)+
   theme_minimal()
 
-cat("<Br><Br><Br><Br><Br><Br>")
 ```
+
+<Br>
 
 #### Mês
 
@@ -268,8 +266,9 @@ ggplot(graf, aes(x = mes, y = casos))+
   theme_minimal()+
   theme(axis.text.x = element_text(angle = 30))
 
-cat("<Br><Br><Br><Br><Br><Br>")
 ```
+
+<Br>
 
 ### Óbitos {.tabset .tabset-fade}
 
@@ -297,9 +296,9 @@ ggplot(graf, aes(x = data, y = obitos))+
   theme_minimal()+
   theme(axis.text.x = element_text(angle = 30))
 
-
-cat("<Br><Br><Br><Br><Br><Br>")
 ```
+
+<Br>
 
 #### Semana
 
@@ -324,8 +323,9 @@ ggplot(graf, aes(x = semana, y = obitos))+
   labs(x=NULL, y='Óbitos', colour=NULL)+
   theme_minimal()
   
-cat("<Br><Br><Br><Br><Br><Br>")
 ```
+
+<Br>
 
 #### Mês
 
@@ -350,9 +350,9 @@ ggplot(graf, aes(x = mes, y = obitos))+
   theme_minimal()+
   theme(axis.text.x = element_text(angle = 30))
 
-cat("<Br><Br><Br><Br><Br><Br>")
-  
 ```
+
+<Br>
 
 ###  {.unnumbered}
 
@@ -399,9 +399,7 @@ juntos <- dd20 %>%
 
 ```
 
-```{r espaco2, echo=TRUE}
-
-```
+<Br>
 
 ## Distribuição espacial {.tabset .tabset-fade}
 
@@ -421,6 +419,8 @@ ggplot(juntos)+
 
 ```
 
+<Br>
+
 ### Óbitos
 
 ```{r mapa.obitos, fig.height=6.5, out.width="90%"}
@@ -436,6 +436,8 @@ ggplot(juntos)+
 
 ```
 
+<Br>
+
 ### Taxa de incidência
 
 ```{r mapa.txinc, fig.height=6.5, out.width="90%"}
@@ -450,6 +452,8 @@ ggplot(juntos)+
   facet_wrap(~mes.nome, ncol = 4)
 ```
 
+<Br>
+
 ### Letalidade
 
 ```{r letalidade,fig.height=6.5, out.width="90%"}
@@ -463,6 +467,8 @@ ggplot(juntos)+
         axis.text.y = element_text(colour = 'transparent'))+
   facet_wrap(~mes.nome, ncol = 4)
 ```
+
+<Br>
 
 ### Rótulos
 
@@ -479,4 +485,23 @@ print( ggplot(juntos)+
                axis.text.y = element_text(colour = 'transparent')))
 ```
 
-<Br><Br>
+::: {style="text-align: center"}
+## . . .
+:::
+
+<Br>
+
+<html>
+
+<p style="text-align: center;">Seguir para:</p>
+
+<body>
+
+<form style="text-align: center;">
+
+<input type="button" value="2021" onclick="window.location.href='relatorio21.html'">
+<input type="button" value="2022" onclick="window.location.href='relatorio22.html'">
+<input type="button" value="2023" onclick="window.location.href='index.html'"><Br><Br>
+<input type="button" value="Voltar" onClick="history.go(-1)">
+
+</form>

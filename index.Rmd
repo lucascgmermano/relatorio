@@ -58,7 +58,8 @@ Os dados foram agrupados por data, município, distribuição geográfica, grupo
 pop <- read.csv2(here('dados','pop.csv'), encoding = "UTF-8")   
 cat.etarias <- c('10 a 14','15 a 19','20 a 29','30 a 39','40 a 49','50 a 59','60 a 69','70 ou mais')           
 
-dd23 <- read_csv2(here('dados','dados2023.csv'))
+dd23 <- read_csv2(here('dados','dados2023.csv')) %>% 
+  mutate(muni = factor(muni, levels = unique(muni) %>% sort()))
 ```
 
 ```{r ddvac}
@@ -84,10 +85,14 @@ tab <- dd23%>%
   select(muni, pop, casos, obitos, tx.inc, let) %>% 
   as.data.frame()
 
-  rbind(tab,list('Total', sum(tab$pop), 
-             sum(tab$casos),sum(tab$obitos),
-             round(sum(tab$casos)/sum(tab$pop)*100000,1),
-             round(sum(tab$obitos)/sum(tab$casos)*100, 1))) %>% 
+ total <- data.frame(muni = 'Total',
+                    pop = sum(tab$pop),
+                    casos = sum(tab$casos),
+                    obitos = sum(tab$obitos),
+                    tx.inc = round(sum(tab$casos) / sum(tab$pop) * 100000, 1),
+                    let = round(sum(tab$obitos) / sum(tab$casos) * 100, 1))
+ 
+ rbind(tab, total) %>% 
 
   kable(col.names = c("Município", "População", "Casos", "Óbitos", 
                       'Tx.Inc', 'Letalidade' )) %>%
@@ -95,27 +100,6 @@ tab <- dd23%>%
                 bootstrap_options = c("striped", "hover", 
                                       "condensed", "responsive"))
   
-```
-
-<Br>
-
-```{r faixas etarias, include=FALSE}
-# ff <- fread('dados/todos_anos.csv')
-# 
-#       ff <- ff %>% 
-#              mutate(faixa = case_when(faixa == '0 a 4' ~ '0 a 4',
-#                                       faixa == '5 a 9' ~ '5 a 9',
-#                                       faixa == '10 a 14' ~ '10 a 14',
-#                                       faixa == '15 a 19' ~ '15 a 19',
-#                                       faixa %in% c('20 a 29', '30 a 39', 
-#                                                    '40 a 49', '50 a 59') ~ '20 a 59',
-#                                       faixa %in% c('60 a 69', '70 a 79', 
-#                                                           '80 ou mais') ~ '60 ou mais'))
-#       ff$faixa <- factor(ff$faixa, levels = c("0 a 4","5 a 9","10 a 14",
-#                                               "15 a 19","20 a 59","60 ou mais"))
-      
-     
-    
 ```
 
 <Br>

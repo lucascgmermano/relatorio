@@ -108,9 +108,10 @@ tab <- dd23%>%
 ```{r casos por faixa etaria}
 x <-  xtabs(casos ~ muni + faixa, 
             data = dd23) %>% 
-        addmargins(margin = 1) 
+        addmargins(margin = c(1,2)) 
  
-# rownames(x)[21] <- "Total"
+row.names(x)[21] <- "Total"
+colnames(x)[12] <- "Total"
 
 x %>% kableExtra::kable() %>% 
         kable_styling(full_width = F,
@@ -124,9 +125,10 @@ x %>% kableExtra::kable() %>%
 ```{r obitos por faixa etaria}
  x <- xtabs(obitos ~ muni + faixa, 
             data = dd23) %>% 
-        addmargins(margin = 1) 
-
-# rownames(x)[21] <- "Total"
+addmargins(margin = c(1,2)) 
+ 
+row.names(x)[21] <- "Total"
+colnames(x)[12] <- "Total"
 
 x %>%  kableExtra::kable() %>% 
         kable_styling(full_width = F,

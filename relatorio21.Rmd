@@ -741,7 +741,7 @@ cbind.data.frame(n.mun, pop.trabsaude, doses.trabsaude[,2:4],
 <Hr>
 <div style="border: 1px solid #ccc; padding: 10px;">
 
-# Série de casos e coberturas 2021/2023 {.tabset .tabset-fade}
+# Série de casos e coberturas 2021 {.tabset .tabset-fade}
 
 ## Casos e coberturas
 ```{r efeito vacina, results='asis', out.width= "100%", eval=TRUE}

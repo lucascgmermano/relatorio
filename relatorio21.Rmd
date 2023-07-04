@@ -1,6 +1,6 @@
 ---
 title: "Covid-19 e coberturas vacinais: <Br> Painel 2021"
-author: "*Grupo de Vigilância Epidemiológica XXVI - São João da Boa Vista*"
+author: "*Grupo de Vigilância Epidemiológica XXVI - São João da Boa Vista, SP*"
 date: "*Atualização: `r format(Sys.time(), '%d de %B de %Y')`*"
 editor_options: 
   markdown: 
@@ -33,6 +33,8 @@ library(ggspatial)
 ```
 
 <Br> <Br>
+
+<div style="border: 1px solid #ccc; padding: 10px;">
 
 # Apresentação
 O Grupo de Vigilância Epidemiológica XXVI de São João da Boa Vista, SP,
@@ -70,9 +72,11 @@ ddvac <- fread(here('dados','ddvac.csv'), encoding = "UTF-8") %>%
 
 Durante o ano de 2021 foram notificados **`r sum(dd$casos)/1000`** casos e **`r sum(dd$obitos)`** óbitos, o que correspondeu à taxa de incidência de **`r round(sum(dd$casos)/830499*100000, 0)`** casos por 100 mil habitantes e à taxa de letalidade de **`r round(sum(dd$obitos)/sum(dd$casos)*100, 0)`%** entre os doentes. A seguir são apresentados os dados sobre a ocorrência dos casos e óbitos, distribuição espacial do Covid-19 e as coberturas vacinais detalhadas:
 
-<Br>
+</div>
+<Hr>
+<div style="border: 1px solid #ccc; padding: 10px;">
 
-## Total de casos e óbitos
+# Total de casos e óbitos
 ```{r tabela1}
 tab <- dd %>% 
   group_by(muni, pop) %>% 
@@ -99,12 +103,14 @@ tab <- dd %>%
   
 ```
 
-<Br>
+</div>
+<Hr>
+<div style="border: 1px solid #ccc; padding: 10px;">
 
-## Séries temporais {.tabset .tabset-fade .tabset-pills}
+# Séries temporais {.tabset .tabset-fade .tabset-pills}
 
-### Casos {.tabset .tabset-fade}
-#### Dia
+## Casos {.tabset .tabset-fade}
+### Dia
 ```{r casos_cob.dia, results='asis', out.width= "90%"}
 ################################## Dia #########################################
 #Casos
@@ -155,7 +161,7 @@ ggplot(graf)+
 
 <Br>
 
-#### Semana
+### Semana
 ```{r casos_cob.semana, results='asis', out.width= "90%"}
 ################################# Semana #######################################
 
@@ -205,7 +211,7 @@ ggplot(graf)+
 
 <Br>
 
-#### Mês
+### Mês
 ```{r casos_cob.mes, results='asis', out.width= "90%"}
 ################################## Mes #########################################
 
@@ -256,8 +262,8 @@ ggplot(graf, aes(group=1))+
 
 <Br>
 
-### Óbitos {.tabset .tabset-fade}
-#### Dia
+## Óbitos {.tabset .tabset-fade}
+### Dia
 ```{r obitos_cob.dia, results='asis', out.width= "90%"}
 ################################## Dia #########################################
 #Obitos
@@ -308,7 +314,7 @@ ggplot(graf)+
 
 <Br>
 
-#### Semana
+### Semana
 ```{r obitos_cob.semana, results='asis', out.width= "90%"}
 ################################# Semana #######################################
 #Casos
@@ -357,7 +363,7 @@ ggplot(graf)+
 
 <Br>
 
-#### Mês
+### Mês
 ```{r obitos_cob.mes, results='asis', out.width= "90%"}
 ################################## Mes #########################################
 #obitos
@@ -405,7 +411,7 @@ ggplot(graf, aes(group=1))+
 
 <Br>
 
-### {-}
+## {-}
 
 ```{r Preparo dos mapas, include=FALSE, message=FALSE, warning=FALSE}
 # Carregando shapes
@@ -450,10 +456,12 @@ juntos <- dd %>%
 
 ```
 
-<Br>
+</div>
+<Hr>
+<div style="border: 1px solid #ccc; padding: 10px;">
 
-## Distribuição espacial {.tabset .tabset-fade}
-### Casos
+# Distribuição espacial {.tabset .tabset-fade}
+## Casos
 ```{r mapa.casos, fig.height=6.5, out.width="90%"}
 
 ggplot(juntos)+
@@ -470,7 +478,7 @@ ggplot(juntos)+
 
 <Br>
 
-### Óbitos
+## Óbitos
 ```{r mapa.obitos, fig.height=6.5, out.width="90%"}
 ggplot(juntos)+ 
   geom_sf(data = mn, fill='transparent', col= alpha('black',.50))+
@@ -486,7 +494,7 @@ ggplot(juntos)+
 
 <Br>
 
-### Taxa de incidência
+## Taxa de incidência
 ```{r mapa.txinc, fig.height=6.5, out.width="90%"}
 ggplot(juntos)+ 
   geom_sf(data = mn, fill='transparent', col= alpha('black',.50))+
@@ -501,7 +509,7 @@ ggplot(juntos)+
 
 <Br>
 
-### Letalidade
+## Letalidade
 ```{r letalidade,fig.height=6.5, out.width="90%"}
 ggplot(juntos)+ 
   geom_sf(data = mn, fill='transparent', col= alpha('black',.50))+
@@ -516,7 +524,7 @@ ggplot(juntos)+
 
 <Br>
 
-### Rótulos
+## Rótulos
 ```{r legenda_casos, fig.height=6, out.width="100%"}
 print( ggplot(juntos)+
          geom_sf(data = mn, fill=alpha('#00598C',.1), col= alpha('black',.50))+
@@ -530,16 +538,18 @@ print( ggplot(juntos)+
                axis.text.y = element_text(colour = 'transparent')))
 ```
 
-<Br>
+</div>
+<Hr>
+<div style="border: 1px solid #ccc; padding: 10px;">
 
-## Dados estratificados {.tabset .tabset-fade .tabset-pills}
-### Casos {.tabset .tabset-fade}
+# Dados estratificados {.tabset .tabset-fade .tabset-pills}
+## Casos {.tabset .tabset-fade}
 ```{r, casos.muni, results='asis'}
 x <- tabyl(dd, muni)[,1]
 
 for (i in x) {
 
-  cat(paste("####",i,"\n"))
+  cat(paste("###",i,"\n"))
   
 print(
   dd %>%
@@ -565,11 +575,11 @@ print(
 
 <Br>
 
-### Óbitos {.tabset .tabset-fade}
+## Óbitos {.tabset .tabset-fade}
 ```{r obitos.muni, results='asis'}
 for (i in x) {
 
-cat(paste("####",i,"\n\n"))
+cat(paste("###",i,"\n\n"))
   
 print(
   dd %>%
@@ -595,11 +605,11 @@ print(
 
 <Br>
 
-### Coberturas vacinais {.tabset .tabset-fade}
+## Coberturas vacinais {.tabset .tabset-fade}
 ```{r cob.muni, results='asis'}
 for (i in x) {
   
-cat(paste("####",i,"\n\n"))
+cat(paste("###",i,"\n\n"))
   
   print(
   left_join(tabyl(subset(ddvac, muni==i), cat.pop.etaria, dose),
@@ -648,9 +658,13 @@ pop.trabsaude <- c(510,144,373,1170,508,1362,170,2022,233,1967,3558,2495,696,72,
                    1686,252,435,292,1061)
 ```
 
-## Coberturas vacinais por grupos {.tabset .tabset-fade}
+</div>
+<Hr>
+<div style="border: 1px solid #ccc; padding: 10px;">
 
-### Geral por município
+# Coberturas vacinais por grupos {.tabset .tabset-fade}
+
+## Geral por município
 
 ```{r Cob geral por municipio, echo=FALSE, message=FALSE, warning=FALSE }
 doses.geral <- tabyl(ddvac, muni, dose, show_na = F)
@@ -669,7 +683,7 @@ rm(doses.geral)
 
 <Br>
 
-### Geral por idade
+## Geral por idade
 
 ```{r Geral por idade, echo=FALSE, message=FALSE, warning=FALSE  }
 doses.geralidade <- tabyl(ddvac, cat.pop.etaria, dose, show_na = T)
@@ -689,7 +703,7 @@ rm(doses.geralidade)
 
 <Br>
 
-### Gestantes
+## Gestantes
 
 ```{r Gestantes, echo=FALSE, message=FALSE, warning=FALSE}
 doses.gest <- tabyl(filter(ddvac, gestante==1), muni, dose, show_na = F)
@@ -707,7 +721,7 @@ cbind.data.frame(n.mun, pop.gest, doses.gest[,2:4],
 
 <Br>
 
-### Comorbidades
+## Comorbidades
 
 ```{r Comorbidades,echo=FALSE, message=FALSE, warning=FALSE}
 doses.comorb <- 
@@ -731,7 +745,7 @@ cbind.data.frame(n.mun, pop.comorb, doses.comorb[,2:4],
 
 <Br>
 
-### Trabalhador da saúde
+## Trabalhador da saúde
 
 ```{r Trabalhador saude, echo=FALSE, message=FALSE, warning=FALSE}
 doses.trabsaude <- tabyl(filter(ddvac, grupo_at == "TRABALHADOR DE SAUDE"), 
@@ -749,8 +763,12 @@ cbind.data.frame(n.mun, pop.trabsaude, doses.trabsaude[,2:4],
                                       "condensed", "responsive"))
 ```
 
+</div>
+
+<Br> 
+
 ::: {style="text-align: center"}
-## . . .
+# . . .
 :::
 
 <Br>

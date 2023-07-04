@@ -1,0 +1,37 @@
+---
+title: "Definições"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+<Br><Br><Br>
+
+**Taxa de incidência por 100 mil habitantes**:   
+$$
+Tx.inc = \frac{\sum_{Casos}}{População} * 100000
+$$
+Consiste na razão entre a soma dos casos pela população exposta ao risco de contrair a doença, multiplicada aplicada por uma base comum. É usada para medir a taxa de ocorrência de uma doença em um determinado período, espaço e população e fornece informações sobre o risco das pessoas serem acometidas pela doença, além disso, permite comparaçoes entre diferentes populações, o que não é possível fazer utilizando somente o número absoluto de casos da doença. <Br><Br><Br>
+
+**Taxa de letalidade**:
+$$
+Let. = \frac{\sum_{Óbitos}}{\sum_{Casos}} * 100
+$$ 
+Consiste na razão entre a soma dos óbitos por determinada doença e o número de pessoas que adoeceram pela mesma doença, expressada como percentagem. Semelhantemente, permite comparações, mas, principalmente, contribui no estudo dos fatores associados ao risco de morte pela doença (ex: virulência, transmissibilidade, esgotamento de recursos de assistência, leitos, etc).<Br><Br><Br>
+
+**Cobertura vacinal**:
+$$
+Cob.vac. = \frac{\sum_{Doses}}{Pop. elegível} * 100
+$$ 
+
+É a razão entre o número de doses aplicadas de determinada vacina pelo número de pessoas elegíveis para receber tais doses, expressada como percentagem. A vacinação é uma estratégia chave em Saúde Pública entre ações de controle, redução de casos, óbitos e eliminação de doenças e o indicador de cobertura vacinal permite avaliar o quão efeiciente ela está sendo e qual seu controle sobre a doença. <Br><Br><Br>
+
+<html>
+<body>
+<form>
+<p style="text-align: center;">
+<input type="button" value="Voltar" onClick="history.go(-1)" style="background-color: #2e86c1; color: white; border: none; padding: 8px 16px; font-size: 12.5px;">
+</form>
+</body>
+</html>

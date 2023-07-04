@@ -61,7 +61,8 @@ pop <- read_csv2(here('dados','pop.csv'))
 cat.etarias <- c('10 a 14','15 a 19','20 a 29','30 a 39','40 a 49','50 a 59','60 a 69','70 ou mais')           
 
 dd <- read_csv2(here('dados','dados2021.csv')) %>% 
-  mutate(muni = factor(muni, levels = unique(muni) %>% sort()))
+  mutate(faixa = factor(faixa, levels = c("0 a 4","5 a 9","10 a 14","15 a 19","20 a 29","30 a 39","40 a 49","50 a 59","60 a 69","70 a 79","80 ou mais")),
+         muni = factor(muni, levels = unique(muni) %>% sort()))
 ```
 
 ```{r ddvac}

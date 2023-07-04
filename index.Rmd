@@ -61,7 +61,8 @@ pop <- read.csv2(here('dados','pop.csv'), encoding = "UTF-8")
 cat.etarias <- c('10 a 14','15 a 19','20 a 29','30 a 39','40 a 49','50 a 59','60 a 69','70 ou mais')           
 
 dd23 <- read_csv2(here('dados','dados2023.csv')) %>% 
-  mutate(muni = factor(muni, levels = unique(muni) %>% sort()))
+  mutate(faixa = factor(faixa, levels = c("0 a 4","5 a 9","10 a 14","15 a 19","20 a 29","30 a 39","40 a 49","50 a 59","60 a 69","70 a 79","80 ou mais")),
+         muni = factor(muni, levels = unique(muni) %>% sort()))
 ```
 
 ```{r ddvac}
@@ -145,7 +146,7 @@ x %>%  kableExtra::kable() %>%
 
 # Proporção por faixas etárias {.tabset .tabset-fade}
 
-### Casos
+## Casos
 ```{r, out.width= "100%"}
 dd23  %>% 
   filter(ano == 2023 & !is.na(faixa)) %>%

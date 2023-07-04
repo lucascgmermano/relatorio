@@ -811,30 +811,6 @@ rm(doses.trabsaude, tab)
 
 # Série de casos e coberturas 2021/2023 {.tabset .tabset-fade}
 
-## Doses aplicadas por mês
-```{r doses_dia,  out.width= "100%"}
-ddvac %>%
-  filter(between(data, as.Date("2021-01-01"), Sys.Date()) &
-           dose %in% c("d1","d2","dadic1","dadic2","biv"))%>% 
-  group_by(data, dose) %>% 
-  summarise(num = n()) %>% 
-  mutate(dose = factor(dose, levels = c("d1","d2","dadic1","dadic2","biv"))) %>% 
-  
-  
-  ggplot(aes(group=dose))+
-  geom_col(aes(x = format(data, '%b/%y'), y = num, fill=dose), width = .95)+
-  scale_x_discrete(limits = format(seq.Date(from = as.Date("2021-01-01"), 
-                                            to = as.Date(Sys.Date()), by = "month"),format="%b/%y"))+
-  scale_fill_manual(values = RColorBrewer::brewer.pal(n = 5, name = 'Paired'), 
-                    labels = c("D1","D2","Ref1","Ref2","Biv"))+
-  labs(x=NULL, y="Doses", col=NULL, fill=NULL)+
-  theme_minimal()+
-  theme(legend.position = 'top', 
-        axis.text.x = element_text(angle = 45, hjust = 1))
-```
-
-<Br>
-
 ## Casos e coberturas
 ```{r efeito vacina, results='asis', out.width= "100%", eval=TRUE}
 #Casos
@@ -891,6 +867,30 @@ ggplot(graf[year(graf$data)!='2020',])+
                                   colour = 'transparent'),
         legend.box.background = element_rect(fill = 'transparent', 
                                              colour = 'transparent'))
+```
+
+<Br>
+
+## Doses aplicadas por mês
+```{r doses_dia,  out.width= "100%"}
+ddvac %>%
+  filter(between(data, as.Date("2021-01-01"), Sys.Date()) &
+           dose %in% c("d1","d2","dadic1","dadic2","biv"))%>% 
+  group_by(data, dose) %>% 
+  summarise(num = n()) %>% 
+  mutate(dose = factor(dose, levels = c("d1","d2","dadic1","dadic2","biv"))) %>% 
+  
+  
+  ggplot(aes(group=dose))+
+  geom_col(aes(x = format(data, '%b/%y'), y = num, fill=dose), width = .95)+
+  scale_x_discrete(limits = format(seq.Date(from = as.Date("2021-01-01"), 
+                                            to = as.Date(Sys.Date()), by = "month"),format="%b/%y"))+
+  scale_fill_manual(values = RColorBrewer::brewer.pal(n = 5, name = 'Paired'), 
+                    labels = c("D1","D2","Ref1","Ref2","Biv"))+
+  labs(x=NULL, y="Doses", col=NULL, fill=NULL)+
+  theme_minimal()+
+  theme(legend.position = 'top', 
+        axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
 </div>

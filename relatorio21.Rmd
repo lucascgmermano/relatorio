@@ -77,17 +77,20 @@ Durante o ano de 2021 foram notificados **`r sum(dd$casos)/1000`** casos e **`r 
 <Hr>
 <div style="border: 1px solid #ccc; padding: 10px;">
 
-# Total de casos e óbitos
+# Total {.tabset .tabset-fade}
+
+## Casos e óbitos
 ```{r tabela1}
-tab <- dd %>% 
+tab <- dd%>% 
   group_by(muni, pop) %>% 
-  summarise(casos = sum(casos, na.rm=T), obitos=sum(obitos, na.rm = T)) %>% 
+  summarise(casos=sum(casos, na.rm=T), 
+            obitos=sum(obitos, na.rm = T)) %>% 
   mutate(tx.inc=round(casos/pop*100000, 0),
          let=round(obitos/casos*100, 0)) %>% 
   select(muni, pop, casos, obitos, tx.inc, let) %>% 
   as.data.frame()
 
-  total <- data.frame(muni = 'Total',
+ total <- data.frame(muni = 'Total',
                     pop = sum(tab$pop),
                     casos = sum(tab$casos),
                     obitos = sum(tab$obitos),
@@ -104,6 +107,87 @@ tab <- dd %>%
   
 ```
 
+<Br>
+
+## Casos por faixa etária
+```{r casos por faixa etaria}
+x <-  xtabs(casos ~ muni + faixa, 
+            data = dd) %>% 
+        addmargins(margin = c(1,2)) 
+ 
+row.names(x)[21] <- "Total"
+colnames(x)[12] <- "Total"
+
+x %>% kableExtra::kable() %>% 
+        kable_styling(full_width = F,
+                      bootstrap_options = c("striped", "hover",
+                                            "condensed", "responsive"))
+```
+
+<Br>
+
+## Óbitos por faixa etária
+```{r obitos por faixa etaria}
+ x <- xtabs(obitos ~ muni + faixa, 
+            data = dd) %>% 
+addmargins(margin = c(1,2)) 
+ 
+row.names(x)[21] <- "Total"
+colnames(x)[12] <- "Total"
+
+x %>%  kableExtra::kable() %>% 
+        kable_styling(full_width = F,
+                      bootstrap_options = c("striped", "hover",
+                                            "condensed", "responsive"))
+```
+
+</div>
+<Hr>
+<div style="border: 1px solid #ccc; padding: 10px;">
+
+# Proporção por faixas etárias {.tabset .tabset-fade}
+
+## Casos
+```{r, out.width= "100%"}
+dd  %>% 
+  group_by(semana, faixa) %>% 
+  summarise(casos = sum(casos)) %>% 
+  mutate(percentual = round(casos/sum(casos)*100,1)) %>% 
+  ggplot(aes(x = semana, y = percentual))+
+  geom_col(fill='#00598C')+
+  geom_text(aes(label=percentual), size=2.3, 
+            hjust = 1.5, col='white', angle=90)+
+  coord_cartesian(expand = T)+
+  scale_x_continuous(n.breaks = max(dd$semana))+
+  labs(y="Percentual do total de casos", x="Semana epidemiológica")+
+  facet_wrap( ~ faixa, ncol = 3, scales = 'free')+
+  theme_bw()+
+  theme(axis.text.x = element_text(angle=45, size = 7, vjust = .8),
+        legend.text = element_text(face = 'bold'))
+```
+
+<Br>
+
+## Óbitos
+```{r, out.width= "100%"}
+dd  %>%
+        group_by(semana, faixa) %>%
+        summarise(obitos = sum(obitos)) %>%
+        mutate(percentual = round(obitos/sum(obitos)*100,1)) %>%
+
+        ggplot(aes(x = semana, y = percentual))+
+        geom_col(fill='#B8252A')+
+       geom_text(aes(label=percentual), size=2.3,
+                  hjust = 1.5, col='white', angle=90)+
+        scale_x_continuous(n.breaks = max(dd$semana))+
+        labs(y="Percentual do total de óbitos", x="Semana epidemiológica")+
+        facet_wrap( ~ faixa, ncol = 3, scales = 'free')+
+        theme_bw()+
+        theme(axis.text.x = element_text(angle=45, size = 7, vjust = .8),
+              legend.text = element_text(face = 'bold'))
+
+```
+
 </div>
 <Hr>
 <div style="border: 1px solid #ccc; padding: 10px;">
@@ -111,6 +195,7 @@ tab <- dd %>%
 # Séries temporais {.tabset .tabset-fade .tabset-pills}
 
 ## Casos {.tabset .tabset-fade}
+
 ### Dia
 ```{r casos_cob.dia, results='asis', out.width= "90%"}
 ################################## Dia #########################################
@@ -121,43 +206,26 @@ casos <- dd %>%
   mutate(data = as.Date(data),
          mmovel7 = round(rollmean(casos, k = 7, fill = NA, align = 'left'),0))
 
-#Doses
-doses.data <- tabyl(ddvac, data, dose) %>%
-  select(1:4) %>% 
-  mutate(data = as.Date(data)) %>% 
-  setNames(c('data','d1','d2','dadic'))
-
-#Juntando casos, doses e limpando NA
-casos.doses <- left_join(x = casos, y = doses.data, by="data")
-casos.doses[is.na(casos.doses)] <- 0
-
-#Gerando arquivo para o gráfico
-graf <- cbind(casos.doses,
-              round(cumsum(x = casos.doses$d1)/718970*100, 1),
-              round(cumsum(x = casos.doses$d2)/718970*100, 1),
-              round(cumsum(x = casos.doses$dadic)/718970*100, 1)) %>%
-  setNames(c('data', 'casos', 'mmovel', 'd1', 'd2',
-             'ref', 'cob.d1', 'cob.d2','cob.d.adic'))
-
 #Gráfico
-ggplot(graf)+
-  geom_col(aes(x = data, y = mmovel), alpha = .25, width = 1, fill='#00598C')+  
-  geom_smooth(aes(x = data, y = cob.d1*5, col='Cob.d1'),se = F, method = 'gam')+
-  geom_smooth(aes(x = data, y = cob.d2*5, col='Cob.d2'),se = F, method = 'gam')+
-  geom_smooth(aes(x = data, y = cob.d.adic*4, col='Cob.D.Adic'),se = F, method = 'gam')+
-  scale_colour_manual(values = c('tomato','#90C134','orange'), 
-                      labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
-  scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
+filter(casos, lubridate::year(data)==2021) %>% 
+  ggplot()+
+  geom_col(aes(x = data, y = casos), width = .9, fill='#00598C')+  
+  geom_text(hjust=-.5, aes(x = data, y = casos, label = casos, angle=90), size=3, check_overlap = TRUE)+
   scale_x_date(date_breaks = "1 month", date_labels = "%b")+
-  scale_y_continuous(sec.axis = sec_axis(~./5, name = "Cobertura (%)", breaks = seq(0,100,5)))+
-  labs(x=NULL, y='Casos', colour=NULL, title = "Casos e coberturas vacinais por dia.")+
+  scale_y_continuous(n.breaks = 10, expand = expansion(mult = c(0,.25)))+
+  labs(x=NULL, y='Casos', colour=NULL)+
+  ggforce::facet_zoom(xy =  data <= as.Date("2021-12-31") &
+                        data >= as.Date("2021-12-11"), horizontal = F, shrink = F)+
   theme_minimal()+
   theme(plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
         legend.position = 'top', axis.text.x = element_text(angle = 30),
         legend.key = element_rect(fill = 'transparent', 
                                   colour = 'transparent'),
         legend.box.background = element_rect(fill = 'transparent', 
-                                             colour = 'transparent'))
+                                             colour = 'transparent'),
+        strip.background = element_rect(fill= '#deeaee',
+                                        color='tomato',
+                                        linetype = 'dotted'))
 ```
 
 <Br>
@@ -165,45 +233,22 @@ ggplot(graf)+
 ### Semana
 ```{r casos_cob.semana, results='asis', out.width= "90%"}
 ################################# Semana #######################################
-
 #Casos
 casos <- dd %>%
   group_by(semana) %>%
   summarise(casos = sum(casos, na.rm=T)) %>% 
   mutate(mmovel4 = round(rollmean(casos, k = 4, fill = NA, align = 'left'),0))
 
-#Doses
-doses.data <- tabyl(ddvac, semana, dose) %>%
-  select(1:4) %>% 
-  setNames(c('semana','d1','d2','dadic'))
-
-#Juntando casos, doses e limpando NA
-casos.doses <- left_join(x = casos, y = doses.data, by="semana")
-casos.doses[is.na(casos.doses)] <- 0
-
-#Gerando arquivo para o gráfico
-graf <- cbind(casos.doses,
-              round(cumsum(x = casos.doses$d1)/718970*100, 1),
-              round(cumsum(x = casos.doses$d2)/718970*100, 1),
-              round(cumsum(x = casos.doses$dadic)/718970*100, 1)) %>%
-  setNames(c('semana', 'casos', 'mmovel', 'd1', 'd2',
-             'ref', 'cob.d1', 'cob.d2','cob.d.adic'))
-
 #Gráfico
-ggplot(graf)+
-  geom_col(aes(x = semana, y = casos), alpha = .25, width = .9, fill='#00598C')+  
-  geom_smooth(aes(x = semana, y = cob.d1*35, col='Cob.d1'),se = F, method = 'gam')+
-  geom_smooth(aes(x = semana, y = cob.d2*35, col='Cob.d2'),se = F, method = 'gam')+
-  geom_smooth(aes(x = semana, y = cob.d.adic*35, col='Cob.D.Adic'),se = F, method = 'gam')+
-  scale_colour_manual(values = c('tomato','#90C134','orange'), 
-                      labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
-  scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
-  scale_x_continuous(breaks = seq(1,53,4))+
-  scale_y_continuous(sec.axis = sec_axis(~./35, name = "Cobertura (%)", breaks = seq(0,115,5)))+
-  labs(x=NULL, y='Casos', colour=NULL, title = "Casos e coberturas vacinais por semana.")+
+ggplot(casos)+
+  geom_col(aes(x = semana, y = casos), width = .9, fill='#00598C')+  
+  geom_text(hjust=-.5, aes(x = semana, y = casos, label = casos, angle=90), size=3)+
+  scale_x_continuous(breaks = seq(1,53,2))+
+  scale_y_continuous(expand = expansion(mult = c(0,.25)))+
+  labs(x="Semana epidemiológica", y='Casos', colour=NULL)+
   theme_minimal()+
   theme( plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
-         legend.position = 'top', axis.text.x = element_text(angle = 35),
+         legend.position = 'top', axis.text.x = element_text(angle = 30),
          legend.key = element_rect(fill = 'transparent', 
                                    colour = 'transparent'),
          legend.box.background = element_rect(fill = 'transparent', 
@@ -221,35 +266,20 @@ casos <- dd %>%
   group_by(mes = lubridate::month(data, label=T)) %>%
   summarise(casos = sum(casos, na.rm=T)) 
 
-#Doses
-doses.data <- tabyl(ddvac, mes, dose) %>%
-  select(1:4) %>% 
-  setNames(c('mes','d1','d2','dadic'))
-
-#Juntando casos, doses e limpando NA
-casos.doses <- left_join(x = casos, y = doses.data, by="mes")
-casos.doses[is.na(casos.doses)] <- 0
-
-#Gerando arquivo para o gráfico
-graf <- cbind(casos.doses,
-              round(cumsum(x = casos.doses$d1)/718970*100, 1),
-              round(cumsum(x = casos.doses$d2)/718970*100, 1),
-              round(cumsum(x = casos.doses$dadic)/718970*100, 1)) %>%
-  setNames(c('mes', 'casos', 'd1', 'd2',
-             'ref', 'cob.d1', 'cob.d2','cob.d.adic'))
-
 #Gráfico
-ggplot(graf, aes(group=1))+
-  geom_col(aes(x = mes, y = casos), alpha = .25, width = .9, fill='#00598C')+  
-  geom_smooth(aes(x = mes, y = cob.d1*120, col='Cob.d1'),se = F, method = 'gam')+
-  geom_smooth(aes(x = mes, y = cob.d2*120, col='Cob.d2'),se = F, method = 'gam')+
-  geom_smooth(aes(x = mes, y = cob.d.adic*120, col='Cob.D.Adic'),se = F, method = 'gam')+
-  scale_colour_manual(values = c('tomato','#90C134','orange'), 
-                      labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
-  scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
+ggplot(casos, aes(group=1))+
+  geom_col(aes(x = mes, y = casos), width = .9, fill='#00598C')+
+  geom_text(hjust=-.5, aes(x = mes, y = casos, label = casos, angle=90), size=3)+
+  # geom_smooth(aes(x = mes, y = cob.d1*120, col='Cob.d1'),se = F, method = 'gam')+
+  # geom_smooth(aes(x = mes, y = cob.d2*120, col='Cob.d2'),se = F, method = 'gam')+
+  # geom_smooth(aes(x = mes, y = cob.d.adic*120, col='Cob.D.Adic'),se = F, method = 'gam')+
+  # scale_colour_manual(values = c('tomato','#90C134','orange'), 
+  #                     labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
+  # scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
   scale_x_discrete(limits = c("jan","fev","mar","abr" , "mai","jun", "jul","ago","set","out","nov","dez"))+
-  scale_y_continuous(sec.axis = sec_axis(~./120, name = "Cobertura (%)", breaks = seq(0,115,5)))+
-  labs(x=NULL, y='Casos', colour=NULL, title = "Casos e coberturas vacinais por mês.")+
+  scale_y_continuous(expand = expansion(mult = c(0,.25)))+
+  # scale_y_continuous(sec.axis = sec_axis(~./120, name = "Cobertura (%)", breaks = seq(0,100,5)))+
+  labs(x=NULL, y='Casos', colour=NULL)+
   theme_minimal()+
   theme( plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
          legend.position = 'top', axis.text.x = element_text(angle = 30),
@@ -264,52 +294,31 @@ ggplot(graf, aes(group=1))+
 <Br>
 
 ## Óbitos {.tabset .tabset-fade}
+
 ### Dia
 ```{r obitos_cob.dia, results='asis', out.width= "90%"}
 ################################## Dia #########################################
+# ainda nao temos obitos
 #Obitos
  obitos <- dd %>%
   group_by(data) %>%
-  summarise(obitos = sum(obitos, na.rm=T)) %>% 
+  summarise(obitos = sum(obitos, na.rm=T)) %>%
   mutate(data = as.Date(data),
          mmovel7 = round(rollmean(obitos, k = 7, fill = NA, align = 'left'),0))
 
-#Doses
-doses.data <- tabyl(ddvac, data, dose) %>%
-  select(1:4) %>% 
-  mutate(data = as.Date(data)) %>% 
-  setNames(c('data','d1','d2','dadic'))
-
-#Juntando casos, doses e limpando NA
-obitos.doses <- left_join(x = obitos, y = doses.data, by="data")
-obitos.doses[is.na(obitos.doses)] <- 0
-
-#Gerando arquivo para o gráfico
-graf <- cbind(obitos.doses,
-              round(cumsum(x = obitos.doses$d1)/718970*100, 1),
-              round(cumsum(x = obitos.doses$d2)/718970*100, 1),
-              round(cumsum(x = obitos.doses$dadic)/718970*100, 1)) %>%
-  setNames(c('data', 'obitos', 'mmovel', 'd1', 'd2',
-             'ref', 'cob.d1', 'cob.d2','cob.d.adic'))
-
-#Gráfico
-ggplot(graf)+
-  geom_col(aes(x = data, y = obitos), alpha = .25, width = 1, fill='#fc9272')+  
-  geom_smooth(aes(x = data, y = cob.d1/4, col='Cob.d1'),se = F, method = 'gam')+
-  geom_smooth(aes(x = data, y = cob.d2/4, col='Cob.d2'),se = F, method = 'gam')+
-  geom_smooth(aes(x = data, y = cob.d.adic/4, col='Cob.D.Adic'),se = F, method = 'gam')+
-  scale_colour_manual(values = c('tomato','#90C134','orange'), 
-                      labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
-  scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
+# #Gráfico
+ggplot(obitos)+
+  geom_col(aes(x = data, y = obitos), width = .9, fill='#B8252A')+
+  geom_text(hjust=-.5, aes(x = data, y = obitos, label = obitos, angle=90), size=3)+
   scale_x_date(date_breaks = "1 month", date_labels = "%b")+
-  scale_y_continuous(sec.axis = sec_axis(~.*4, name = "Cobertura (%)", breaks = seq(0,115,5)))+
-  labs(x=NULL, y='Óbitos', colour=NULL, title = "Óbitos e coberturas vacinais por dia.")+
+  scale_y_continuous(n.breaks = 10, expand = expansion(mult = c(0,.25)))+
+  labs(x=NULL, y='Óbitos', colour=NULL)+
   theme_minimal()+
   theme(plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
         legend.position = 'top', axis.text.x = element_text(angle = 30),
-        legend.key = element_rect(fill = 'transparent', 
+        legend.key = element_rect(fill = 'transparent',
                                   colour = 'transparent'),
-        legend.box.background = element_rect(fill = 'transparent', 
+        legend.box.background = element_rect(fill = 'transparent',
                                              colour = 'transparent'))
 ```
 
@@ -318,48 +327,34 @@ ggplot(graf)+
 ### Semana
 ```{r obitos_cob.semana, results='asis', out.width= "90%"}
 ################################# Semana #######################################
-#Casos
+#Obitos
 obitos <- dd %>%
   group_by(semana) %>%
-  summarise(obitos=sum(obitos, na.rm = T)) %>% 
+  summarise(obitos=sum(obitos, na.rm = T)) %>%
   mutate(mmovel4 = round(rollmean(obitos, k = 4, fill = NA, align = 'left'),0))
 
-#Doses
-doses.data <- tabyl(ddvac, semana, dose) %>%
-  select(1:4) %>% 
-  setNames(c('semana','d1','d2','dadic'))
-
-#Juntando obitos, doses e limpando NA
-obitos.doses <- left_join(x = obitos, y = doses.data, by="semana")
-obitos.doses[is.na(obitos.doses)] <- 0
-
-#Gerando arquivo para o gráfico
-graf <- cbind(obitos.doses,
-              round(cumsum(x = obitos.doses$d1)/718970*100, 1),
-              round(cumsum(x = obitos.doses$d2)/718970*100, 1),
-              round(cumsum(x = obitos.doses$dadic)/718970*100, 1)) %>%
-  setNames(c('semana', 'obitos', 'mmovel', 'd1', 'd2',
-             'ref', 'cob.d1', 'cob.d2','cob.d.adic'))
-
 #Gráfico
-ggplot(graf)+
-  geom_col(aes(x = semana, y = obitos), alpha = .25, width = .9, fill='#fc9272')+  
-  geom_smooth(aes(x = semana, y = cob.d1*1.5, col='Cob.d1'),se = F, method = 'gam')+
-  geom_smooth(aes(x = semana, y = cob.d2*1.5, col='Cob.d2'),se = F, method = 'gam')+
-  geom_smooth(aes(x = semana, y = cob.d.adic*1.5, col='Cob.D.Adic'),se = F, method = 'gam')+
-  scale_colour_manual(values = c('tomato','#90C134','orange'), 
-                      labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
-  scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
-  scale_x_continuous(breaks = seq(1,53,4))+
-  scale_y_continuous(sec.axis = sec_axis(~./1.5, name = "Cobertura (%)", breaks = seq(0,115,5)))+
-  labs(x=NULL, y='Óbitos', colour=NULL, title = "Óbitos e coberturas vacinais por semana.")+
+ggplot(obitos)+
+  geom_col(aes(x = semana, y = obitos),width = .9, fill='#B8252A')+
+  geom_text(hjust=-.5, aes(x = semana, y = obitos, label = obitos, angle=90), size=3)+
+  # geom_smooth(aes(x = semana, y = cob.d1/3, col='Cob.d1'),se = F, method = 'gam')+
+  # geom_smooth(aes(x = semana, y = cob.d2/3, col='Cob.d2'),se = F, method = 'gam')+
+  # geom_smooth(aes(x = semana, y = cob.d.adic/3, col='Cob.D.Adic'),se = F, method = 'gam')+
+  # scale_colour_manual(values = c('tomato','#90C134','orange'),
+  #                     labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
+  # scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
+  scale_x_continuous(breaks = seq(1,53,2))+
+  scale_y_continuous(n.breaks = 10, expand = expansion(mult = c(0,0.25)))+
+    # sec.axis = sec_axis(~.*3, name = "Cobertura (%)", breaks = seq(0,100,5)))+
+  labs(x=NULL, y='Óbitos', colour=NULL)+
   theme_minimal()+
   theme( plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
          legend.position = 'top', axis.text.x = element_text(angle = 30),
-         legend.key = element_rect(fill = 'transparent', 
+         legend.key = element_rect(fill = 'transparent',
                                    colour = 'transparent'),
-         legend.box.background = element_rect(fill = 'transparent', 
+         legend.box.background = element_rect(fill = 'transparent',
                                               colour = 'transparent'))
+cat("<Br><Br><Br><Br><Br><Br>")
 ```
 
 <Br>
@@ -370,43 +365,21 @@ ggplot(graf)+
 #obitos
 obitos <- dd %>%
   group_by(mes = lubridate::month(data, label=T)) %>%
-  summarise(obitos=sum(obitos, na.rm=T)) 
-
-#Doses
-doses.data <- tabyl(ddvac, mes, dose) %>%
-  select(1:4) %>% 
-  setNames(c('mes','d1','d2','dadic'))
-
-#Juntando obitos, doses e limpando NA
-obitos.doses <- left_join(x = obitos, y = doses.data, by="mes")
-obitos.doses[is.na(obitos.doses)] <- 0
-
-#Gerando arquivo para o gráfico
-graf <- cbind(obitos.doses,
-              round(cumsum(x = obitos.doses$d1)/718970*100, 1),
-              round(cumsum(x = obitos.doses$d2)/718970*100, 1),
-              round(cumsum(x = obitos.doses$dadic)/718970*100, 1)) %>%
-  setNames(c('mes', 'obitos', 'd1', 'd2',
-             'ref', 'cob.d1', 'cob.d2','cob.d.adic'))
+  summarise(obitos=sum(obitos, na.rm=T))
 
 #Gráfico
-ggplot(graf, aes(group=1))+
-  geom_col(aes(x = mes, y = obitos), alpha = .25, width = .9, fill='#fc9272')+  
-  geom_smooth(aes(x = mes, y = cob.d1*10, col='Cob.d1'),se = F, method = 'gam')+
-  geom_smooth(aes(x = mes, y = cob.d2*10, col='Cob.d2'),se = F, method = 'gam')+
-  geom_smooth(aes(x = mes, y = cob.d.adic*10, col='Cob.D.Adic'),se = F, method = 'gam')+
-  scale_colour_manual(values = c('tomato','#90C134','orange'), 
-                      labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
-  scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
+ggplot(obitos, aes(group=1))+
+  geom_col(aes(x = mes, y = obitos), width = .9, fill='#B8252A')+
+  geom_text(hjust=-.5, aes(x = mes, y = obitos, label = obitos, angle=90), size=3)+
   scale_x_discrete(limits = c("jan","fev","mar","abr" , "mai","jun", "jul","ago","set","out","nov","dez"))+
-  scale_y_continuous(sec.axis = sec_axis(~./10, name = "Cobertura (%)", breaks = seq(0,115,5)))+
-  labs(x=NULL, y='Óbitos', colour=NULL, title = "Óbitos e coberturas vacinais por mês.")+
+  scale_y_continuous(n.breaks = 10, expand = expansion(mult = c(0,.25)))+
+  labs(x=NULL, y='Óbitos', colour=NULL)+
   theme_minimal()+
   theme( plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
          legend.position = 'top', axis.text.x = element_text(angle = 30),
-         legend.key = element_rect(fill = 'transparent', 
+         legend.key = element_rect(fill = 'transparent',
                                    colour = 'transparent'),
-         legend.box.background = element_rect(fill = 'transparent', 
+         legend.box.background = element_rect(fill = 'transparent',
                                               colour = 'transparent'))
 ```
 
@@ -762,6 +735,91 @@ cbind.data.frame(n.mun, pop.trabsaude, doses.trabsaude[,2:4],
   kable_styling(full_width = F, 
                 bootstrap_options = c("striped", "hover", 
                                       "condensed", "responsive"))
+```
+
+</div>
+<Hr>
+<div style="border: 1px solid #ccc; padding: 10px;">
+
+# Série de casos e coberturas 2021/2023 {.tabset .tabset-fade}
+
+## Casos e coberturas
+```{r efeito vacina, results='asis', out.width= "100%", eval=TRUE}
+#Casos
+# dd <- fread(here('dados','todos_anos.csv'))[,-"V1"]
+casos <- dd %>%
+  group_by(data) %>%
+  summarise(casos = sum(casos, na.rm=T)) %>% 
+  mutate(data = as.Date(data),
+         mmovel7 = round(rollmean(casos, k = 7, fill = NA, align = 'left'),0))
+
+#Doses
+doses.data <- tabyl(ddvac[year(data)=="2021",], data, dose, show_na = F) %>%
+  select(-dadic3,-dadic4) %>% 
+  mutate(data = as.Date(data)) %>% 
+  setNames(c('data','d1','d2','ref1','ref2'))
+
+#Juntando casos, doses e limpando NA
+casos.doses <- left_join(x = casos, y = doses.data, by="data")
+casos.doses[is.na(casos.doses)] <- 0
+
+graf <- cbind(casos.doses,
+              round(cumsum(x = casos.doses$d1)/766509*100, 1),
+              round(cumsum(x = casos.doses$d2)/766509*100, 1),
+              round(cumsum(x = casos.doses$ref1)/766509*100, 1),
+              round(cumsum(x = casos.doses$ref2)/766509*100, 1)) %>% 
+  setNames(c("data","casos","mmovel","d1","d2","ref1","ref2",
+             'cob.d1','cob.d2','cob.ref1','cob.ref2'))
+
+
+ggplot(graf[year(graf$data)!='2020',])+
+  geom_col(aes(x = data, y = mmovel), alpha = .25, width = 1, fill='#00598C')+  
+  geom_line(aes(x = data, y = cob.d1*20, col='Cob.d1'))+
+  geom_line(aes(x = data, y = cob.d2*20, col='Cob.d2'))+
+  geom_line(aes(x = data, y = cob.ref1*20, col='Cob.ref1'))+
+  geom_line(aes(x = data, y = cob.ref2*20, col='Cob.ref2'))+
+  scale_colour_manual(values = c('Cob.d1' = '#1F78B4',
+                                 'Cob.d2' = '#33A02C',
+                                 'Cob.ref1' = '#FB9A99',
+                                 'Cob.ref2' = '#E31A1C'),
+                      labels = c('Cob.d1' = 'D1',
+                                 'Cob.d2' = 'D2',
+                                 'Cob.ref1' = 'Reforço 1',
+                                 'Cob.ref2' = 'Reforço 2'))+
+  scale_x_date(date_breaks = "2 month", date_labels = "%b/%y")+
+  scale_y_continuous(sec.axis = sec_axis(~./20, name = "Cobertura (%)", breaks = seq(0,120,5)))+
+  labs(x=NULL, y='Casos', colour=NULL, title = "Casos e coberturas vacinais por dia.")+
+  theme_minimal()+
+  theme(plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
+        legend.position = 'top', axis.text.x = element_text(angle = 30),
+        legend.key = element_rect(fill = 'transparent', 
+                                  colour = 'transparent'),
+        legend.box.background = element_rect(fill = 'transparent', 
+                                             colour = 'transparent'))
+```
+
+<Br>
+
+## Doses aplicadas por mês
+```{r doses_dia,  out.width= "100%"}
+ddvac %>%
+  filter(between(data, as.Date("2021-01-01"), as.Date("2021-12-31")) &
+           dose %in% c("d1","d2","dadic1","dadic2"))%>% 
+  group_by(data, dose) %>% 
+  summarise(num = n()) %>% 
+  mutate(dose = factor(dose, levels = c("d1","d2","dadic1","dadic2"))) %>% 
+  
+  
+  ggplot(aes(group=dose))+
+  geom_col(aes(x = format(data, '%b/%y'), y = num, fill=dose), width = .95)+
+  scale_x_discrete(limits = format(seq.Date(from = as.Date("2021-01-01"), 
+                                            to = as.Date("2021-12-31"), by = "month"),format="%b/%y"))+
+  scale_fill_manual(values = RColorBrewer::brewer.pal(n = 5, name = 'Paired'), 
+                    labels = c("D1","D2","Ref1","Ref2"))+
+  labs(x=NULL, y="Doses", col=NULL, fill=NULL)+
+  theme_minimal()+
+  theme(legend.position = 'top', 
+        axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
 </div>

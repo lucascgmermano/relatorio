@@ -9,3 +9,5 @@ x %>% kableExtra::kable() %>%
   kable_styling(full_width = F,
                 bootstrap_options = c("striped", "hover",
                                       "condensed", "responsive"))
+
+unique(dd20$faixa)

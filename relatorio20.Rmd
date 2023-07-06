@@ -173,10 +173,10 @@ dd20  %>%
   mutate(percentual = round(casos/sum(casos)*100,1)) %>% 
   ggplot(aes(x = semana, y = percentual))+
   geom_col(fill='#00598C')+
-  geom_text(aes(label=percentual), size=2.3, 
-            hjust = 1.5, col='white', angle=90)+
+  # geom_text(aes(label=percentual), size=2.3, 
+  #           hjust = 1.5, col='white', angle=90)+
   coord_cartesian(expand = T)+
-  scale_x_continuous(n.breaks = max(dd20$semana))+
+  scale_x_continuous(breaks = seq(min(dd20$semana), max(dd20$semana), by = 3))+
   labs(y="Percentual do total de casos", x="Semana epidemiológica")+
   facet_wrap( ~ faixa, ncol = 3, scales = 'free')+
   theme_bw()+
@@ -195,9 +195,9 @@ dd20  %>%
 
         ggplot(aes(x = semana, y = percentual))+
         geom_col(fill='#B8252A')+
-       geom_text(aes(label=percentual), size=2.3,
-                  hjust = 1.5, col='white', angle=90)+
-        scale_x_continuous(n.breaks = max(dd20$semana))+
+       # geom_text(aes(label=percentual), size=2.3,
+       #            hjust = 1.5, col='white', angle=90)+
+        scale_x_continuous(breaks = seq(min(dd20$semana), max(dd20$semana), by = 3))+
         labs(y="Percentual do total de óbitos", x="Semana epidemiológica")+
         facet_wrap( ~ faixa, ncol = 3, scales = 'free')+
         theme_bw()+

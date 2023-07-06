@@ -155,10 +155,10 @@ dd23  %>%
   mutate(percentual = round(casos/sum(casos)*100,1)) %>% 
   ggplot(aes(x = semana, y = percentual))+
   geom_col(fill='#00598C')+
-  geom_text(aes(label=percentual), size=2.3, 
-            hjust = 1.5, col='white', angle=90)+
+  # geom_text(aes(label=percentual), size=2.3, 
+  #           hjust = 1.5, col='white', angle=90)+
   coord_cartesian(expand = T)+
-  scale_x_continuous(n.breaks = max(dd23$semana))+
+  scale_x_continuous(breaks = seq(min(dd23$semana), max(dd23$semana), by = 2))+
   labs(y="Percentual do total de casos", x="Semana epidemiológica")+
   facet_wrap( ~ faixa, ncol = 3, scales = 'free')+
   theme_bw()+
@@ -178,9 +178,9 @@ dd23  %>%
 
         ggplot(aes(x = semana, y = percentual))+
         geom_col(fill='#B8252A')+
-       geom_text(aes(label=percentual), size=2.3,
-                  hjust = 1.5, col='white', angle=90)+
-        scale_x_continuous(n.breaks = max(dd23$semana))+
+       # geom_text(aes(label=percentual), size=2.3,
+       #            hjust = 1.5, col='white', angle=90)+
+        scale_x_continuous(breaks = seq(min(dd23$semana), max(dd23$semana), by = 2))+
         labs(y="Percentual do total de óbitos", x="Semana epidemiológica")+
         facet_wrap( ~ faixa, ncol = 3, scales = 'free')+
         theme_bw()+
@@ -859,7 +859,7 @@ ggplot(graf[year(graf$data)!='2020',])+
                                  'Cob.biv' = 'Bivalente'))+
   scale_x_date(date_breaks = "2 month", date_labels = "%b/%y")+
   scale_y_continuous(sec.axis = sec_axis(~./20, name = "Cobertura (%)", breaks = seq(0,120,5)))+
-  labs(x=NULL, y='Casos', colour=NULL, title = "Casos e coberturas vacinais por dia.")+
+  labs(x=NULL, y='Casos', colour=NULL, title = "Casos e coberturas vacinais por dia")+
   theme_minimal()+
   theme(plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
         legend.position = 'top', axis.text.x = element_text(angle = 30),
@@ -886,7 +886,7 @@ ddvac %>%
   scale_x_discrete(limits = format(seq.Date(from = as.Date("2021-01-01"), 
                                             to = as.Date(Sys.Date()), by = "month"),format="%b/%y"))+
   scale_fill_manual(values = RColorBrewer::brewer.pal(n = 5, name = 'Paired'), 
-                    labels = c("D1","D2","Ref1","Ref2","Biv"))+
+                    labels = c("D1","D2","Reforço 1","Reforço 2","Bivalente"))+
   labs(x=NULL, y="Doses", col=NULL, fill=NULL)+
   theme_minimal()+
   theme(legend.position = 'top', 

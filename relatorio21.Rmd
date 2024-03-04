@@ -854,7 +854,8 @@ ddvac %>%
   <form style="text-align: center;">
     <input type="button" value="2020" onclick="window.location.href='relatorio20.html'">
     <input type="button" value="2022" onclick="window.location.href='relatorio22.html'">
-    <input type="button" value="2023" onclick="window.location.href='index.html'">
+    <input type="button" value="2023" onclick="window.location.href='relatorio23.html'">
+    <input type="button" value="2024" onclick="window.location.href='index.html'">
   </form>
 
 

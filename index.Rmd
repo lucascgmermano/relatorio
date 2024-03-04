@@ -1,5 +1,5 @@
 ---
-title: "Covid-19 e coberturas vacinais: <Br> Painel 2023"
+title: "Covid-19: Casos e óbitos <Br> Painel 2024"
 author: "*Grupo de Vigilância Epidemiológica XXVI - São João da Boa Vista, SP*"
 date: "*Atualização: `r format(Sys.time(), '%d de %B de %Y')`*"
 editor_options: 
@@ -36,51 +36,34 @@ library(ggspatial)
 
 <div style="border: 1px solid #ccc; padding: 10px;">
 
-# Apresentação
-O Grupo de Vigilância Epidemiológica XXVI de São João da Boa Vista, SP,
-atua junto aos 20 [municípios](municipios.html) que compõem a [Região
-de Saúde XIV](regioes.jpeg), ao leste do Estado de São Paulo, com população estimada em [830.499](https://populacao.seade.gov.br/) habitantes. Dentre suas
-atividades é responsável por analisar e discutir dados epidemiológicos de [agravos de interesse à
-saúde](agravos.html), junto aos gestores municipais e técnicos de Vigilância Epidemiológica.
-Este instrumento tem o objetivo de caracterizar a evolução temporal dos casos e óbitos por Covid-19 e a vacinação dos grupos populacionais elegíveis até o momento.
-
-<Br>
-
-# Métodos
-
-Este painel baseia-se em uma abordagem descritiva e quantitativa, utilizando registros de casos e óbitos por Covid-19 disponibilizados
-publicamente pela plataforma [openDatasus](https://opendatasus.saude.gov.br/). Esses dados são provenientes dos sistemas federais [e-SUS
-Notifica](https://notifica.saude.gov.br/onboard) e [Sivep - Gripe](https://sivepgripe.saude.gov.br/sivepgripe/login.html;jsessionid=3tMQzvRmJWU9KbRh72T7Jja9?0), considerados as fontes de dados oficiais para avalização epidemiológica do agravo durante durante a pandemia. Para avaliação das coberturas vacinais, foram considerados o registros do sistema [Vacivida](https://vacivida.sp.gov.br/imunizacao/), acesso Regional.  
-Os dados foram agrupados por data, município, distribuição geográfica, grupos etários e grupos elegíveis para vacinação. São apresentadas as frequências absolutas dos `casos`, `óbitos`, `taxa de incidência`, `taxa de letalidade` e `coberturas vacinais` ([*ver definições*](formulas.html)).
-
-<Br>
-
-# Resultados
+## Resumo
 ```{r dd}
 pop <- read.csv2(here('dados','pop.csv'), encoding = "UTF-8")   
 cat.etarias <- c('10 a 14','15 a 19','20 a 29','30 a 39','40 a 49','50 a 59','60 a 69','70 ou mais')           
 
-dd23 <- read_csv2(here('dados','dados2023.csv')) %>% 
+dd24 <- read_csv2(here('dados','dados2024.csv')) %>% 
   mutate(faixa = factor(faixa, levels = c("0 a 4","5 a 9","10 a 14","15 a 19","20 a 29","30 a 39","40 a 49","50 a 59","60 a 69","70 a 79","80 ou mais")),
          muni = factor(muni, levels = unique(muni) %>% sort()))
 ```
 
 ```{r ddvac}
-pop.et <- read_csv2(here('dados','pop_et.csv'))
-ddvac <- read_csv2(here('dados','ddvac.csv'))
+# pop.et <- read_csv2(here('dados','pop_et.csv'))
+# ddvac <- read_csv2(here('dados','ddvac.csv'))
 ```
-
-Durante o ano de 2023 foram notificados **`r as.integer(sum(dd23$casos, na.rm=T))`** casos e **`r sum(dd23$obitos)`** óbitos, o que correspondeu à taxa de incidência de **`r as.integer(round(sum(dd23$casos)/830499*100000, 0))`** casos por 100 mil habitantes e à taxa de letalidade de **`r round(sum(dd23$obitos)/sum(dd23$casos)*100, 1)`%** entre os doentes. A seguir são apresentados os dados sobre a ocorrência dos casos e óbitos, distribuição espacial do Covid-19 e as coberturas vacinais detalhadas:
+Casos:  **`r as.integer(sum(dd24$casos, na.rm=T))`** <Br>
+Óbitos: **`r sum(dd24$obitos)`** <Br>
+Taxa de incidência: **`r as.integer(round(sum(dd24$casos)/830499*100000, 0))`** casos por 100 mil habitantes. <Br>
+Taxa de letalidade: **`r round(sum(dd24$obitos)/sum(dd24$casos)*100, 1)`%** entre os doentes. <Br>
 
 </div>
 <Hr>
 <div style="border: 1px solid #ccc; padding: 10px;">
 
-# Total {.tabset .tabset-fade}
+# Total por município {.tabset .tabset-fade}
 
 ## Casos e óbitos
 ```{r tabela1}
-tab <- dd23%>% 
+tab <- dd24%>% 
   group_by(muni, pop) %>% 
   summarise(casos=sum(casos, na.rm=T), 
             obitos=sum(obitos, na.rm = T)) %>% 
@@ -111,11 +94,11 @@ tab <- dd23%>%
 ## Casos por faixa etária
 ```{r casos por faixa etaria}
 x <-  xtabs(casos ~ muni + faixa, 
-            data = dd23) %>% 
+            data = dd24) %>% 
         addmargins(margin = c(1,2)) 
  
-row.names(x)[21] <- "Total"
-colnames(x)[12] <- "Total"
+row.names(x)[nrow(x)] <- "Total"
+colnames(x)[ncol(x)] <- "Total"
 
 x %>% kableExtra::kable() %>% 
         kable_styling(full_width = F,
@@ -128,11 +111,11 @@ x %>% kableExtra::kable() %>%
 ## Óbitos por faixa etária
 ```{r obitos por faixa etaria}
  x <- xtabs(obitos ~ muni + faixa, 
-            data = dd23) %>% 
+            data = dd24) %>% 
 addmargins(margin = c(1,2)) 
  
-row.names(x)[21] <- "Total"
-colnames(x)[12] <- "Total"
+row.names(x)[nrow(x)] <- "Total"
+colnames(x)[ncol(x)] <- "Total"
 
 x %>%  kableExtra::kable() %>% 
         kable_styling(full_width = F,
@@ -148,8 +131,8 @@ x %>%  kableExtra::kable() %>%
 
 ## Casos
 ```{r, out.width= "100%"}
-dd23  %>% 
-  filter(ano == 2023 & !is.na(faixa)) %>%
+dd24  %>% 
+  filter(ano == 2024 & !is.na(faixa)) %>%
   group_by(semana, faixa) %>% 
   summarise(casos = sum(casos)) %>% 
   mutate(percentual = round(casos/sum(casos)*100,1)) %>% 
@@ -158,7 +141,7 @@ dd23  %>%
   # geom_text(aes(label=percentual), size=2.3, 
   #           hjust = 1.5, col='white', angle=90)+
   coord_cartesian(expand = T)+
-  scale_x_continuous(breaks = seq(min(dd23$semana), max(dd23$semana), by = 2))+
+  scale_x_continuous(breaks = seq(min(dd24$semana), max(dd24$semana), by = 2))+
   labs(y="Percentual do total de casos", x="Semana epidemiológica")+
   facet_wrap( ~ faixa, ncol = 3, scales = 'free')+
   theme_bw()+
@@ -170,8 +153,7 @@ dd23  %>%
 
 ## Óbitos
 ```{r, out.width= "100%"}
-dd23  %>%
-        # filter(ano == 2022 & !is.na(faixa)) %>%
+dd24  %>%
         group_by(semana, faixa) %>%
         summarise(obitos = sum(obitos)) %>%
         mutate(percentual = round(obitos/sum(obitos)*100,1)) %>%
@@ -180,7 +162,7 @@ dd23  %>%
         geom_col(fill='#B8252A')+
        # geom_text(aes(label=percentual), size=2.3,
        #            hjust = 1.5, col='white', angle=90)+
-        scale_x_continuous(breaks = seq(min(dd23$semana), max(dd23$semana), by = 2))+
+        scale_x_continuous(breaks = seq(min(dd24$semana), max(dd24$semana), by = 2))+
         labs(y="Percentual do total de óbitos", x="Semana epidemiológica")+
         facet_wrap( ~ faixa, ncol = 3, scales = 'free')+
         theme_bw()+
@@ -201,14 +183,14 @@ dd23  %>%
 ```{r casos_cob.dia, results='asis', out.width= "90%"}
 ################################## Dia #########################################
 #Casos
-casos <- dd23 %>%
+casos <- dd24 %>%
   group_by(data) %>%
   summarise(casos = sum(casos, na.rm=T)) %>% 
   mutate(data = as.Date(data),
          mmovel7 = round(rollmean(casos, k = 7, fill = NA, align = 'left'),0))
 
 #Gráfico
-filter(casos, lubridate::year(data)==2023) %>% 
+filter(casos, lubridate::year(data)==2024) %>% 
   ggplot()+
   geom_col(aes(x = data, y = casos), width = .9, fill='#00598C')+  
   geom_text(hjust=-.5, aes(x = data, y = casos, label = casos, angle=90), size=3, check_overlap = TRUE)+
@@ -235,7 +217,7 @@ filter(casos, lubridate::year(data)==2023) %>%
 ```{r casos_cob.semana, results='asis', out.width= "90%"}
 ################################# Semana #######################################
 #Casos
-casos <- dd23 %>%
+casos <- dd24 %>%
   group_by(semana) %>%
   summarise(casos = sum(casos, na.rm=T)) %>% 
   mutate(mmovel4 = round(rollmean(casos, k = 4, fill = NA, align = 'left'),0))
@@ -263,7 +245,7 @@ ggplot(casos)+
 ################################## Mes #########################################
 
 #Casos
-casos <- dd23 %>%
+casos <- dd24 %>%
   group_by(mes = lubridate::month(data, label=T)) %>%
   summarise(casos = sum(casos, na.rm=T)) 
 
@@ -301,7 +283,7 @@ ggplot(casos, aes(group=1))+
 ################################## Dia #########################################
 # ainda nao temos obitos
 #Obitos
- obitos <- dd23 %>%
+ obitos <- dd24 %>%
   group_by(data) %>%
   summarise(obitos = sum(obitos, na.rm=T)) %>%
   mutate(data = as.Date(data),
@@ -329,7 +311,7 @@ ggplot(obitos)+
 ```{r obitos_cob.semana, results='asis', out.width= "90%"}
 ################################# Semana #######################################
 #Obitos
-obitos <- dd23 %>%
+obitos <- dd24 %>%
   group_by(semana) %>%
   summarise(obitos=sum(obitos, na.rm = T)) %>%
   mutate(mmovel4 = round(rollmean(obitos, k = 4, fill = NA, align = 'left'),0))
@@ -364,7 +346,7 @@ cat("<Br><Br><Br><Br><Br><Br>")
 ```{r obitos_cob.mes, results='asis', out.width= "90%"}
 ################################## Mes #########################################
 #obitos
-obitos <- dd23 %>%
+obitos <- dd24 %>%
   group_by(mes = lubridate::month(data, label=T)) %>%
   summarise(obitos=sum(obitos, na.rm=T))
 
@@ -404,7 +386,7 @@ mn <- mn[  mn$code_mn=='350030'| mn$code_mn=='350040'| mn$code_mn=='350870'|
              mn$code_mn=='355640'| mn$code_mn=='355730'           ,]
 
 # Subset dos dados
-juntos <- dd23 %>% 
+juntos <- dd24 %>% 
   select('data', 'code_mn','muni','casos','obitos','pop') %>% 
   group_by(mes.nome = lubridate::month(data, label = T),
            muni, code_mn, pop) %>% 
@@ -520,14 +502,14 @@ print( ggplot(juntos)+
 
 ## Casos {.tabset .tabset-fade}
 ```{r, casos.muni, results='asis'}
-x <- tabyl(dd23, muni)[,1]
+x <- tabyl(dd24, muni)[,1]
 
 for (i in x) {
 
   cat(paste("###",i,"\n"))
   
 print(
-  dd23 %>%
+  dd24 %>%
   filter(muni==i) %>%
   group_by(semana) %>%
   summarise(casos = sum(casos, na.rm=T)) %>%
@@ -554,7 +536,7 @@ for (i in x) {
 cat(paste("###",i,"\n\n"))
   
 print(
-  dd23 %>%
+  dd24 %>%
   filter(muni==i) %>%
   group_by(semana) %>%
   summarise(obitos = sum(obitos, na.rm = TRUE)) %>%
@@ -577,323 +559,6 @@ print(
 
 <Br>
 
-## Coberturas vacinais {.tabset .tabset-fade}
-```{r cob.muni, results='asis'}
-for (i in x) {
-  cat(paste("###",i,"\n\n"))
-
-  print(
-    left_join(tabyl(subset(ddvac, muni==i), cat.pop.etaria, dose),
-          subset(pop.et, muni==i), by = 'cat.pop.etaria') %>%
-  mutate(cob.d1=round(d1/pop.etaria*100, 1),
-         cob.d2=round(d2/pop.etaria*100, 1),
-         cob.ref1=round(dadic1/pop.etaria*100, 1),
-         cob.ref2=round(dadic2/pop.etaria*100, 1),
-         cob.biv=round(biv/pop.etaria*100, 1),
-         muni = NULL) %>%
-  select(cat.pop.etaria, pop.etaria, 
-         d1, d2, dadic1, dadic2, 
-         biv,
-         cob.d1, cob.d2, cob.ref1,
-         cob.ref2, 
-         cob.biv) %>%
-  kable(col.names = c("Faixa etária", "População", "D1", 
-                      "D2", "Ref1", "Ref2","Biv",
-                      "D1%", "D2%", "Ref1%", "Ref2%","Biv%"), caption = i) %>%
-  kable_styling(full_width = F,
-                bootstrap_options = c("striped", "hover",
-                                      "condensed", "responsive")) 
-    )
-  cat("\n\n\n") }
-
-```
-
-<Br>
-
-```{r definicoes_imuni, include=F}
-
-n.mun <- c('Aguaí','Águas da Prata','Caconde','Casa Branca',                    #Nomes municipio
-           'Divinolândia','Espìrito Santo do Pinhal','Estiva Gerbi',
-           'Itapira','Itobi','Mococa','Mogi Guaçu','Mogi Mirim',
-           'Santa Cruz das Palmeiras','Santo Antonio do Jardim',
-           'São João da Boa Vista','São Jose do Rio Pardo',
-           'São Sebastião da Grama','Tambau','Tapiratiba',
-           'Vargem Grande do Sul')
-
-pop.vacgeral <- c(35885,7807,18893,29549,10865,42639,11156,71609,7608,
-                  66719,149071,90657,34031,5823,87537,53277,11929,22846,
-                  12602,41684)
-
-pop.ped <- fread(here('dados','pop_5_a_11_anos_2021.csv'))                      # Pop 5 a 11 anos
-
-pop.geraletaria <- pop.et %>%                                                   #Pop geral etaria
-  group_by(cat.pop.etaria) %>%
-  summarise(pop=sum(pop.etaria))
-
-pop.gest <- c(393,90,181,296,121,487,124,816,88,900,1935,1167,385,55,1010,      #Pop gestantes
-              690,126,302,138,578)
-
-pop.comorb <- c(3414,653,4180,3269,1392,4626,1577,6484,1181,9381,14758,9085,    #Pop comorbidades 
-                3856,413,12930,4126,1208,1944,1829,3514)
-
-pop.trabsaude <- c(510,144,373,1170,508,1362,170,2022,233,1967,3558,2495,696,72,3195,
-                   1686,252,435,292,1061)
-```
-
-</div>
-<Hr>
-<div style="border: 1px solid #ccc; padding: 10px;">
-
-# Coberturas vacinais por grupos {.tabset .tabset-fade}
-
-## Geral por município
-
-```{r Cob geral por municipio, echo=FALSE, message=FALSE, warning=FALSE }
-doses.geral <- tabyl(ddvac, muni, dose, show_na = F)
-
-tab <- cbind.data.frame(n.mun, pop.vacgeral, doses.geral[,2:7])
-tab <- tab %>% rbind.data.frame(c("Total", as.numeric(colSums(tab[2:8]))))
-tab <- cbind.data.frame(tab[1], sapply(X = tab[2:8], FUN = as.numeric))
-
-cbind.data.frame(tab[,c("n.mun", "pop.vacgeral","d1","d2","dadic1","dadic2","biv")], 
-                 cobd1 = round(tab["d1"]/tab$pop.vacgeral*100,1),
-                 cobd2 = round(tab["d2"]/tab$pop.vacgeral*100,1),
-                 cob.ref1 = round(tab["dadic1"]/tab$pop.vacgeral*100,1),
-                 cob.ref2 = round(tab["dadic2"]/tab$pop.vacgeral*100,1),
-                 cob.biv = round(tab["biv"]/tab$pop.vacgeral*100,1)) %>% 
-  kable(col.names = c("Município", "População", "D1","D2","Ref1",
-                      "Ref2","Biv","D1%","D2%","Ref1%","Ref2%","Biv%")) %>% 
-  kable_styling(full_width = F, 
-                bootstrap_options = c("striped", "hover", 
-                                      "condensed", "responsive"))
-rm(doses.geral,tab)
-```
-
-<Br>
-
-
-## 5 a 11 anos
-
-```{r Cob_5_a_11_anos, echo=FALSE, message=FALSE, warning=FALSE }
-doses.ped <- tabyl(ddvac[ddvac$idade %in% 5:11,], muni, dose, show_na = F)
-
-tab <- cbind.data.frame(n.mun, pop.ped[,3], doses.ped[,3:5])
-tab <- tab %>% rbind.data.frame(c("Total", as.numeric(colSums(tab[2:5]))))
-tab <- cbind.data.frame(tab[1], sapply(X = tab[2:5], FUN = as.numeric))
-
-cbind.data.frame(tab, 
-                 cob.d1=round(tab[,"d1"]/tab[,"pop5a11anos"]*100,1),
-                 cob.d2=round(tab[,"d2"]/tab[,"pop5a11anos"]*100,1),
-                 cob.ref1=round(tab[,"dadic1"]/tab[,"pop5a11anos"]*100,1)) %>% 
-  kable(col.names = c("Município", "Pop.5a11", "D1","D2","Ref1", "D1%",
-                      "D2%","Ref1%")) %>%                  
-  kable_styling(full_width = F, 
-                bootstrap_options = c("striped", "hover", 
-                                      "condensed", "responsive"))
-rm(doses.ped, tab)
-```
-
-<Br>
-
-## Geral por idade
-
-```{r Geral por idade, echo=FALSE, message=FALSE, warning=FALSE  }
-doses.geralidade <- tabyl(ddvac, cat.pop.etaria, dose, show_na = T)
-
-tab <- cbind.data.frame(pop.geraletaria, doses.geralidade[,2:6]) # monta a tabela
-tab <- tab %>% rbind.data.frame(c("Total", as.numeric(colSums(tab[2:7])))) # adiciona totais
-tab <- cbind.data.frame(tab[1], sapply(X = tab[2:7], FUN = as.numeric)) %>%  # transforma numerico
-  select(-biv, biv)
-
-cbind.data.frame(tab,
-                 cob.d1=round(tab[,3]/tab[,2]*100,1),
-                 cob.d2=round(tab[,4]/tab[,2]*100,1),
-                 cob.dadic1=round(tab[,5]/tab[,2]*100,1),
-                 cob.dadic2=round(tab[,6]/tab[,2]*100,1),
-                 cob.biv=round(tab[,7]/tab[,2]*100,1)) %>% 
-  kable(col.names = c("Faixa etária", "População", "D1","D2","Ref1","Ref2",
-                      "Biv","D1%","D2%","Ref1%","Ref2%","Biv%")) %>%                  
-  kable_styling(full_width = F, 
-                bootstrap_options = c("striped", "hover", 
-                                      "condensed", "responsive"))
-
-rm(doses.geralidade, tab)
-```
-
-<Br>
-
-## Gestantes
-
-```{r Gestantes, echo=FALSE, message=FALSE, warning=FALSE}
-doses.gest <- tabyl(filter(ddvac, gestante==1), muni, dose, show_na = F)
-
-tab <- cbind.data.frame(doses.gest[1],pop.gest,doses.gest[,2:6]) # monta a tabela c/ pop
-tab <- tab %>% rbind.data.frame(c("Total", as.numeric(colSums(tab[2:7])))) # adiciona totais
-tab <- cbind.data.frame(tab[1], sapply(X = tab[,2:7], FUN = as.numeric)) %>%  # transforma numerico
-  select(-biv,biv)
-
-cbind.data.frame(tab,
-                 cob.d1=round(tab[3]/tab[2]*100,1),
-                 cob.d2=round(tab[4]/tab[2]*100,1),
-                 cob.dadic1=round(tab[5]/tab[2]*100,1),
-                 cob.dadic2=round(tab[6]/tab[2]*100,1),
-                 cob.dadic2=round(tab[7]/tab[2]*100,1)) %>% 
-  kable(col.names = c("Município", "Pop.gest.", "D1","D2","Ref1", 
-                      "Ref2","Biv","D1%","D2%","Ref1%","Ref2%","Biv%")) %>%                  
-  kable_styling(full_width = F, 
-                bootstrap_options = c("striped", "hover", 
-                                      "condensed", "responsive"))
-
-rm(doses.gest, tab)
-```
-
-<Br>
-
-## Comorbidades
-
-```{r Comorbidades,echo=FALSE, message=FALSE, warning=FALSE}
-doses.comorb <- 
-  tabyl(filter(ddvac, grupo_at == "COMORBIDADE" | 
-                 grupo_at =="PESSOA COM DEFICIENCIA" |
-                 grupo_at == "PESSOA COM DEFICIENCIA PERMANENTE SEVERA"), 
-        muni, dose, show_na = F) %>% 
-  select(-dadic3,-biv,biv)
-
-tab <- cbind.data.frame(doses.comorb[1],pop.comorb,doses.comorb[,2:6]) # monta a tabela c/ pop
-tab <- tab %>% rbind.data.frame(c("Total", as.numeric(colSums(tab[2:7])))) # adiciona totais
-tab <- cbind.data.frame(tab[1], sapply(X = tab[,2:7], FUN = as.numeric)) # transforma numerico
-
-cbind.data.frame(tab,
-                 cob.d1=round(tab[3]/tab[2]*100,1),
-                 cob.d2=round(tab[4]/tab[2]*100,1),
-                 cob.dadic1=round(tab[5]/tab[2]*100,1),
-                 cob.dadic2=round(tab[6]/tab[2]*100,1),
-                 cob.biv=round(tab[7]/tab[2]*100,1)) %>% 
-  kable(col.names = c("Município", "Pop.comorb.", "D1","D2","Ref1", 
-                      "Ref2", "Biv","D1%","D2%","Ref1%","Ref2%","Biv%")) %>%                  
-  kable_styling(full_width = F, 
-                bootstrap_options = c("striped", "hover", 
-                                      "condensed", "responsive"))
-rm(doses.comorb,tab)
-```
-
-<Br>
-
-## Trabalhador da saúde
-
-```{r Trabalhador saude, echo=FALSE, message=FALSE, warning=FALSE}
-doses.trabsaude <- tabyl(filter(ddvac, grupo_at == "TRABALHADOR DE SAUDE"), 
-                         muni, dose, show_na = F) %>% 
-  select(-dadic3,-biv,biv)
-
-tab <- cbind.data.frame(doses.trabsaude[1],pop.trabsaude,doses.trabsaude[,2:6]) # monta a tabela c/ pop
-tab <- tab %>% rbind.data.frame(c("Total", as.numeric(colSums(tab[2:7])))) # adiciona totais
-tab <- cbind.data.frame(tab[1], sapply(X = tab[,2:7], FUN = as.numeric)) # transforma numerico
-
-cbind.data.frame(tab,
-                 cob.d1=round(tab[3]/tab[2]*100,1),
-                 cob.d2=round(tab[4]/tab[2]*100,1),
-                 cob.dadic1=round(tab[5]/tab[2]*100,1),
-                 cob.dadic2=round(tab[6]/tab[2]*100,1),
-                 cob.biv=round(tab[7]/tab[2]*100,1)) %>% 
-  kable(col.names = c("Município", "Pop.trab.saude", "D1","D2","Ref1", 
-                      "Ref2", "Biv","D1%","D2%","Ref1%","Ref2%","Biv%")) %>%                  
-  kable_styling(full_width = F, 
-                bootstrap_options = c("striped", "hover", 
-                                      "condensed", "responsive"))
-
-rm(doses.trabsaude, tab)
-```
-
-</div>
-<Hr>
-<div style="border: 1px solid #ccc; padding: 10px;">
-
-# Série de casos e coberturas 2021/2023 {.tabset .tabset-fade}
-
-## Casos e coberturas
-```{r efeito vacina, results='asis', out.width= "100%", eval=TRUE}
-#Casos
-dd <- fread(here('dados','todos_anos.csv'))[,-"V1"]
-casos <- dd %>%
-  group_by(data) %>%
-  summarise(casos = sum(casos, na.rm=T)) %>% 
-  mutate(data = as.Date(data),
-         mmovel7 = round(rollmean(casos, k = 7, fill = NA, align = 'left'),0))
-
-#Doses
-doses.data <- tabyl(ddvac, data, dose, show_na = F) %>%
-  select(-dadic3,-dadic4,-dadic5,-biv,biv) %>% 
-  setNames(c('data','d1','d2','ref1','ref2','biv'))
-
-#Juntando casos, doses e limpando NA
-casos.doses <- left_join(x = casos, y = doses.data, by="data")
-casos.doses[is.na(casos.doses)] <- 0
-
-graf <- cbind(casos.doses,
-              round(cumsum(x = casos.doses$d1)/766509*100, 1),
-              round(cumsum(x = casos.doses$d2)/766509*100, 1),
-              round(cumsum(x = casos.doses$ref1)/766509*100, 1),
-              round(cumsum(x = casos.doses$ref2)/766509*100, 1),
-              round(cumsum(x = casos.doses$biv)/766509*100, 1)) %>% 
-  setNames(c("data","casos","mmovel","d1","d2","ref1","ref2","biv",
-             'cob.d1','cob.d2','cob.ref1','cob.ref2','cob.biv'))
-
-
-ggplot(graf[year(graf$data)!='2020',])+
-  geom_col(aes(x = data, y = mmovel), alpha = .25, width = 1, fill='#00598C')+  
-  geom_line(aes(x = data, y = cob.d1*20, col='Cob.d1'))+
-  geom_line(aes(x = data, y = cob.d2*20, col='Cob.d2'))+
-  geom_line(aes(x = data, y = cob.ref1*20, col='Cob.ref1'))+
-  geom_line(aes(x = data, y = cob.ref2*20, col='Cob.ref2'))+
-  geom_line(aes(x = data, y = cob.biv*20, col='Cob.biv'))+
-  scale_colour_manual(values = c('Cob.d1' = '#1F78B4',
-                                 'Cob.d2' = '#33A02C',
-                                 'Cob.ref1' = '#FB9A99',
-                                 'Cob.ref2' = '#E31A1C',
-                                 'Cob.biv' = '#FDBF6F'),
-                      labels = c('Cob.d1' = 'D1',
-                                 'Cob.d2' = 'D2',
-                                 'Cob.ref1' = 'Reforço 1',
-                                 'Cob.ref2' = 'Reforço 2',
-                                 'Cob.biv' = 'Bivalente'))+
-  scale_x_date(date_breaks = "2 month", date_labels = "%b/%y")+
-  scale_y_continuous(sec.axis = sec_axis(~./20, name = "Cobertura (%)", breaks = seq(0,120,5)))+
-  labs(x=NULL, y='Casos', colour=NULL, title = "Casos e coberturas vacinais por dia")+
-  theme_minimal()+
-  theme(plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
-        legend.position = 'top', axis.text.x = element_text(angle = 30),
-        legend.key = element_rect(fill = 'transparent', 
-                                  colour = 'transparent'),
-        legend.box.background = element_rect(fill = 'transparent', 
-                                             colour = 'transparent'))
-```
-
-<Br>
-
-## Doses aplicadas por mês
-```{r doses_dia,  out.width= "100%"}
-ddvac %>%
-  filter(between(data, as.Date("2021-01-01"), Sys.Date()) &
-           dose %in% c("d1","d2","dadic1","dadic2","biv"))%>% 
-  group_by(data, dose) %>% 
-  summarise(num = n()) %>% 
-  mutate(dose = factor(dose, levels = c("d1","d2","dadic1","dadic2","biv"))) %>% 
-  
-  
-  ggplot(aes(group=dose))+
-  geom_col(aes(x = format(data, '%b/%y'), y = num, fill=dose), width = .95)+
-  scale_x_discrete(limits = format(seq.Date(from = as.Date("2021-01-01"), 
-                                            to = as.Date(Sys.Date()), by = "month"),format="%b/%y"))+
-  scale_fill_manual(values = RColorBrewer::brewer.pal(n = 5, name = 'Paired'), 
-                    labels = c("D1","D2","Reforço 1","Reforço 2","Bivalente"))+
-  labs(x=NULL, y="Doses", col=NULL, fill=NULL)+
-  theme_minimal()+
-  theme(legend.position = 'top', 
-        axis.text.x = element_text(angle = 45, hjust = 1))
-```
-
-</div>
 
 <Br>
 
@@ -926,6 +591,7 @@ ddvac %>%
     <input type="button" value="2020" onclick="window.location.href='relatorio20.html'">
     <input type="button" value="2021" onclick="window.location.href='relatorio21.html'">
     <input type="button" value="2022" onclick="window.location.href='relatorio22.html'">
+    <input type="button" value="2023" onclick="window.location.href='relatorio23.html'">
   </form>
 </body>
 </html>

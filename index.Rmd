@@ -37,7 +37,7 @@ library(ggspatial)
 <div style="border: 1px solid #ccc; padding: 10px;">
 
 ## Resumo
-```{r dd}
+```{r resumo}
 pop <- read.csv2(here('dados','pop.csv'), encoding = "UTF-8")   
 cat.etarias <- c('10 a 14','15 a 19','20 a 29','30 a 39','40 a 49','50 a 59','60 a 69','70 ou mais')           
 
@@ -45,15 +45,71 @@ dd24 <- read_csv2(here('dados','dados2024.csv')) %>%
   mutate(faixa = factor(faixa, levels = c("0 a 4","5 a 9","10 a 14","15 a 19","20 a 29","30 a 39","40 a 49","50 a 59","60 a 69","70 a 79","80 ou mais")),
          muni = factor(muni, levels = unique(muni) %>% sort()))
 ```
-
-```{r ddvac}
-# pop.et <- read_csv2(here('dados','pop_et.csv'))
-# ddvac <- read_csv2(here('dados','ddvac.csv'))
-```
+<Br>
 Casos:  **`r as.integer(sum(dd24$casos, na.rm=T))`** <Br>
 Óbitos: **`r sum(dd24$obitos)`** <Br>
 Taxa de incidência: **`r as.integer(round(sum(dd24$casos)/830499*100000, 0))`** casos por 100 mil habitantes. <Br>
 Taxa de letalidade: **`r round(sum(dd24$obitos)/sum(dd24$casos)*100, 1)`%** entre os doentes. <Br>
+
+
+<Br>
+
+```{r anosSomados}
+todosAnos <- read.csv2(file = "dados/todos_anos.csv")
+
+resumoCasos <- reshape2::dcast(data = todosAnos,
+                formula = "n" ~ ano,
+                value.var = "casos",
+                fun.aggregate = sum,
+                fill = 0) 
+
+resumoObitos <- reshape2::dcast(data = todosAnos,
+                               formula = "n" ~ ano,
+                               value.var = "obitos",
+                               fun.aggregate = sum,
+                               fill = 0) 
+
+acumulado <- rbind(resumoCasos,resumoObitos)
+
+acumulado[,1] <- c("Casos", "Óbitos")
+Total <- rowSums(acumulado[,2:6])
+
+acumulado <- cbind(acumulado, Total)
+
+acumulado %>% 
+kableExtra::kable(col.names = c("N.", "2020","2021","2022","2023","2024","Total")) %>% 
+        kable_styling(full_width = F,
+                      bootstrap_options = c("striped", "hover",
+                                            "condensed", "responsive"))
+
+
+```
+
+</div>
+<Hr>
+<div style="border: 1px solid #ccc; padding: 10px;">
+
+```{r Heatmap}
+quadro <- todosAnos %>% 
+  group_by(ano, mesL) %>% 
+  summarise(casos = sum(casos)) %>% 
+  mutate(mesL = factor(mesL, levels = c("jan","fev","mar",
+                                         "abr","mai","jun",
+                                         "jul","ago","set",
+                                         "out","nov","dez")))
+quadro[quadro$mesL %in% c("jan","fev") & quadro$ano == 2020,'casos'] <- 0
+
+# Criando o heatmap
+ggplot(quadro, aes(x = mesL, y = ano, fill = casos)) +
+  geom_tile() + # Usar geom_tile para criar o heatmap
+  geom_text(aes(label= casos), color="red3", check_overlap = TRUE) +
+  scale_fill_gradient(low = "#D1E5F0", high = "blue4") + # Definir cores do gradiente
+  theme_minimal() + # Tema minimalista
+  labs(fill = "Número de casos", x = NULL, y = NULL) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) # Ajustar texto do eixo x
+```
+
+
 
 </div>
 <Hr>

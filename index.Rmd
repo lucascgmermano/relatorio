@@ -54,7 +54,7 @@ Taxa de letalidade: **`r round(sum(dd24$obitos)/sum(dd24$casos)*100, 1)`%** entr
 
 <Br>
 
-```{r anosSomados}
+```{r anosSomados, results='asis'}
 todosAnos <- read.csv2(file = "dados/todos_anos.csv")
 
 resumoCasos <- reshape2::dcast(data = todosAnos,
@@ -89,7 +89,7 @@ kableExtra::kable(col.names = c("N.", "2020","2021","2022","2023","2024","Total"
 <Hr>
 <div style="border: 1px solid #ccc; padding: 10px;">
 
-```{r Heatmap}
+```{r Heatmap, results='asis', out.width= "90%"}
 quadro <- todosAnos %>% 
   group_by(ano, mesL) %>% 
   summarise(casos = sum(casos)) %>% 
@@ -102,10 +102,10 @@ quadro[quadro$mesL %in% c("jan","fev") & quadro$ano == 2020,'casos'] <- 0
 # Criando o heatmap
 ggplot(quadro, aes(x = mesL, y = ano, fill = casos)) +
   geom_tile() + # Usar geom_tile para criar o heatmap
-  geom_text(aes(label= casos), color="red3", check_overlap = TRUE) +
-  scale_fill_gradient(low = "#D1E5F0", high = "blue4") + # Definir cores do gradiente
+  scale_fill_gradient(low = "#aed6f1", high = "blue4") + # Definir cores do gradiente
   theme_minimal() + # Tema minimalista
   labs(fill = "Número de casos", x = NULL, y = NULL) +
+  geom_text(aes(label= casos), color="white") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) # Ajustar texto do eixo x
 ```
 

@@ -54,5 +54,6 @@ Total <- rowSums(acumulado[,2:6])
 
 cbind(acumulado, total)
 
-
 heat.colors(5)
+barplot(5:1, col=heat.colors(5))
+

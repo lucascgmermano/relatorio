@@ -8,9 +8,12 @@ navbar:
     icon: fas fa-calendar-alt
     menu:
     - text: Ano
-    - text: "2024"
+    - text: "2025"
       icon: far fa-calendar-alt
       href: index.html
+    - text: "2024"
+      icon: far fa-calendar-alt
+      href: relatorio24.html
     - text: "2023"
       icon: far fa-calendar-alt
       href: relatorio23.html  

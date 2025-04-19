@@ -1,5 +1,5 @@
 ---
-title: "Covid-19: Casos e óbitos <Br> Painel 2024"
+title: "Covid-19: Casos e óbitos <Br> Painel 2025"
 author: "*Grupo de Vigilância Epidemiológica XXVI - São João da Boa Vista, SP*"
 date: "*Atualização: `r format(Sys.time(), '%d de %B de %Y')`*"
 editor_options: 
@@ -39,17 +39,20 @@ library(ggspatial)
 ## Resumo
 ```{r resumo}
 pop <- read.csv2(here('dados','pop.csv'), encoding = "UTF-8")   
-cat.etarias <- c('10 a 14','15 a 19','20 a 29','30 a 39','40 a 49','50 a 59','60 a 69','70 ou mais')           
+# cat.etarias <- c('10 a 14','15 a 19','20 a 29','30 a 39','40 a 49','50 a 59','60 a 69','70 ou mais')           
 
-dd24 <- read_csv2(here('dados','dados2024.csv')) %>% 
-  mutate(faixa = factor(faixa, levels = c("0 a 4","5 a 9","10 a 14","15 a 19","20 a 29","30 a 39","40 a 49","50 a 59","60 a 69","70 a 79","80 ou mais")),
+dd25 <- read_csv2(here('dados','dados2025.csv')) %>% 
+  mutate(
+    # faixa = factor(faixa, levels = c("0 a 4","5 a 9","10 a 14","15 a 19",
+    #                                  "20 a 29","30 a 39","40 a 49","50 a 59",
+    #                                  "60 a 69","70 a 79","80 ou mais")),
          muni = factor(muni, levels = unique(muni) %>% sort()))
 ```
 <Br>
-Casos:  **`r as.integer(sum(dd24$casos, na.rm=T))`** <Br>
-Óbitos: **`r sum(dd24$obitos)`** <Br>
-Taxa de incidência: **`r as.integer(round(sum(dd24$casos)/830499*100000, 0))`** casos por 100 mil habitantes. <Br>
-Taxa de letalidade: **`r round(sum(dd24$obitos)/sum(dd24$casos)*100, 1)`%** entre os doentes. <Br>
+Casos:  **`r as.integer(sum(dd25$casos, na.rm=T))`** <Br>
+Óbitos: **`r sum(dd25$obitos)`** <Br>
+Taxa de incidência: **`r as.integer(round(sum(dd25$casos)/830499*100000, 0))`** casos por 100 mil habitantes. <Br>
+Taxa de letalidade: **`r round(sum(dd25$obitos)/sum(dd25$casos)*100, 1)`%** entre os doentes. <Br>
 
 
 <Br>
@@ -77,7 +80,7 @@ Total <- rowSums(acumulado[,2:6])
 acumulado <- cbind(acumulado, Total)
 
 acumulado %>% 
-kableExtra::kable(col.names = c("N.", "2020","2021","2022","2023","2024","Total")) %>% 
+kableExtra::kable(col.names = c("N.", "2020","2021","2022","2023","2024","2025","Total")) %>% 
         kable_styling(full_width = F,
                       bootstrap_options = c("striped", "hover",
                                             "condensed", "responsive"))
@@ -101,12 +104,14 @@ quadro[quadro$mesL %in% c("jan","fev") & quadro$ano == 2020,'casos'] <- 0
 
 # Criando o heatmap
 ggplot(quadro, aes(x = mesL, y = ano, fill = casos)) +
-  geom_tile() + # Usar geom_tile para criar o heatmap
-  scale_fill_gradient(low = "#aed6f1", high = "blue4") + # Definir cores do gradiente
-  theme_minimal() + # Tema minimalista
+  geom_tile() +
+  scale_fill_gradient(low = "#aed6f1", high = "blue4") +
+  scale_y_continuous(breaks = seq(min(quadro$ano), max(quadro$ano))) +
+  theme_minimal() +
   labs(fill = "Número de casos", x = NULL, y = NULL) +
-  geom_text(aes(label= casos), color="white") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) # Ajustar texto do eixo x
+  geom_text(aes(label = casos), color = "white") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
 ```
 
 
@@ -119,7 +124,7 @@ ggplot(quadro, aes(x = mesL, y = ano, fill = casos)) +
 
 ## Casos e óbitos
 ```{r tabela1}
-tab <- dd24%>% 
+tab <- dd25 %>% 
   group_by(muni, pop) %>% 
   summarise(casos=sum(casos, na.rm=T), 
             obitos=sum(obitos, na.rm = T)) %>% 
@@ -147,86 +152,6 @@ tab <- dd24%>%
 
 <Br>
 
-## Casos por faixa etária
-```{r casos por faixa etaria}
-x <-  xtabs(casos ~ muni + faixa, 
-            data = dd24) %>% 
-        addmargins(margin = c(1,2)) 
- 
-row.names(x)[nrow(x)] <- "Total"
-colnames(x)[ncol(x)] <- "Total"
-
-x %>% kableExtra::kable() %>% 
-        kable_styling(full_width = F,
-                      bootstrap_options = c("striped", "hover",
-                                            "condensed", "responsive"))
-```
-
-<Br>
-
-## Óbitos por faixa etária
-```{r obitos por faixa etaria}
- x <- xtabs(obitos ~ muni + faixa, 
-            data = dd24) %>% 
-addmargins(margin = c(1,2)) 
- 
-row.names(x)[nrow(x)] <- "Total"
-colnames(x)[ncol(x)] <- "Total"
-
-x %>%  kableExtra::kable() %>% 
-        kable_styling(full_width = F,
-                      bootstrap_options = c("striped", "hover",
-                                            "condensed", "responsive"))
-```
-
-</div>
-<Hr>
-<div style="border: 1px solid #ccc; padding: 10px;">
-
-# Proporção por faixas etárias {.tabset .tabset-fade}
-
-## Casos
-```{r, out.width= "100%"}
-dd24  %>% 
-  filter(ano == 2024 & !is.na(faixa)) %>%
-  group_by(semana, faixa) %>% 
-  summarise(casos = sum(casos)) %>% 
-  mutate(percentual = round(casos/sum(casos)*100,1)) %>% 
-  ggplot(aes(x = semana, y = percentual))+
-  geom_col(fill='#00598C')+
-  # geom_text(aes(label=percentual), size=2.3, 
-  #           hjust = 1.5, col='white', angle=90)+
-  coord_cartesian(expand = T)+
-  scale_x_continuous(breaks = seq(min(dd24$semana), max(dd24$semana), by = 2))+
-  labs(y="Percentual do total de casos", x="Semana epidemiológica")+
-  facet_wrap( ~ faixa, ncol = 3, scales = 'free')+
-  theme_bw()+
-  theme(axis.text.x = element_text(angle=45, size = 7, vjust = .8),
-        legend.text = element_text(face = 'bold'))
-```
-
-<Br>
-
-## Óbitos
-```{r, out.width= "100%"}
-dd24  %>%
-        group_by(semana, faixa) %>%
-        summarise(obitos = sum(obitos)) %>%
-        mutate(percentual = round(obitos/sum(obitos)*100,1)) %>%
-
-        ggplot(aes(x = semana, y = percentual))+
-        geom_col(fill='#B8252A')+
-       # geom_text(aes(label=percentual), size=2.3,
-       #            hjust = 1.5, col='white', angle=90)+
-        scale_x_continuous(breaks = seq(min(dd24$semana), max(dd24$semana), by = 2))+
-        labs(y="Percentual do total de óbitos", x="Semana epidemiológica")+
-        facet_wrap( ~ faixa, ncol = 3, scales = 'free')+
-        theme_bw()+
-        theme(axis.text.x = element_text(angle=45, size = 7, vjust = .8),
-              legend.text = element_text(face = 'bold'))
-
-```
-
 </div>
 <Hr>
 <div style="border: 1px solid #ccc; padding: 10px;">
@@ -239,14 +164,14 @@ dd24  %>%
 ```{r casos_cob.dia, results='asis', out.width= "90%"}
 ################################## Dia #########################################
 #Casos
-casos <- dd24 %>%
+casos <- dd25 %>%
   group_by(data) %>%
   summarise(casos = sum(casos, na.rm=T)) %>% 
   mutate(data = as.Date(data),
          mmovel7 = round(rollmean(casos, k = 7, fill = NA, align = 'left'),0))
 
 #Gráfico
-filter(casos, lubridate::year(data)==2024) %>% 
+filter(casos, lubridate::year(data)==2025) %>% 
   ggplot()+
   geom_col(aes(x = data, y = casos), width = .9, fill='#00598C')+  
   geom_text(hjust=-.5, aes(x = data, y = casos, label = casos, angle=90), size=3, check_overlap = TRUE)+
@@ -273,7 +198,7 @@ filter(casos, lubridate::year(data)==2024) %>%
 ```{r casos_cob.semana, results='asis', out.width= "90%"}
 ################################# Semana #######################################
 #Casos
-casos <- dd24 %>%
+casos <- dd25 %>%
   group_by(semana) %>%
   summarise(casos = sum(casos, na.rm=T)) %>% 
   mutate(mmovel4 = round(rollmean(casos, k = 4, fill = NA, align = 'left'),0))
@@ -301,7 +226,7 @@ ggplot(casos)+
 ################################## Mes #########################################
 
 #Casos
-casos <- dd24 %>%
+casos <- dd25 %>%
   group_by(mes = lubridate::month(data, label=T)) %>%
   summarise(casos = sum(casos, na.rm=T)) 
 
@@ -339,7 +264,7 @@ ggplot(casos, aes(group=1))+
 ################################## Dia #########################################
 # ainda nao temos obitos
 #Obitos
- obitos <- dd24 %>%
+ obitos <- dd25 %>%
   group_by(data) %>%
   summarise(obitos = sum(obitos, na.rm=T)) %>%
   mutate(data = as.Date(data),
@@ -367,7 +292,7 @@ ggplot(obitos)+
 ```{r obitos_cob.semana, results='asis', out.width= "90%"}
 ################################# Semana #######################################
 #Obitos
-obitos <- dd24 %>%
+obitos <- dd25 %>%
   group_by(semana) %>%
   summarise(obitos=sum(obitos, na.rm = T)) %>%
   mutate(mmovel4 = round(rollmean(obitos, k = 4, fill = NA, align = 'left'),0))
@@ -402,7 +327,7 @@ cat("<Br><Br><Br><Br><Br><Br>")
 ```{r obitos_cob.mes, results='asis', out.width= "90%"}
 ################################## Mes #########################################
 #obitos
-obitos <- dd24 %>%
+obitos <- dd25 %>%
   group_by(mes = lubridate::month(data, label=T)) %>%
   summarise(obitos=sum(obitos, na.rm=T))
 
@@ -442,7 +367,7 @@ mn <- mn[  mn$code_mn=='350030'| mn$code_mn=='350040'| mn$code_mn=='350870'|
              mn$code_mn=='355640'| mn$code_mn=='355730'           ,]
 
 # Subset dos dados
-juntos <- dd24 %>% 
+juntos <- dd25 %>% 
   select('data', 'code_mn','muni','casos','obitos','pop') %>% 
   group_by(mes.nome = lubridate::month(data, label = T),
            muni, code_mn, pop) %>% 
@@ -558,14 +483,14 @@ print( ggplot(juntos)+
 
 ## Casos {.tabset .tabset-fade}
 ```{r, casos.muni, results='asis'}
-x <- tabyl(dd24, muni)[,1]
+x <- tabyl(dd25, muni)[,1]
 
 for (i in x) {
 
   cat(paste("###",i,"\n"))
   
 print(
-  dd24 %>%
+  dd25 %>%
   filter(muni==i) %>%
   group_by(semana) %>%
   summarise(casos = sum(casos, na.rm=T)) %>%
@@ -592,7 +517,7 @@ for (i in x) {
 cat(paste("###",i,"\n\n"))
   
 print(
-  dd24 %>%
+  dd25 %>%
   filter(muni==i) %>%
   group_by(semana) %>%
   summarise(obitos = sum(obitos, na.rm = TRUE)) %>%
@@ -648,6 +573,7 @@ print(
     <input type="button" value="2021" onclick="window.location.href='relatorio21.html'">
     <input type="button" value="2022" onclick="window.location.href='relatorio22.html'">
     <input type="button" value="2023" onclick="window.location.href='relatorio23.html'">
+    <input type="button" value="2024" onclick="window.location.href='relatorio24.html'">
   </form>
 </body>
 </html>

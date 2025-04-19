@@ -1,0 +1,577 @@
+---
+title: "Covid-19: Casos e óbitos <Br> Painel 2024"
+author: "*Grupo de Vigilância Epidemiológica XXVI - São João da Boa Vista, SP*"
+date: "*Atualização: `r format(Sys.time(), '%d de %B de %Y')`*"
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+```{r pacotes}
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+library(readr)
+library(readxl)
+library(tidyr)
+library(janitor)
+library(zoo)
+library(kableExtra)
+library(htmltools)
+library(knitr)
+library(gridExtra)
+library(data.table)
+library(sf)
+library(RColorBrewer)
+library(ggforce)
+library(here)
+library(ggspatial)
+```
+
+<Br> <Br>
+
+<div style="border: 1px solid #ccc; padding: 10px;">
+
+## Resumo
+```{r resumo}
+pop <- read.csv2(here('dados','pop.csv'), encoding = "UTF-8")   
+# cat.etarias <- c('10 a 14','15 a 19','20 a 29','30 a 39','40 a 49','50 a 59','60 a 69','70 ou mais')           
+
+dd24 <- read_csv2(here('dados','dados2024.csv')) %>% 
+  mutate(
+    # faixa = factor(faixa, levels = c("0 a 4","5 a 9","10 a 14","15 a 19",
+    #                                  "20 a 29","30 a 39","40 a 49","50 a 59",
+    #                                  "60 a 69","70 a 79","80 ou mais")),
+         muni = factor(muni, levels = unique(muni) %>% sort()))
+```
+<Br>
+Casos:  **`r as.integer(sum(dd24$casos, na.rm=T))`** <Br>
+Óbitos: **`r sum(dd24$obitos)`** <Br>
+Taxa de incidência: **`r as.integer(round(sum(dd24$casos)/830499*100000, 0))`** casos por 100 mil habitantes. <Br>
+Taxa de letalidade: **`r round(sum(dd24$obitos)/sum(dd24$casos)*100, 1)`%** entre os doentes. <Br>
+
+
+<Br>
+
+```{r anosSomados, results='asis'}
+todosAnos <- read.csv2(file = "dados/todos_anos.csv")
+
+resumoCasos <- reshape2::dcast(data = todosAnos,
+                formula = "n" ~ ano,
+                value.var = "casos",
+                fun.aggregate = sum,
+                fill = 0) 
+
+resumoObitos <- reshape2::dcast(data = todosAnos,
+                               formula = "n" ~ ano,
+                               value.var = "obitos",
+                               fun.aggregate = sum,
+                               fill = 0) 
+
+acumulado <- rbind(resumoCasos,resumoObitos)
+
+acumulado[,1] <- c("Casos", "Óbitos")
+Total <- rowSums(acumulado[,2:6])
+
+acumulado <- cbind(acumulado, Total)
+
+acumulado[,-7] %>% 
+kableExtra::kable(col.names = c("N.", "2020","2021","2022","2023","2024","Total")) %>% 
+        kable_styling(full_width = F,
+                      bootstrap_options = c("striped", "hover",
+                                            "condensed", "responsive"))
+
+
+```
+
+</div>
+<Hr>
+<div style="border: 1px solid #ccc; padding: 10px;">
+
+```{r Heatmap, results='asis', out.width= "90%"}
+quadro <- todosAnos %>% 
+  group_by(ano, mesL) %>% 
+  summarise(casos = sum(casos)) %>% 
+  mutate(mesL = factor(mesL, levels = c("jan","fev","mar",
+                                         "abr","mai","jun",
+                                         "jul","ago","set",
+                                         "out","nov","dez")))
+quadro[quadro$mesL %in% c("jan","fev") & quadro$ano == 2020,'casos'] <- 0
+
+# Criando o heatmap
+ggplot(quadro[quadro$ano != 2025,], aes(x = mesL, y = ano, fill = casos)) +
+  geom_tile() + # Usar geom_tile para criar o heatmap
+  scale_fill_gradient(low = "#aed6f1", high = "blue4") + # Definir cores do gradiente
+  theme_minimal() + # Tema minimalista
+  labs(fill = "Número de casos", x = NULL, y = NULL) +
+  geom_text(aes(label= casos), color="white") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) # Ajustar texto do eixo x
+```
+
+
+
+</div>
+<Hr>
+<div style="border: 1px solid #ccc; padding: 10px;">
+
+# Total por município {.tabset .tabset-fade}
+
+## Casos e óbitos
+```{r tabela1}
+tab <- dd24%>% 
+  group_by(muni, pop) %>% 
+  summarise(casos=sum(casos, na.rm=T), 
+            obitos=sum(obitos, na.rm = T)) %>% 
+  mutate(tx.inc=round(casos/pop*100000, 0),
+         let=round(obitos/casos*100, 0)) %>% 
+  select(muni, pop, casos, obitos, tx.inc, let) %>% 
+  as.data.frame()
+
+ total <- data.frame(muni = 'Total',
+                    pop = sum(tab$pop),
+                    casos = sum(tab$casos),
+                    obitos = sum(tab$obitos),
+                    tx.inc = round(sum(tab$casos) / sum(tab$pop) * 100000, 1),
+                    let = round(sum(tab$obitos) / sum(tab$casos) * 100, 1))
+ 
+ rbind(tab, total) %>% 
+
+  kable(col.names = c("Município", "População", "Casos", "Óbitos", 
+                      'Tx.Inc', 'Letalidade' )) %>%
+  kable_styling(full_width = F, 
+                bootstrap_options = c("striped", "hover", 
+                                      "condensed", "responsive"))
+  
+```
+
+<Br>
+
+</div>
+<Hr>
+<div style="border: 1px solid #ccc; padding: 10px;">
+
+# Séries temporais {.tabset .tabset-fade .tabset-pills}
+
+## Casos {.tabset .tabset-fade}
+
+### Dia
+```{r casos_cob.dia, results='asis', out.width= "90%"}
+################################## Dia #########################################
+#Casos
+casos <- dd24 %>%
+  group_by(data) %>%
+  summarise(casos = sum(casos, na.rm=T)) %>% 
+  mutate(data = as.Date(data),
+         mmovel7 = round(rollmean(casos, k = 7, fill = NA, align = 'left'),0))
+
+#Gráfico
+filter(casos, lubridate::year(data)==2024) %>% 
+  ggplot()+
+  geom_col(aes(x = data, y = casos), width = .9, fill='#00598C')+  
+  geom_text(hjust=-.5, aes(x = data, y = casos, label = casos, angle=90), size=3, check_overlap = TRUE)+
+  scale_x_date(date_breaks = "1 month", date_labels = "%b")+
+  scale_y_continuous(n.breaks = 10, expand = expansion(mult = c(0,.25)))+
+  labs(x=NULL, y='Casos', colour=NULL)+
+  ggforce::facet_zoom(xy =  data >= as.Date(Sys.Date()-20) &
+                        data <= as.Date(Sys.Date()), horizontal = F, shrink = F)+
+  theme_minimal()+
+  theme(plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
+        legend.position = 'top', axis.text.x = element_text(angle = 30),
+        legend.key = element_rect(fill = 'transparent', 
+                                  colour = 'transparent'),
+        legend.box.background = element_rect(fill = 'transparent', 
+                                             colour = 'transparent'),
+        strip.background = element_rect(fill= '#deeaee',
+                                        color='tomato',
+                                        linetype = 'dotted'))
+```
+
+<Br>
+
+### Semana
+```{r casos_cob.semana, results='asis', out.width= "90%"}
+################################# Semana #######################################
+#Casos
+casos <- dd24 %>%
+  group_by(semana) %>%
+  summarise(casos = sum(casos, na.rm=T)) %>% 
+  mutate(mmovel4 = round(rollmean(casos, k = 4, fill = NA, align = 'left'),0))
+
+#Gráfico
+ggplot(casos)+
+  geom_col(aes(x = semana, y = casos), width = .9, fill='#00598C')+  
+  geom_text(hjust=-.5, aes(x = semana, y = casos, label = casos, angle=90), size=3)+
+  scale_x_continuous(breaks = seq(1,53,2))+
+  scale_y_continuous(expand = expansion(mult = c(0,.25)))+
+  labs(x="Semana epidemiológica", y='Casos', colour=NULL)+
+  theme_minimal()+
+  theme( plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
+         legend.position = 'top', axis.text.x = element_text(angle = 30),
+         legend.key = element_rect(fill = 'transparent', 
+                                   colour = 'transparent'),
+         legend.box.background = element_rect(fill = 'transparent', 
+                                              colour = 'transparent'))
+```
+
+<Br>
+
+### Mês
+```{r casos_cob.mes, results='asis', out.width= "90%"}
+################################## Mes #########################################
+
+#Casos
+casos <- dd24 %>%
+  group_by(mes = lubridate::month(data, label=T)) %>%
+  summarise(casos = sum(casos, na.rm=T)) 
+
+#Gráfico
+ggplot(casos, aes(group=1))+
+  geom_col(aes(x = mes, y = casos), width = .9, fill='#00598C')+
+  geom_text(hjust=-.5, aes(x = mes, y = casos, label = casos, angle=90), size=3)+
+  # geom_smooth(aes(x = mes, y = cob.d1*120, col='Cob.d1'),se = F, method = 'gam')+
+  # geom_smooth(aes(x = mes, y = cob.d2*120, col='Cob.d2'),se = F, method = 'gam')+
+  # geom_smooth(aes(x = mes, y = cob.d.adic*120, col='Cob.D.Adic'),se = F, method = 'gam')+
+  # scale_colour_manual(values = c('tomato','#90C134','orange'), 
+  #                     labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
+  # scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
+  scale_x_discrete(limits = c("jan","fev","mar","abr" , "mai","jun", "jul","ago","set","out","nov","dez"))+
+  scale_y_continuous(expand = expansion(mult = c(0,.25)))+
+  # scale_y_continuous(sec.axis = sec_axis(~./120, name = "Cobertura (%)", breaks = seq(0,100,5)))+
+  labs(x=NULL, y='Casos', colour=NULL)+
+  theme_minimal()+
+  theme( plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
+         legend.position = 'top', axis.text.x = element_text(angle = 30),
+         legend.key = element_rect(fill = 'transparent', 
+                                   colour = 'transparent'),
+         legend.box.background = element_rect(fill = 'transparent', 
+                                              colour = 'transparent'))
+
+
+```
+
+<Br>
+
+## Óbitos {.tabset .tabset-fade}
+
+### Dia
+```{r obitos_cob.dia, results='asis', out.width= "90%"}
+################################## Dia #########################################
+# ainda nao temos obitos
+#Obitos
+ obitos <- dd24 %>%
+  group_by(data) %>%
+  summarise(obitos = sum(obitos, na.rm=T)) %>%
+  mutate(data = as.Date(data),
+         mmovel7 = round(rollmean(obitos, k = 7, fill = NA, align = 'left'),0))
+
+# #Gráfico
+ggplot(obitos)+
+  geom_col(aes(x = data, y = obitos), width = .9, fill='#B8252A')+
+  geom_text(hjust=-.5, aes(x = data, y = obitos, label = obitos, angle=90), size=3)+
+  scale_x_date(date_breaks = "1 month", date_labels = "%b")+
+  scale_y_continuous(n.breaks = 10, expand = expansion(mult = c(0,.25)))+
+  labs(x=NULL, y='Óbitos', colour=NULL)+
+  theme_minimal()+
+  theme(plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
+        legend.position = 'top', axis.text.x = element_text(angle = 30),
+        legend.key = element_rect(fill = 'transparent',
+                                  colour = 'transparent'),
+        legend.box.background = element_rect(fill = 'transparent',
+                                             colour = 'transparent'))
+```
+
+<Br>
+
+### Semana
+```{r obitos_cob.semana, results='asis', out.width= "90%"}
+################################# Semana #######################################
+#Obitos
+obitos <- dd24 %>%
+  group_by(semana) %>%
+  summarise(obitos=sum(obitos, na.rm = T)) %>%
+  mutate(mmovel4 = round(rollmean(obitos, k = 4, fill = NA, align = 'left'),0))
+
+#Gráfico
+ggplot(obitos)+
+  geom_col(aes(x = semana, y = obitos),width = .9, fill='#B8252A')+
+  geom_text(hjust=-.5, aes(x = semana, y = obitos, label = obitos, angle=90), size=3)+
+  # geom_smooth(aes(x = semana, y = cob.d1/3, col='Cob.d1'),se = F, method = 'gam')+
+  # geom_smooth(aes(x = semana, y = cob.d2/3, col='Cob.d2'),se = F, method = 'gam')+
+  # geom_smooth(aes(x = semana, y = cob.d.adic/3, col='Cob.D.Adic'),se = F, method = 'gam')+
+  # scale_colour_manual(values = c('tomato','#90C134','orange'),
+  #                     labels = c("Dose adicional",'Cobertura de D1','Cobertura de D2'))+
+  # scale_fill_manual(breaks = c('Cobertura de D1','Cobertura de D2',"Dose adicional"))+
+  scale_x_continuous(breaks = seq(1,53,2))+
+  scale_y_continuous(n.breaks = 10, expand = expansion(mult = c(0,0.25)))+
+    # sec.axis = sec_axis(~.*3, name = "Cobertura (%)", breaks = seq(0,100,5)))+
+  labs(x=NULL, y='Óbitos', colour=NULL)+
+  theme_minimal()+
+  theme( plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
+         legend.position = 'top', axis.text.x = element_text(angle = 30),
+         legend.key = element_rect(fill = 'transparent',
+                                   colour = 'transparent'),
+         legend.box.background = element_rect(fill = 'transparent',
+                                              colour = 'transparent'))
+cat("<Br><Br><Br><Br><Br><Br>")
+```
+
+<Br>
+
+### Mês
+```{r obitos_cob.mes, results='asis', out.width= "90%"}
+################################## Mes #########################################
+#obitos
+obitos <- dd24 %>%
+  group_by(mes = lubridate::month(data, label=T)) %>%
+  summarise(obitos=sum(obitos, na.rm=T))
+
+#Gráfico
+ggplot(obitos, aes(group=1))+
+  geom_col(aes(x = mes, y = obitos), width = .9, fill='#B8252A')+
+  geom_text(hjust=-.5, aes(x = mes, y = obitos, label = obitos, angle=90), size=3)+
+  scale_x_discrete(limits = c("jan","fev","mar","abr" , "mai","jun", "jul","ago","set","out","nov","dez"))+
+  scale_y_continuous(n.breaks = 10, expand = expansion(mult = c(0,.25)))+
+  labs(x=NULL, y='Óbitos', colour=NULL)+
+  theme_minimal()+
+  theme( plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
+         legend.position = 'top', axis.text.x = element_text(angle = 30),
+         legend.key = element_rect(fill = 'transparent',
+                                   colour = 'transparent'),
+         legend.box.background = element_rect(fill = 'transparent',
+                                              colour = 'transparent'))
+```
+
+<Br>
+
+```{r Preparo dos mapas, include=FALSE, message=FALSE, warning=FALSE}
+# Carregando shapes
+mn <- read_sf(here('Mapa','estado_muni','mn.shp'))
+sp <- read_sf(here('Mapa','estado_lim','sp.shp'))
+
+mn$code_mn <- as.double(substr(mn$code_mn,    # code_mn com 6 digitos
+                               start = 1, stop = 6))
+
+# Subset da regiao
+mn <- mn[  mn$code_mn=='350030'| mn$code_mn=='350040'| mn$code_mn=='350870'|
+             mn$code_mn=='351080'| mn$code_mn=='351390'| mn$code_mn=='351518'|
+             mn$code_mn=='352260'| mn$code_mn=='352380'| mn$code_mn=='353050'|
+             mn$code_mn=='353070'| mn$code_mn=='353080'| mn$code_mn=='354630'|
+             mn$code_mn=='354810'| mn$code_mn=='354910'| mn$code_mn=='354970'|
+             mn$code_mn=='355080'| mn$code_mn=='355330'| mn$code_mn=='355360'|
+             mn$code_mn=='355640'| mn$code_mn=='355730'           ,]
+
+# Subset dos dados
+juntos <- dd24 %>% 
+  select('data', 'code_mn','muni','casos','obitos','pop') %>% 
+  group_by(mes.nome = lubridate::month(data, label = T),
+           muni, code_mn, pop) %>% 
+  summarise(casos = sum(casos, na.rm = T),
+            obitos = sum(obitos, na.rm = T)) %>% 
+  mutate(casos.cat = cut(casos, breaks = c(0, 1, 50, 150, 450, 1000, 1500, 2000, 3000, Inf), 
+                         labels = c('Zero','1 a 49', '50 a 149','150 a 449','450 a 999',
+                                    '1000 a 1499','1500 a 1999','2000 a 2999', "3000 ou mais"),
+                         right = F),
+         obitos.cat = cut(obitos, breaks = c(0, 1, 5, 10, 20, 30, 40,50,100,200, Inf), 
+                          labels = c('Zero', '1 a 4', '5 a 9', '10 a 19',
+                                     '20 a 29','30 a 39','40 a 49', '50 a 100','100 a 200','200 ou mais'), right = F),
+         tx.inc = round(casos/pop*100000,1),
+         let = round(obitos/casos*100,1),
+         tx.inc.cat = cut(tx.inc, breaks = c(0,1,250,500,1000,1500,2000,3000, Inf),
+                          labels = c('Zero','1 a 249','250 a 499','500 a 999',
+                                     '1000 a 1499','1500 a 1999','2000 a 2999', '3000 ou mais'), right=F),
+         let.cat = cut(let, breaks = c(0,1,2,3,4,5,10,20,Inf),
+                       labels = c('Zero','1 a 1.9','2 a 2.9','3 a 3.9','4 a 4.9',
+                                  '5 a 9.9','10 a 19', '20 ou mais'), right=F)) %>% 
+  inner_join(x = mn) %>% na.omit()
+
+```
+
+</div>
+<Hr>
+<div style="border: 1px solid #ccc; padding: 10px;">
+
+# Distribuição espacial {.tabset .tabset-fade}
+
+## Casos
+```{r mapa.casos, fig.height=6.5, out.width="90%"}
+
+ggplot(juntos)+
+  geom_sf(data = mn, fill='transparent', col= alpha('black',.50))+
+  geom_sf(aes(fill=casos.cat), col=alpha('black',.50))+
+  scale_fill_manual(values = brewer.pal(8,'Blues'))+
+  labs(fill=NULL)+
+  theme_minimal()+
+  theme(axis.text.x = element_text(colour = 'transparent'),
+        axis.text.y = element_text(colour = 'transparent'))+
+  facet_wrap(~mes.nome, ncol = 4)
+
+```
+
+<Br>
+
+## Óbitos
+```{r mapa.obitos, fig.height=6.5, out.width="90%"}
+ggplot(juntos)+ 
+  geom_sf(data = mn, fill='transparent', col= alpha('black',.50))+
+  geom_sf(aes(fill=obitos.cat), col=alpha('black',.50))+
+  scale_fill_manual(values = brewer.pal(8,'Reds'))+
+  labs(fill=NULL)+
+  theme_minimal()+
+  theme(axis.text.x = element_text(colour = 'transparent'),
+        axis.text.y = element_text(colour = 'transparent'))+
+  facet_wrap(~mes.nome, ncol = 4)
+
+```
+
+<Br>
+
+## Taxa de incidência
+```{r mapa.txinc, fig.height=6.5, out.width="90%"}
+ggplot(juntos)+ 
+  geom_sf(data = mn, fill='transparent', col= alpha('black',.50))+
+  geom_sf(aes(fill=tx.inc.cat), col=alpha('black',.50))+ 
+  scale_fill_manual(values = brewer.pal(8,'Blues'))+
+  labs(fill=NULL)+
+  theme_minimal()+
+  theme(axis.text.x = element_text(colour = 'transparent'),
+        axis.text.y = element_text(colour = 'transparent'))+
+  facet_wrap(~mes.nome, ncol = 4)
+```
+
+<Br>
+
+## Letalidade
+```{r letalidade,fig.height=6.5, out.width="90%"}
+ggplot(juntos)+ 
+  geom_sf(data = mn, fill='transparent', col= alpha('black',.50))+
+  geom_sf(aes(fill=let.cat), col=alpha('black',.50))+ 
+  scale_fill_manual(values = brewer.pal(8,'Reds'))+
+  labs(fill=NULL)+
+  theme_minimal()+
+  theme(axis.text.x = element_text(colour = 'transparent'),
+        axis.text.y = element_text(colour = 'transparent'))+
+  facet_wrap(~mes.nome, ncol = 4)
+```
+
+<Br>
+
+## Rótulos
+```{r legenda_casos, fig.height=6, out.width="100%"}
+print( ggplot(juntos)+
+         geom_sf(data = mn, fill=alpha('#00598C',.1), col= alpha('black',.50))+
+         geom_sf_label(aes(label=muni), size=2.5)+
+         labs(fill=NULL, x=NULL, y=NULL)+
+         annotation_scale()+
+         annotation_north_arrow(location = 'tr',
+                                style = north_arrow_nautical())+
+         theme_minimal()+
+         theme(axis.text.x = element_text(colour = 'transparent'),
+               axis.text.y = element_text(colour = 'transparent')))
+```
+
+</div>
+<Hr>
+<div style="border: 1px solid #ccc; padding: 10px;">
+
+# Dados estratificados {.tabset .tabset-fade .tabset-pills}
+
+## Casos {.tabset .tabset-fade}
+```{r, casos.muni, results='asis'}
+x <- tabyl(dd24, muni)[,1]
+
+for (i in x) {
+
+  cat(paste("###",i,"\n"))
+  
+print(
+  dd24 %>%
+  filter(muni==i) %>%
+  group_by(semana) %>%
+  summarise(casos = sum(casos, na.rm=T)) %>%
+  ggplot(aes(x = semana, y = casos, label = casos))+
+  geom_col(fill='#00598C')+
+  geom_text(hjust=-.5, aes(label = casos, angle=90), size=3)+
+  scale_x_continuous(breaks = seq(1,53, 2))+
+  scale_y_continuous(expand = expansion(mult = c(0,.25)))+
+  labs(x='Semana epidemiológica', y='Casos', title = i)+
+  theme_minimal()+
+  theme(axis.text.x = element_text(size = 10, color = 'black'),
+        axis.text.y = element_text(size = 10, color = 'black'))   )
+ 
+ cat("\n\n\n")
+}
+```
+
+<Br>
+
+## Óbitos {.tabset .tabset-fade}
+```{r obitos.muni, results='asis'}
+for (i in x) {
+
+cat(paste("###",i,"\n\n"))
+  
+print(
+  dd24 %>%
+  filter(muni==i) %>%
+  group_by(semana) %>%
+  summarise(obitos = sum(obitos, na.rm = TRUE)) %>%
+  # mutate(media4=
+  #          round(rollmean(obitos, k = 4, fill = NA, align = 'right'),0)) %>%
+  ggplot(aes(x = semana, y = obitos, label = obitos))+
+  geom_col(fill='#B8252A')+
+  # geom_line(aes(y = media4), color='blue', lwd = 1, linetype=1)+
+  geom_text(hjust=-.5, aes(label = obitos, angle=90), size=3)+
+  scale_x_continuous(breaks = seq(1,53, 1))+
+  scale_y_continuous(expand = expansion(mult = c(0,.25)))+
+  labs(x='Semana epidemiológica', y='Óbitos', title = i)+
+  theme_minimal()+
+  theme(axis.text.x = element_text(size = 10, color = 'black'),
+        axis.text.y = element_text(size = 10, color = 'black')) )
+  cat("\n\n\n")
+}
+
+```
+
+<Br>
+
+
+<Br>
+
+::: {style="text-align: center"}
+# . . .
+:::
+
+<Br>
+
+<html>
+<head>
+<style>
+  input[type="button"] {
+    background-color: #446E9B;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12.5px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<p style="text-align: center;">Seguir para:</p>
+  <form style="text-align: center;">
+    <input type="button" value="2020" onclick="window.location.href='relatorio20.html'">
+    <input type="button" value="2021" onclick="window.location.href='relatorio21.html'">
+    <input type="button" value="2022" onclick="window.location.href='relatorio22.html'">
+    <input type="button" value="2023" onclick="window.location.href='relatorio23.html'">
+    <input type="button" value="2025" onclick="window.location.href='relatorio25.html'">
+  </form>
+</body>
+</html>

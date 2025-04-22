@@ -160,40 +160,6 @@ tab <- dd25 %>%
 
 ## Casos {.tabset .tabset-fade}
 
-### Dia
-```{r casos_cob.dia, results='asis', out.width= "90%"}
-################################## Dia #########################################
-#Casos
-casos <- dd25 %>%
-  group_by(data) %>%
-  summarise(casos = sum(casos, na.rm=T)) %>% 
-  mutate(data = as.Date(data),
-         mmovel7 = round(rollmean(casos, k = 7, fill = NA, align = 'left'),0))
-
-#Gráfico
-filter(casos, lubridate::year(data)==2025) %>% 
-  ggplot()+
-  geom_col(aes(x = data, y = casos), width = .9, fill='#00598C')+  
-  geom_text(hjust=-.5, aes(x = data, y = casos, label = casos, angle=90), size=3, check_overlap = TRUE)+
-  scale_x_date(date_breaks = "1 month", date_labels = "%b")+
-  scale_y_continuous(n.breaks = 10, expand = expansion(mult = c(0,.25)))+
-  labs(x=NULL, y='Casos', colour=NULL)+
-  ggforce::facet_zoom(xy =  data >= as.Date(Sys.Date()-20) &
-                        data <= as.Date(Sys.Date()), horizontal = F, shrink = F)+
-  theme_minimal()+
-  theme(plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
-        legend.position = 'top', axis.text.x = element_text(angle = 30),
-        legend.key = element_rect(fill = 'transparent', 
-                                  colour = 'transparent'),
-        legend.box.background = element_rect(fill = 'transparent', 
-                                             colour = 'transparent'),
-        strip.background = element_rect(fill= '#deeaee',
-                                        color='tomato',
-                                        linetype = 'dotted'))
-```
-
-<Br>
-
 ### Semana
 ```{r casos_cob.semana, results='asis', out.width= "90%"}
 ################################# Semana #######################################
@@ -258,36 +224,6 @@ ggplot(casos, aes(group=1))+
 <Br>
 
 ## Óbitos {.tabset .tabset-fade}
-
-### Dia
-```{r obitos_cob.dia, results='asis', out.width= "90%"}
-################################## Dia #########################################
-# ainda nao temos obitos
-#Obitos
- obitos <- dd25 %>%
-  group_by(data) %>%
-  summarise(obitos = sum(obitos, na.rm=T)) %>%
-  mutate(data = as.Date(data),
-         mmovel7 = round(rollmean(obitos, k = 7, fill = NA, align = 'left'),0))
-
-# #Gráfico
-ggplot(obitos)+
-  geom_col(aes(x = data, y = obitos), width = .9, fill='#B8252A')+
-  geom_text(hjust=-.5, aes(x = data, y = obitos, label = obitos, angle=90), size=3)+
-  scale_x_date(date_breaks = "1 month", date_labels = "%b")+
-  scale_y_continuous(n.breaks = 10, expand = expansion(mult = c(0,.25)))+
-  labs(x=NULL, y='Óbitos', colour=NULL)+
-  theme_minimal()+
-  theme(plot.title = element_text(hjust = .5, face = "bold", colour = alpha('black', .7)),
-        legend.position = 'top', axis.text.x = element_text(angle = 30),
-        legend.key = element_rect(fill = 'transparent',
-                                  colour = 'transparent'),
-        legend.box.background = element_rect(fill = 'transparent',
-                                             colour = 'transparent'))
-```
-
-<Br>
-
 ### Semana
 ```{r obitos_cob.semana, results='asis', out.width= "90%"}
 ################################# Semana #######################################
